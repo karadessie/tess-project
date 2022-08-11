@@ -1,0 +1,56 @@
+Set up app
+    >>> from server import app, session
+    >>> from seed import load_users, load_movies, load_ratings
+    >>> client = app.test_client()
+
+Set up fake database
+    >>> from model import db
+    >>> from model import User
+    >>> import os
+    >>> os.system("dropdb testdb --if-exists")
+    0
+    >>> os.system("createdb testdb")
+    0
+    >>> app.config['SQLALCHEMY_ECHO'] = False
+    >>> app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///testdb'
+    >>> app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    >>> db.app = app
+    >>> db.init_app(app)
+
+    >>> db.create_all()
+
+Create tables with test data.
+    >>> db.create_all()
+    >>> load_users("_test_data/u.user")
+    Users
+    0
+    >>> load_movies("_test_data/u.item")
+    Movies
+    0
+    >>> load_ratings("_test_data/u.data")
+    Ratings
+    0
+
+Check registration
+    >>> r = client.get("/register")
+    >>> assert '<form action="register" method="POST">' in str(r.data)
+    >>> r = client.post("/register", data={'email': "jhacks@hb.com", 'password':"test", 'age':"42", 'zipcode':"94107"}, follow_redirects=True)
+    >>> assert "User jhacks@hb.com added." in str(r.data)
+
+Check log in and log out
+    >>> with app.test_client() as c:
+    ... 	r = c.post("/login", data={'email': "jhacks@hb.com", 'password':"test"}, follow_redirects=True)
+    ...	 	assert "Logged in" in str(r.data)
+    ...		assert "user_id" in session
+    ... 	r = c.get("/logout", follow_redirects=True)
+    ... 	assert "Logged Out." in str(r.data)
+    ... 	assert "user_id" not in session
+
+    >>> r = client.post("/login", data={'email': "jhacks@hb.com", 'password':"test-wrong"}, follow_redirects=True)
+    >>> assert "Incorrect password" in str(r.data)
+
+Clean up 
+    >>> db.session.close()
+    >>> db.session.remove()
+    >>> db.drop_all()
+    >>> db.engine.dispose()

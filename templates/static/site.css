@@ -1,0 +1,26 @@
+/* Style for Tess Site */
+
+
+/* Style tess logo. */
+
+div.navbar-header img {
+    width: 30px;
+    float: left;
+    margin-top: 7px;
+    margin-right: 7px;
+}
+
+
+/* detail-page */
+
+.warning {
+    color: red;
+}
+
+
+/* login form */
+
+.form-signin {
+  max-width: 330px;
+  margin: 5em auto 0 auto;  /* TRBL */
+}

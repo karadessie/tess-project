@@ -1,0 +1,309 @@
+Abbeville
+Aiken
+Alcolu
+Allendale
+Anderson
+Andrews
+Arcadia Lakes
+Arial
+Atlantic Beach
+Awendaw
+Aynor
+Bamberg
+Barnwell
+Batesburg-Leesville
+Beaufort
+Belton
+Bennettsville
+Bethune
+Bishopville
+Blacksburg
+Blackville
+Blenheim
+Bluffton
+Blythewood
+Boiling Springs
+Bonneau
+Bowman
+Boykin
+Bradley
+Branchville
+Brattonsville
+Briarcliffe Acres
+Bucksport
+Buffalo
+Calhoun Falls
+Camden
+Cameron
+Campobello
+Cape Romain
+Carlisle
+Catawba Indian Nation
+Cayce
+Central
+Central Pacolet
+Chapin
+Charleston
+Cheraw
+Cherokee Nation
+Cherryvale
+Chesnee
+Chester
+Chesterfield
+Chicora Indian Tribe
+Clemson
+Clinton
+Clio
+Clover
+Cokesbury
+Columbia
+Congaree National Park
+Conway
+Cope
+Cordova
+Coronaca
+Cottageville
+Coward
+Cowpens
+Cross Hill
+Dacusville
+Dalzell
+Daniel Island
+Darlington
+Dataw Island
+Daufuskie Island
+DeBordieu
+Denmark
+Dentsville
+Dewees Island
+Dillon
+Donalds
+Due West
+Duncan
+Easley
+Eastover
+Edgefield
+Edisto - Orangeburg County
+Edisto Beach and Edisto Island
+Ehrhardt
+Elgin - Kershaw County
+Elko
+Elloree
+Enoree
+Eutawville
+Fairfax
+Florence
+Folly Beach
+Forest Acres
+Fort Jackson
+Fort Lawn
+Fort Mill
+Fountain Inn
+Fripp Island
+Gaffney
+Garden City Beach
+Gaston
+Georgetown
+Gilbert
+Glendale
+Glenn Springs
+Goose Creek
+Govan
+Graniteville
+Great Falls
+Greeleyville
+Greenville
+Greenwood
+Greer
+Hampton
+Hanahan
+Harbor Island
+Hardeeville
+Harleyville
+Hartsville
+Hemingway
+Hickory Tavern
+Hilda
+Hilton Head Island
+Holly Hill
+Honea Path
+Hopkins
+Hunting Island State Park
+Indian Land
+Inman
+Irmo
+Isle of Palms
+Iva
+J Strom Thurmond Lake
+James Island
+Jamestown
+Jedburg
+Jefferson
+Johns Island
+Johnsonville
+Johnston
+Kershaw
+Kiawah Island
+Kingstree
+Kline
+Ladson
+Lake City
+Lake Greenwood
+Lake Hartwell
+Lake Jocassee
+Lake Keowee
+Lake Marion
+Lake Moultrie
+Lake Murray
+Lake Russell
+Lake View
+Lake Wateree
+Lake Wylie
+Lamar
+Lancaster
+Landrum
+Latta
+Laurens
+Lexington
+Liberty
+Lincolnville
+Litchfield
+Little Mountain
+Little River
+Lockhart
+Lodge
+Longtown
+Lone Star
+Loris
+Lowrys
+Lugoff
+Lydia
+Lyman
+Manning
+Marion
+Mauldin
+Mayesville
+McBee
+McClellanville
+McCormick
+Meggett
+Meriwether
+Mitchelville
+Modoc
+Moncks Corner
+Monetta
+Morris Island
+Mount Carmel
+Mount Croghan
+Mount Pleasant
+Mountain Rest
+Mullins
+Murrells Inlet
+Myrtle Beach
+Newberry
+Ninety Six
+North
+North Augusta
+North Charleston
+North Myrtle Beach
+Oak Grove
+Oates
+Okatie
+Olanta
+Olar
+Orangeburg
+Pacolet
+Pageland
+Pamplico
+Parksville
+Parris Island
+Patrick
+Pawleys Island
+Paxville
+Peak
+Pee Dee Indian Tribe
+Pelion
+Pelzer
+Pendleton
+Pickens
+Pine Ridge
+Plum Branch
+Pomaria
+Port Royal
+Powdersville
+Prosperity
+Quinby
+Ravenel
+Reevesville
+Richburg
+Ridge Spring
+Ridgeland
+Ridgeville
+Ridgeway
+Rock Hill
+Rockville
+Roebuck
+Ruby
+St George
+St Helena Island
+St Matthews
+St Stephen - St Stephens
+Salem
+Saluda
+Sangaree
+Santee
+Santee Indian Nation
+Savannah Lakes Village
+Scranton
+Seabrook Island
+Seneca
+Serenity - fictional town
+Six Mile
+Smoaks
+Smyrna
+Snelling
+Society Hill - Long Bluff
+South Congaree
+Spartanburg
+Springdale
+Springfield
+Starr
+Stateburg
+Sullivan's Island
+Summerton
+Summerville
+Sumter
+Surfside Beach
+Swansea
+Sycamore
+Table Rock
+Tega Cay
+Tiburon - fictional town
+Timmonsville
+Townville
+Travelers Rest
+Trenton
+Troy
+Turbeville
+Ulmer
+Union
+Varnville
+Vaucluse
+Waccamaw Indian People
+Wadmalaw Island
+Walhalla
+Walterboro
+Ware Shoals
+Wellford
+West Columbia
+Westminster
+Whitmire
+Williams
+Williamston
+Willington
+Williston
+Winnsboro
+Woodford
+Woodruff
+Yemassee
+York
