@@ -29,7 +29,6 @@ class Users(db.Model):
     communities_id = db.Column(db.Integer, db.ForeignKey('communities_id'), nullable=False)
     access_codes_id = db.Column(db.Integer, db.ForeignKey('access_codes_id'), nullable=False)
     one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_passwords_id'), nullable=False)
-    children = db.relationship('Home_App_Data')
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -66,26 +65,6 @@ class One_Time_Passwords(db.Model):
     password = db.Column(db.String(64), nullable=False)
     children = db.relationship('Users')
     
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-
-class Home_App_Data(db.Model):
-    """Table of Home App Data."""
-
-    __tablename__ = "home_app_data"
-
-    home_app_data_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user_id'), nullable=False)
-    inventory = db.Column(db.String(1000), nullable=True)
-    energy_use = db.Column(db.String(1000), nullable=True)
-    transportation = db.Column(db.String(1000), nullable=True)
-    shopping = db.Column(db.String(1000), nullable=True)
-    budget = db.Column(db.String(1000), nullable=True)
-    links = db.Column(db.String(1000), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

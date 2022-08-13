@@ -6,7 +6,7 @@ from unicodedata import name
 from sqlalchemy import func
 
 from model import Users, Access_Codes, One_Time_Passwords, Community_Boards, Community_Board_Posts, \
-                  Home_App_Data, Home_Resources, Communities, Community_Events, Community_Resources, \
+                  Home_Resources, Communities, Community_Events, Community_Resources, \
                   Community_Boards, Community_Board_Posts, States_Regions, State_Region_Resources, \
                   Nations, National_Resources, Global_Resources, connect_to_db, db
 from server import app
@@ -178,29 +178,6 @@ def load_community_resources(community_resources_filename):
         if i % 100 == 0:
             print(i)
 
-def load_home_app_data(home_app_data_filename):
-    """Load home app data into database."""
-
-    print("Home App Data")
-
-    for i, row in enumerate(open(home_app_data_filename)):
-        row = row.rstrip()
-        home_app_data_id, inventory_data, energy_use_data, transportation_data, shopping_data, \
-        budget_data, home_links = row.split("|")
-
-        home_app_data = Home_App_Data(inventory_data=inventory_data,
-                                      energy_use_data=energy_use_data,
-                                      transportation_data=transportation_data,
-                                      shopping_data=shopping_data,
-                                      budget_data=budget_data,
-                                      home_links=home_links)
-
-        # We need to add to the session or it won't ever be stored
-        db.session.add(home_app_data)
-
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
 
 def load_home_resources(home_resources_filename):
     """Load home resource links into database."""
