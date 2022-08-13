@@ -1,5 +1,33 @@
 /* Style for Tess Site */
 
+body {
+  background: #fefefa;
+  margin: 1rem;
+  padding: 1rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+  font-family: "Yeseva One", Yeseva One;
+}
+
+.crumb {
+  align-items: right;
+  float: right;
+  margin-right: 1rem;
+  display: inline;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+ol {
+padding-left: 0;
+}
+
+.image {
+      position: relative;
+      width: 10%;
+      float: left;
+      height: 10%;
+}
 
 /* Style tess logo. */
 

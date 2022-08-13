@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Register</h1>
+
+<form action="register" method="POST">
+
+  <div>
+    <label>
+      One Time Password
+      <input type="one_time_password" name="one_time_password">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Username
+      <input type="username" name="username">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Age
+      <input type="new_password" name="new_password">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Zipcode
+      <input type="text" name="community">
+    </label>
+  </div>
+
+  <div>
+    <input type="submit" value="Register">
+  </div>
+
+</form>
+
+{% endblock %}

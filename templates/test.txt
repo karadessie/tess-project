@@ -1,6 +1,9 @@
 Set up app
     >>> from server import app, session
-    >>> from seed import load_users, load_movies, load_ratings
+    >>> from seed import load_users, load_access_codes, load_one_time_passwords, load_home_app_data, \
+                         load_home_resources, load_communities, load_community_boards, load_community_board_posts, \
+                         load_community_events, load_community_resources, load_states_regions, \
+                         load_state_region_resources, load_global_resources
     >>> client = app.test_client()
 
 Set up fake database
@@ -24,11 +27,47 @@ Create tables with test data.
     >>> load_users("_test_data/u.user")
     Users
     0
-    >>> load_movies("_test_data/u.item")
-    Movies
+    >>> load_access_codes("_test_data/u.item")
+    Access_Codes
     0
-    >>> load_ratings("_test_data/u.data")
-    Ratings
+    >>> load_one_time_passwords("_test_data/u.data")
+    One_Time_Passwords
+    0
+    >>> load_home_app_data("_test_data/u.data")
+    Home_App_Data
+    0
+    >>> load_home_resources("_test_data/u.data")
+    Home_Resources
+    0
+    >>> load_communities("_test_data/u.data")
+    Communities
+    0
+    >>> load_community_boards("_test_data/u.data")
+    Community_Boards
+    0
+    >>> load_community_board_posts("_test_data/u.data")
+    Community_Board_Posts
+    0
+    >>> load_community_events("_test_data/u.data")
+    Community_Events
+    0
+    >>> load_community_resources("_test_data/u.data")
+    Community_Resources
+    0
+    >>> load_states_regions("_test_data/u.data")
+    States_Regions
+    0
+    >>> load_state_region_resources("_test_data/u.data")
+    State_Region_Resources
+    0
+    >>> load_nations("_test_data/u.data")
+    Nations
+    0
+    >>> load_national_resources("_test_data/u.data")
+    National_Resources
+    0
+    >>> load_global_resources("_test_data/u.data")
+    Global_Resources
     0
 
 Check registration
