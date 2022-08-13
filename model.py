@@ -45,8 +45,8 @@ class Access_Codes(db.Model):
                                 autoincrement=True,
                                 primary_key=True)
     code = db.Column(db.String(12), nullable=False)
-    children = db.relationship('Users', 'Community_Resources,','State_Region_Resources, National_Resources', \
-                               'Global_Resources')
+    children = db.relationship('Users', 'Community_Resources,','State_Region_Resources', 
+                               'National_Resources', 'Global_Resources')
     
 
     def __repr__(self):

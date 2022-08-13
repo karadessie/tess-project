@@ -21,8 +21,13 @@ def load_users(users_filename):
         row = row.rstrip()
         user_id, one_time_password_id, access_codes_id, username, password, name, communities_id = row.split("|")
 
-        user = Users(username=username,
-                    password=password)
+        user = Users(user_id=user_id,
+                     one_time_password_id=one_time_password_id,
+                     access_codes_id=access_codes_id,
+                     communities_id=communities_id,
+                     username=username,
+                     password=password,
+                     name=name)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(user)
@@ -43,8 +48,9 @@ def load_access_codes(access_codes_filename):
         row = row.rstrip()
         access_codes_id, code, name = row.split("|")
 
-        access_code = Access_Codes(code=code,
-                      name=name)
+        access_code = Access_Codes(access_codes_id=access_codes_id,
+                                   code=code,
+                                   name=name)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(access_code)
@@ -65,7 +71,9 @@ def load_one_time_passwords(one_time_passwords_filename):
         row = row.rstrip()
         one_time_password_id, date_time, password = row.split("|")
 
-        one_time_password = One_Time_Passwords(password=password)
+        one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
+                                               date_time=date_time,
+                                               password=password)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(one_time_password)
@@ -86,8 +94,9 @@ def load_communities(communities_filename):
         row = row.rstrip()
         communities_id, states_regions_id, name = row.split("|")
 
-        community = Communities(states_regions_id=states_regions_id,
-                           name=name)
+        community = Communities(communities_id=communities_id,
+                                states_regions_id=states_regions_id,
+                                name=name)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(community)
@@ -109,7 +118,8 @@ def load_community_boards(community_boards_filename):
         row = row.rstrip()
         community_boards_id, title = row.split("|")
 
-        community_board = Community_Boards(title=title)
+        community_board = Community_Boards(community_boards_id=community_boards_id,
+                                           title=title)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(community_board)
@@ -128,7 +138,8 @@ def load_community_board_posts(community_board_posts_filename):
         row = row.rstrip()
         community_board_posts_id, title, description = row.split("|")
 
-        community_board_post = Community_Board_Posts(title=title,
+        community_board_post = Community_Board_Posts(community_board_posts_id=community_board_posts_id,
+                                                     title=title,
                                                      description=description)
 
         # We need to add to the session or it won't ever be stored
@@ -147,7 +158,8 @@ def load_community_events(community_events_filename):
         row = row.rstrip()
         community_events_id, title, description = row.split("|")
 
-        community_event = Community_Events(title=title,
+        community_event = Community_Events(community_events_id=community_events_id,
+                                           title=title,
                                            description=description)
 
         # We need to add to the session or it won't ever be stored
@@ -167,7 +179,8 @@ def load_community_resources(community_resources_filename):
         row = row.rstrip()
         community_resources_id, community_id, access_codes_id, community_links = row.split("|")
 
-        community_resource = Community_Resources(community_id=community_id,
+        community_resource = Community_Resources(community_resources_id=community_resources_id,
+                                                 community_id=community_id,
                                                  access_codes_id=access_codes_id,
                                                  community_links=community_links)
 
@@ -188,7 +201,8 @@ def load_home_resources(home_resources_filename):
         row = row.rstrip()
         home_resources_id, communities_id, home_links = row.split("|")
 
-        home_resource = Home_Resources(communities_id=communities_id,
+        home_resource = Home_Resources(home_resources_id=home_resources_id,
+                                       communities_id=communities_id,
                                        home_links=home_links)
 
         # We need to add to the session or it won't ever be stored
@@ -208,7 +222,8 @@ def load_states_regions(user_filename):
         row = row.rstrip()
         state_regions_id, nations_id, name = row.split("|")
 
-        state_region = States_Regions(nations_id=nations_id,
+        state_region = States_Regions(state_regions_id=state_regions_id,
+                                      nations_id=nations_id,
                                       name=name)
 
         # We need to add to the session or it won't ever be stored
@@ -230,7 +245,8 @@ def load_state_region_resources(state_region_resources_filename):
         row = row.rstrip()
         state_region_resources_id, states_regions_id, access_codes_id, state_region_links = row.split("|")
 
-        state_region_resource = State_Region_Resources(states_regions_id=states_regions_id,
+        state_region_resource = State_Region_Resources(state_region_resources_id=state_region_resources_id,
+                                                       states_regions_id=states_regions_id,
                                                        access_codes_id=access_codes_id,
                                                        states_regions_links=state_region_links)
 
@@ -250,7 +266,8 @@ def load_nations(nations_filename):
         row = row.rstrip()
         nations_id, name = row.split("|")
 
-        nation = Nations(name=name)
+        nation = Nations(nations_id=nations_id,
+                         name=name)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(nation)
@@ -269,9 +286,10 @@ def load_national_resources(national_resources_filename):
 
     for i, row in enumerate(open(national_resources_filename)):
         row = row.rstrip()
-        national_reources_id, nations_id, access_codes_id, national_links = row.split("|")
+        national_resources_id, nations_id, access_codes_id, national_links = row.split("|")
 
-        national_resource = National_Resources(nations_id=nations_id,
+        national_resource = National_Resources(national_resources_id=national_resources_id,
+                                               nations_id=nations_id,
                                                access_codes_id=access_codes_id,
                                                national_links=national_links)
 
@@ -294,7 +312,8 @@ def load_global_resources(global_resources_filename):
         row = row.rstrip()
         global_resources_id, access_codes_id, global_links = row.split("|")
 
-        global_resource = Global_Resources(access_codes_id=access_codes_id,
+        global_resource = Global_Resources(global_resources_id=global_resources_id,
+                                           access_codes_id=access_codes_id,
                                            global_links=global_links)
 
         # We need to add to the session or it won't ever be stored
