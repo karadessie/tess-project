@@ -1,4 +1,4 @@
-"""Utility file to seed databases in seed_data/"""
+"""Utility file to seed databases in seed_data"""
 
 import datetime
 from turtle import title
