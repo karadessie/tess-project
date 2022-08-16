@@ -1,7 +1,7 @@
 Set up app
     >>> from server import app, session
-    >>> from seed import load_users, load_access_codes, load_one_time_passwords, load_home_app_data, \
-                         load_home_resources, load_communities, load_community_boards, load_community_board_posts, \
+    >>> from seed import load_users, load_access_codes, load_one_time_passwords, load_home_resources, \
+                         load_communities, load_community_boards, load_community_board_posts, \
                          load_community_events, load_community_resources, load_states_regions, \
                          load_state_region_resources, load_global_resources
     >>> client = app.test_client()
@@ -73,19 +73,19 @@ Create tables with test data.
 Check registration
     >>> r = client.get("/register")
     >>> assert '<form action="register" method="POST">' in str(r.data)
-    >>> r = client.post("/register", data={'email': "jhacks@hb.com", 'password':"test", 'age':"42", 'zipcode':"94107"}, follow_redirects=True)
+    >>> r = client.post("/register", data={'username': "jhacks@hb.com", 'password':"test"}, follow_redirects=True)
     >>> assert "User jhacks@hb.com added." in str(r.data)
 
 Check log in and log out
     >>> with app.test_client() as c:
-    ... 	r = c.post("/login", data={'email': "jhacks@hb.com", 'password':"test"}, follow_redirects=True)
+    ... 	r = c.post("/login", data={'username': "jhacks@hb.com", 'password':"test"}, follow_redirects=True)
     ...	 	assert "Logged in" in str(r.data)
     ...		assert "user_id" in session
     ... 	r = c.get("/logout", follow_redirects=True)
     ... 	assert "Logged Out." in str(r.data)
     ... 	assert "user_id" not in session
 
-    >>> r = client.post("/login", data={'email': "jhacks@hb.com", 'password':"test-wrong"}, follow_redirects=True)
+    >>> r = client.post("/login", data={'username': "jhacks@hb.com", 'password':"test-wrong"}, follow_redirects=True)
     >>> assert "Incorrect password" in str(r.data)
 
 Clean up 

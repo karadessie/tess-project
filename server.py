@@ -5,7 +5,10 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Movie, Rating
+from model import connect_to_db, db, User
+""" Access_Codes, One_Time_Passwords, Home_Resources, Communities, 
+    Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, 
+    States_Regions, State_Region_Resources, Nations, National_Resources, Global_Resources"""
 
 
 app = Flask(__name__)

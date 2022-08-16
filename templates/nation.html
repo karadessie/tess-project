@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1>Ratings</h1>
-
-  <h2>Movies</h2>
+  <h1> TESS {{ nation_name }}</h1>
   <p>
   	<a href="/nation"></a>
   </p>
+
+  <body>
+    <h2>Resources</h2>
+    <p>
+      {{ resource_name }}
+      <a href="{{ resource_link }}"></a>
+    </p>
+    <h2>Daily News</h2>
+    <p>
+      <a href="{{ news_link }}"></a>
+    </p>
+</body>
 
 {% endblock %}
