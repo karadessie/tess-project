@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h1></h1>
+  
+  <ul>
+    {% for home_resource_link in home_resouces %}
+      <li>
+        <a href="/home_resources/{{ home_resource_link }}">)
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

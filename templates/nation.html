@@ -7,15 +7,15 @@
   </p>
 
   <body>
-    <h2>Resources</h2>
-    <p>
-      {{ resource_name }}
-      <a href="{{ resource_link }}"></a>
-    </p>
-    <h2>Daily News</h2>
-    <p>
-      <a href="{{ news_link }}"></a>
-    </p>
+    
+  <ul>
+    {% for national_resource_link in national_resouces %}
+      <li>
+        <a href="/nations/{{ national_resource_link }}">)
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 </body>
 
 {% endblock %}

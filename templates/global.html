@@ -8,15 +8,14 @@
   </p>
 
   <body>
-    <h2>Resources</h2>
-    <p>
-      {{ resource_name }}
-      <a href="{{ resource_link }}"></a>
-    </p>
-    <h2>Daily News</h2>
-    <p>
-      <a href="{{ news_link }}"></a>
-    </p>
+    <ul>
+      {% for global_resource_link in global_resouces %}
+        <li>
+          <a href="/global_resources/{{ global_resource_link }}">)
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
 </body>
 
 {% endblock %}

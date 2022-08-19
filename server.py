@@ -5,7 +5,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User
+from model import Communities, Global_Resources, Nations, States_Regions, connect_to_db, db, Users
 """ Access_Codes, One_Time_Passwords, Home_Resources, Communities, 
     Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, 
     States_Regions, State_Region_Resources, Nations, National_Resources, Global_Resources"""
@@ -41,7 +41,7 @@ def register_process():
     username = request.form["username"]
     password = request.form["password"]
 
-    new_user = User(username=username, password=password)
+    new_user = Users(username=username, password=password)
 
     db.session.add(new_user)
     db.session.commit()
@@ -65,7 +65,7 @@ def login_process():
     username = request.form["username"]
     password = request.form["password"]
 
-    user = User.query.filter_by(username=username).first()
+    user = Users.query.filter_by(username=username).first()
 
     if not user:
         flash("No such user")
@@ -94,40 +94,40 @@ def logout():
 def user_detail(user_id):
     """Show info for home app."""
 
-    user = User.query.options(db.joinedload('users').joinedload('home_app')).get(user_id)
-    return render_template("home_app.html", user=user)
+    user_id = Users.query.options(db.joinedload('users').joinedload('home')).get(user_id)
+    return render_template("home.html", user_id=user_id)
 
 
 @app.route("/community")
-def user_list():
+def community_detail():
     """Show info for community app."""
 
-    users = User.query.all()
-    return render_template("community.html", users=users)
+    community_id = Communities.query.one()
+    return render_template("community.html", community_id=community_id)
 
 
 @app.route("/state_region")
-def user_list():
-    """Show infor for stat_region app."""
+def state_region_detail():
+    """Show info for state_region app."""
 
-    users = User.query.all()
-    return render_template("state_region.html", users=users)
+    state_region_id = States_Regions.query.one()
+    return render_template("state_region.html", state_region_id=state_region_id)
 
 
 @app.route("/nation")
-def user_list():
+def nation_detail():
     """Show info for nation app."""
 
-    users = User.query.all()
-    return render_template("nation.html", users=users)
+    nation_id = Nations.query.one()
+    return render_template("nation.html", nation_id=nation_id)
 
 
 @app.route("/global")
-def user_list():
+def global_detail():
     """Show info for global app."""
 
-    users = User.query.all()
-    return render_template("global.html", users=users)
+    global_resource_id = Global_Resources.query.one()
+    return render_template("global.html", global_resource_id=global_resource_id)
 
 
 if __name__ == "__main__":

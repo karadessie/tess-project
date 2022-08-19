@@ -29,6 +29,21 @@ padding-left: 0;
       height: 10%;
 }
 
+.resources {
+  position: relative;
+  width: 30%;
+  float: left;
+  height: 100%;
+}
+
+.news {
+position: relative;
+display: flexbox;
+width: 70%;
+float: right;
+height: 100%
+}
+
 /* Style tess logo. */
 
 div.navbar-header img {
