@@ -1,6 +1,7 @@
 """Models and database functions for Tess project."""
 
 from ast import Global
+from turtle import title
 from unicodedata import name
 from flask_sqlalchemy import SQLAlchemy
 
@@ -33,7 +34,7 @@ class Users(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<User user_id={self.user_id} username={self.username}>"
+        return f"<User username={self.username} name={self.name}>"
 
 
 class Access_Codes(db.Model):
@@ -41,16 +42,17 @@ class Access_Codes(db.Model):
 
     __tablename__ = "access_codes"
 
-    access_codes_id = db.Column(db.Integer,
+    access_code_id = db.Column(db.Integer,
                                 autoincrement=True,
                                 primary_key=True)
     code = db.Column(db.String(12), nullable=False)
     children = db.relationship('Users', 'Community_Resources,','State_Region_Resources', 
                                'National_Resources', 'Global_Resources')
     
-
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Code access_code_id={self.access_code_id} code={self.code}>"
 
 
 class One_Time_Passwords(db.Model):
@@ -58,16 +60,17 @@ class One_Time_Passwords(db.Model):
 
     __tablename__ = "one_time_passwords"
 
-    one_time_passwords_id = db.Column(db.Integer,
+    one_time_password_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     children = db.relationship('Users')
-    
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<One Time Password one_time_password_id={self.one_time_password_id} password={self.password}>"
 
 
 class Home_Resources(db.Model):
@@ -75,14 +78,17 @@ class Home_Resources(db.Model):
 
     __tablename__ = "home_resources"
 
-    home_resources_id = db.Column(db.Integer,
+    home_resource_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    links = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
+    link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Home Resources home_resource_id={self.home_resource_id} name={self.name}>"
 
 
 class Communities(db.Model):
@@ -90,17 +96,18 @@ class Communities(db.Model):
 
     __tablename__ = "communities"
 
-    communities_id = db.Column(db.Integer,
+    community_id = db.Column(db.Integer,
                      autoincrement=True,
                      primary_key=True)
     name = db.Column(db.String(255))
-    state_regions_id = db.Column(db.Integer, db.ForeignKey('state_regions_id'), nullable=False)
+    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
     children = db.Relationship('Home_Resources', 'Community_Resources', 'Users', 'Community Evens', \
                                'Community_Board_Posts')
 
-
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Communities community_id={self.community_id} name={self.name}>"
 
 
 class Community_Boards(db.Model):
@@ -108,15 +115,16 @@ class Community_Boards(db.Model):
 
     __tablename__ = "community_boards"
 
-    community_boards_id = db.Column(db.Integer,
+    community_board_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
     title = db.Column(db.String(64), nullable=False)
     children = db.Relationship('Community_Board_Posts')
 
-
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Community Boards community_board_id={self.community_board_id} title={self.title}>"
 
 
 class Community_Board_Posts(db.Model):
@@ -124,16 +132,18 @@ class Community_Board_Posts(db.Model):
 
     __tablename__ = "community_board_posts"
 
-    community_board_posts_id = db.Column(db.Integer,
+    community_board_post_id = db.Column(db.Integer,
                                autoincrement=True,
                                primary_key=True)
     communities_id = db.Column(db.Integer, db.ForeignKey('communities_id'), nullable=False)
-    community_boards_id = db.Column(db.Integer, db.ForeignKey('community_boards_id'), nullable=False)
+    community_boards_id = db.Column(db.Integer, db.ForeignKey('community_board_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(500), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Community Board Posts community_board_post_id={self.community_board_post_id} title={self.title}>"
 
 
 class Community_Events(db.Model):
@@ -141,17 +151,18 @@ class Community_Events(db.Model):
 
     __tablename__ = "community_events"
 
-    community_events_id = db.Column(db.Integer,
+    community_event_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
     date_time = db.Column(db.DateTime)
-    communities_id = db.Column(db.Integer, db.ForeignKey('communities_id'), nullable=False)
+    communities_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+
+        return f"<Community Events community_event_id={self.one_time_password_id} title={self.title}>"
 
 
 class Community_Resources(db.Model):
@@ -159,15 +170,18 @@ class Community_Resources(db.Model):
 
     __tablename__ = "community_resources"
 
-    community_resources_id = db.Column(db.Integer,
+    community_resource_id = db.Column(db.Integer,
                              autoincrement=True,
                              primary_key=True)
-    communities_id = db.Column(db.Integer, db.ForeignKey('communities_id'), nullable=False)
-    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_codes_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
+    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     links = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
          """Provide helpful representation when printed."""
+
+         return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
 class States_Regions(db.Model):
     """States and Regions in TESS system."""
@@ -178,12 +192,14 @@ class States_Regions(db.Model):
                        autoincrement=True,
                        primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    nations_id = db.Column(db.Integer, db.ForeignKey('nations_id'), nullable=False)
+    nations_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
     children = db.Relationship('Communities', 'State_Region_Resources')
 
 
     def __repr__(self):
          """Provide helpful representation when printed."""
+         
+         return f"<States & Regions state_region_id={self.state_region_id} name={self.name}>" 
 
 
 class State_Region_Resources(db.Model):
@@ -191,15 +207,18 @@ class State_Region_Resources(db.Model):
 
     __tablename__ = "states_regions_resources"
 
-    states_regions_resources_id = db.Column(db.Integer,
+    states_region_resource_id = db.Column(db.Integer,
                                   autoincrement=True,
                                   primary_key=True)
-    states_regions_id = db.Column(db.Integer, db.ForeignKey('states_regions_id'), nullable=False)
-    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_codes_id'), nullable=False)
+    states_regions_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
+    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     links = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
          """Provide helpful representation when printed."""
+                  
+         return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} name={self.name}>" 
 
 
 class Nations(db.Model):
@@ -215,6 +234,8 @@ class Nations(db.Model):
 
     def __repr__(self):
          """Provide helpful representation when printed."""
+                  
+         return f"<Nations nation_id={self.nation_id} name={self.name}>" 
 
 
 class National_Resources(db.Model):
@@ -225,12 +246,15 @@ class National_Resources(db.Model):
     national_resources_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
-    nations_id = db.Column(db.Integer, db.ForeignKey('nations_id'), nullable=False)
-    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_codes_id'), nullable=False)
+    nations_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
+    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     links = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+             
+        return f"<National Resources national_resources_id={self.national_resources_id} name={self.name}>" 
 
 
 class Global_Resources(db.Model):
@@ -241,11 +265,14 @@ class Global_Resources(db.Model):
     global_resources_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
-    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_codes_id'), nullable=False)
+    access_codes_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     links = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
+                 
+        return f"<Global Resources global_resource_id={self.global_resource_id} name={self.name}>" 
 
 #####################################################################
 # Helper functions
