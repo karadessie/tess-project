@@ -213,7 +213,7 @@ class State_Region_Resources(db.Model):
     states_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
     access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
-    links = db.Column(db.String(64), nullable=False)
+    link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
          """Provide helpful representation when printed."""
@@ -226,7 +226,7 @@ class Nations(db.Model):
 
     __tablename__ = "nations"
 
-    nations_id = db.Column(db.Integer,
+    nation_id = db.Column(db.Integer,
                            autoincrement=True,
                            primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -246,10 +246,10 @@ class National_Resources(db.Model):
     national_resource_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
-    nations_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
+    nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
     access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
-    links = db.Column(db.String(64), nullable=False)
+    link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -267,7 +267,7 @@ class Global_Resources(db.Model):
                           primary_key=True)
     access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
-    links = db.Column(db.String(64), nullable=False)
+    link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

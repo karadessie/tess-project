@@ -3,10 +3,7 @@
 
 
   <h1>TESS {{ community_name }}</h1>
-  <p>
-  	<a href="/community"></a>
-  </p>
-
+  <form action="/community" method="GET">
   <ul>
     {% for community_resource_link in community_resouces %}
       <li>
@@ -15,5 +12,6 @@
       </li>
     {% endfor %}
   </ul>
+  </form>
 
 {% endblock %}

@@ -46,7 +46,7 @@ def register_process():
     db.session.commit()
 
     flash(f"User {username} added.")
-    return redirect(f"/users/{new_user.user_id}")
+    return redirect(f"/home/{new_user.user_id}")
 
 
 @app.route('/login', methods=['GET'])
@@ -77,7 +77,7 @@ def login_process():
     session["user_id"] = user.user_id
 
     flash("Logged in")
-    return redirect(f"/users/{user.user_id}")
+    return redirect(f"/home/{user.user_id}")
 
 
 @app.route('/logout')
@@ -90,14 +90,14 @@ def logout():
 
 
 @app.route("/home/<int:user_id>")
-def user_detail(user_id):
+def home_detail(user_id):
     """Show info for home app."""
 
-    user_id = Users.query.options(db.joinedload('users').joinedload('home')).get(user_id)
+    user_id = Users.query.options(db.joinedload('users').joinedload('communities')).get(user_id)
     return render_template("home.html", user_id=user_id)
 
 
-@app.route("/community")
+@app.route("/community/<int:user_id>")
 def community_detail():
     """Show info for community app."""
 
@@ -105,7 +105,7 @@ def community_detail():
     return render_template("community.html", community_id=community_id)
 
 
-@app.route("/state_region")
+@app.route("/state_region/<int:user_id>")
 def state_region_detail():
     """Show info for state_region app."""
 
@@ -113,7 +113,7 @@ def state_region_detail():
     return render_template("state_region.html", state_region_id=state_region_id)
 
 
-@app.route("/nation")
+@app.route("/nation/<int:user_id>")
 def nation_detail():
     """Show info for nation app."""
 
@@ -121,7 +121,7 @@ def nation_detail():
     return render_template("nation.html", nation_id=nation_id)
 
 
-@app.route("/global")
+@app.route("/global/<int:user_id>")
 def global_detail():
     """Show info for global app."""
 

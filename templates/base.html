@@ -5,14 +5,62 @@
     <title>TESS</title>
 </head>
 <body>
+<div class="footer">
+    {% if "user_id" in session %}
+        <a href="/home">Home</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+</div>
 
-{% if "user_id" in session %}
-  <a href="/logout">Logout</a>
-{% else %}
-  <a href="/login">Login</a>
-{% endif %}
+<style>
+  .footer {
+    position: fixed;
+    left: 100px;
+    bottom: 0;
+    height: 10%;
+    width: 80%;
+    background-color: #fefefa;
+    color: #fefefa;
+    text-align: left;
+  }
+  </style>
 
-<hr>
+<style>
+  .header1 {
+    position: fixed;
+    z-index: 9;
+    height: 75px;
+    width: 100%;
+    background-color: #fefefa;
+    text-align: center;
+  }
+  </style>
+
+<style>
+  .header2 {
+    position: fixed;
+    left: 100px;
+    z-index: 9;
+    height: 50px;
+    width: 100%;
+    background-color: #fefefa;
+    text-align: left;
+  }
+  </style>
+  
+<style>
+  .container {
+    position: fixed;
+    z-index: 1;
+    padding-top: 90px;
+    padding-left: 90px;
+    height: 150px;
+    width: 100%;
+    background-color: #fefefa;
+    text-align: left;
+  }
+  </style>
 
 {% for flash in get_flashed_messages() %}
   {{ flash }}

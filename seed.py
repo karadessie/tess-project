@@ -19,12 +19,12 @@ def load_users(users_filename):
 
     for i, row in enumerate(open(users_filename)):
         row = row.rstrip()
-        user_id, one_time_password_id, access_codes_id, username, password, name, communities_id = row.split("|")
+        user_id, one_time_password_id, access_code_id, username, password, name, community_id = row.split("|")
 
         user = Users(user_id=user_id,
                      one_time_password_id=one_time_password_id,
-                     access_codes_id=access_codes_id,
-                     communities_id=communities_id,
+                     access_code_id=access_code_id,
+                     community_id=community_id,
                      username=username,
                      password=password,
                      name=name)
@@ -213,7 +213,7 @@ def load_home_resources(home_resources_filename):
             print(i)
 
 
-def load_states_regions(user_filename):
+def load_states_regions(states_regions_filename):
     """Load states and regions into database."""
 
     print("States & Regions")
@@ -243,12 +243,12 @@ def load_state_region_resources(state_region_resources_filename):
 
     for i, row in enumerate(open(state_region_resources_filename)):
         row = row.rstrip()
-        state_region_resources_id, states_regions_id, access_codes_id, state_region_links = row.split("|")
+        state_region_resource_id, states_region_id, access_code_id, state_region_link = row.split("|")
 
-        state_region_resource = State_Region_Resources(state_region_resources_id=state_region_resources_id,
-                                                       states_regions_id=states_regions_id,
-                                                       access_codes_id=access_codes_id,
-                                                       states_regions_links=state_region_links)
+        state_region_resource = State_Region_Resources(state_region_resource_id=state_region_resource_id,
+                                                       states_region_id=states_region_id,
+                                                       access_code_id=access_code_id,
+                                                       states_region_link=state_region_link)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(state_region_resource)
@@ -264,9 +264,9 @@ def load_nations(nations_filename):
 
     for i, row in enumerate(open(nations_filename)):
         row = row.rstrip()
-        nations_id, name = row.split("|")
+        nation_id, name = row.split("|")
 
-        nation = Nations(nations_id=nations_id,
+        nation = Nations(nation_id=nation_id,
                          name=name)
 
         # We need to add to the session or it won't ever be stored
@@ -286,11 +286,11 @@ def load_national_resources(national_resources_filename):
 
     for i, row in enumerate(open(national_resources_filename)):
         row = row.rstrip()
-        national_resources_id, nations_id, access_codes_id, national_links = row.split("|")
+        national_resource_id, nation_id, access_code_id, national_links = row.split("|")
 
-        national_resource = National_Resources(national_resources_id=national_resources_id,
-                                               nations_id=nations_id,
-                                               access_codes_id=access_codes_id,
+        national_resource = National_Resources(national_resources_id=national_resource_id,
+                                               nation_id=nation_id,
+                                               access_code_id=access_code_id,
                                                national_links=national_links)
 
         # We need to add to the session or it won't ever be stored
@@ -310,11 +310,11 @@ def load_global_resources(global_resources_filename):
 
     for i, row in enumerate(open(global_resources_filename)):
         row = row.rstrip()
-        global_resources_id, access_codes_id, global_links = row.split("|")
+        global_resource_id, access_code_id, global_link = row.split("|")
 
-        global_resource = Global_Resources(global_resources_id=global_resources_id,
-                                           access_codes_id=access_codes_id,
-                                           global_links=global_links)
+        global_resource = Global_Resources(global_resource_id=global_resource_id,
+                                           access_code_id=access_code_id,
+                                           global_link=global_link)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(global_resource)

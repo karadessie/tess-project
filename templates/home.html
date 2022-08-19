@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1></h1>
-  
+  <h1>HOME</h1>
+  <form action="/home" method="GET">
   <ul>
     {% for home_resource_link in home_resouces %}
       <li>
-        <a href="/home_resources/{{ home_resource_link }}">)
+        <a href="/home/{{ home_resource_link }}">)
         </a>
       </li>
     {% endfor %}

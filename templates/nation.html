@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1> TESS {{ nation_name }}</h1>
-  <p>
-  	<a href="/nation"></a>
-  </p>
-
-  <body>
-    
+<h1> TESS {{ nation_name }}</h1>
+<form action="/nation" method="GET">
   <ul>
     {% for national_resource_link in national_resouces %}
       <li>
@@ -16,6 +11,6 @@
       </li>
     {% endfor %}
   </ul>
-</body>
+</form>
 
 {% endblock %}

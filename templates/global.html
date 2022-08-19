@@ -3,11 +3,7 @@
 
 
   <h1>TESS GLOBAL</h1>
-  <p>
-  	<a href="/global"></a>
-  </p>
-
-  <body>
+  <form action="/global" method="GET">
     <ul>
       {% for global_resource_link in global_resouces %}
         <li>
@@ -16,6 +12,6 @@
         </li>
       {% endfor %}
     </ul>
-</body>
+  </form>
 
 {% endblock %}

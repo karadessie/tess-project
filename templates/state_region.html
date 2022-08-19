@@ -2,19 +2,17 @@
 {% block content %}
 
   <h1>TESS {{ state_region_name }}</h1>
-  <p>
-  	<a href="/state_region"></a>
-  </p>
+  <form action="/state_region" method="GET"></form>
 
-  <body> 
+  <form> 
   <ul>
     {% for state_region_resource_link in state_region_resouces %}
       <li>
-        <a href="/states_regions/{{ state_region_resource_link }}">)
+        <a href="/state_region/{{ state_region_resource_link }}">)
         </a>
       </li>
     {% endfor %}
   </ul>
-</body>
+  </form>
 
 {% endblock %}
