@@ -1,40 +1,45 @@
 <!doctype html>
 <html>
 <head>
-  <link rel="stylesheet"
-  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
-  <link rel="stylesheet" href="static/site.css">
-  <title>TESS</title>
+    <link rel="stylesheet" 
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+    <link rel="stylesheet" href="static/site.css"/>
+    <title>TESS</title>
 </head>
 
-<img src="static/img.png">
 <body>
+
 <div class="footer">
-    <a href="/login">LOGIN</a> &nbsp;
-    <a href="/home<int:user_id>">HOME</a> &nbsp;
-    <a href="/community<int:user_id>">COMMUNITY</a> &nbsp;
-    <a href="/states_regions<int:user_id>">STATES/REGIONS</a> &nbsp;
-    <a href="/nations<int:user_id>">NATIONS</a> &nbsp;
-    <a href="/global<int:user_id>">GLOBAL</a> &nbsp;
+    <a href="/login" title="Please Log In">LOGIN</a> &nbsp;
+    <a href="/home<int:user_id>" title="TESS Home App">HOME</a> &nbsp;
+    <a href="/community<int:user_id>" title="TESS Community App">COMMUNITY</a> &nbsp;
+    <a href="/states_regions<int:user_id>" title="TESS State/Regional App">STATE/REGION</a> &nbsp;
+    <a href="/nations<int:user_id>" title="TESS National App">NATIONAL</a> &nbsp;
+    <a href="/global<int:user_id>" title="TESS Global App">GLOBAL</a> &nbsp;
 </div>
 
 <style>
   .footer {
+    display: block;
     position: fixed;
-    left: 225px;
+    margin-left: auto;
+    margin-right: auto;
+    float: bottom;
     bottom: 0;
+    right: 0;
     height: 10%;
-    width: 80%;
+    width: 100%;
     word-spacing: 20px;
     background-color: #fefefa;
     text-align: center;
+    color: black;
     text-decoration: none;
   }
 </style>
 
 <style>
   .header1 {
-    position: fixed;
+    position: top;
     z-index: 9;
     height: 75px;
     width: 100%;

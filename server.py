@@ -3,7 +3,7 @@
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
-from flask_debugtoolbar import DebugToolbarExtension
+"""from flask_debugtoolbar import DebugToolbarExtension"""
 
 from model import connect_to_db, db, Users, Access_Codes, One_Time_Passwords, Home_Resources, Communities, \
     Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, \
@@ -96,7 +96,7 @@ def home_detail(user_id):
     return render_template("home.html", user_id=user_id)
 
 
-@app.route("/community/<int:user_id>")
+@app.route("/community/<int:community_id>")
 def community_detail():
     """Show info for community app."""
 
@@ -104,7 +104,7 @@ def community_detail():
     return render_template("community.html", community_id=community_id)
 
 
-@app.route("/state_region/<int:user_id>")
+@app.route("/state_region/<int:state_region_id>")
 def state_region_detail():
     """Show info for state_region app."""
 
@@ -112,7 +112,7 @@ def state_region_detail():
     return render_template("state_region.html", state_region_id=state_region_id)
 
 
-@app.route("/nation/<int:user_id>")
+@app.route("/nation/<int:nation_id>")
 def nation_detail():
     """Show info for nation app."""
 
@@ -138,6 +138,6 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    """DebugToolbarExtension(app)"""
 
     app.run(host="0.0.0.0")
