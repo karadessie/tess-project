@@ -1,30 +1,36 @@
 <!doctype html>
 <html>
 <head>
-    <link rel="stylesheet" href="/static/site.css"/>
-    <title>TESS</title>
+  <link rel="stylesheet"
+  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+  <link rel="stylesheet" href="static/site.css">
+  <title>TESS</title>
 </head>
+
+<img src="static/img.png">
 <body>
 <div class="footer">
-    {% if "user_id" in session %}
-        <a href="/home">Home</a>
-    {% else %}
-        <a href="/login">Login</a>
-    {% endif %}
+    <a href="/login">LOGIN</a> &nbsp;
+    <a href="/home<int:user_id>">HOME</a> &nbsp;
+    <a href="/community<int:user_id>">COMMUNITY</a> &nbsp;
+    <a href="/states_regions<int:user_id>">STATES/REGIONS</a> &nbsp;
+    <a href="/nations<int:user_id>">NATIONS</a> &nbsp;
+    <a href="/global<int:user_id>">GLOBAL</a> &nbsp;
 </div>
 
 <style>
   .footer {
     position: fixed;
-    left: 100px;
+    left: 225px;
     bottom: 0;
     height: 10%;
     width: 80%;
+    word-spacing: 20px;
     background-color: #fefefa;
-    color: #fefefa;
-    text-align: left;
+    text-align: center;
+    text-decoration: none;
   }
-  </style>
+</style>
 
 <style>
   .header1 {
@@ -35,7 +41,7 @@
     background-color: #fefefa;
     text-align: center;
   }
-  </style>
+</style>
 
 <style>
   .header2 {
@@ -47,7 +53,7 @@
     background-color: #fefefa;
     text-align: left;
   }
-  </style>
+</style>
   
 <style>
   .container {
@@ -60,7 +66,7 @@
     background-color: #fefefa;
     text-align: left;
   }
-  </style>
+</style>
 
 {% for flash in get_flashed_messages() %}
   {{ flash }}

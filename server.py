@@ -9,7 +9,6 @@ from model import connect_to_db, db, Users, Access_Codes, One_Time_Passwords, Ho
     Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, \
     States_Regions, State_Region_Resources, Nations, National_Resources, Global_Resources
 
-
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
