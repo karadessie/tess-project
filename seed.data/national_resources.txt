@@ -1,0 +1,5 @@
+001|037|https://mint.intuit.com/|Budget with Intuit Mint
+002|037|https://www.allrecipes.com/recipes/84/healthy-recipes/|Healthy Recipes on Allrecipes
+003|037|https://www.skywareinventory.com/home-inventory-software|Skyware Home Inventory
+004|037|https://simplyauto.app/|Simply Auto
+005|037|https://www.energystar.gov/campaign/home-energy-yardstick|Home Energy Yardstick
