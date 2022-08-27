@@ -1,0 +1,6 @@
+101|home_admin
+102|community_admin
+103|state_region_admin
+104|national_admin
+105|global_admin
+106|system_admin

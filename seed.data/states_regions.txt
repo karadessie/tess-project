@@ -1,47 +1,50 @@
-Alabama
-Alaska
-Arizona
-Arkansas
-California
-Colorado
-Connecticut
-Delaware
-Florida
-Georgia
-Hawaii
-Idaho
-IllinoisIndiana
-Iowa
-Kansas
-Kentucky
-Louisiana
-Maine
-Maryland
-Massachusetts
-Michigan
-Minnesota
-Mississippi
-Missouri
-MontanaNebraska
-Nevada
-New Hampshire
-New Jersey
-New Mexico
-New York
-North Carolina
-North Dakota
-Ohio
-Oklahoma
-Oregon
-PennsylvaniaRhode Island
-South Carolina
-South Dakota
-Tennessee
-Texas
-Utah
-Vermont
-Virginia
-Washington
-West Virginia
-Wisconsin
-Wyoming
+001|189|Alabama
+002|189|Alaska
+003|189|Arizona
+004|189|Arkansas
+005|189|California
+006|189|Colorado
+007|189|Connecticut
+008|189|Delaware
+009|189|Florida
+010|189|Georgia
+011|189|Hawaii
+012|189|Idaho
+013|189|Illinois
+014|189|Indiana
+015|189|Iowa
+016|189|Kansas
+017|189|Kentucky
+018|189|Louisiana
+019|189|Maine
+020|189|Maryland
+021|189|Massachusetts
+022|189|Michigan
+023|189|Minnesota
+024|189|Mississippi
+025|189|Missouri
+026|189|Montana
+027|189|Nebraska
+028|189|Nevada
+029|189|New Hampshire
+030|189|New Jersey
+031|189|New Mexico
+032|189|New York
+033|189|North Carolina
+034|189|North Dakota
+035|189|Ohio
+036|189|Oklahoma
+037|189|Oregon
+038|189|Pennsylvania
+039|189|Rhode Island
+040|189|South Carolina
+041|189|South Dakota
+042|189|Tennessee
+043|189|Texas
+044|189|Utah
+045|189|Vermont
+046|189|Virginia
+047|189|Washington
+048|189|West Virginia
+049|189|Wisconsin
+050|189|Wyoming

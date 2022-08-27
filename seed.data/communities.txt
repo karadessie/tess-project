@@ -1,309 +1,50 @@
-Abbeville
-Aiken
-Alcolu
-Allendale
-Anderson
-Andrews
-Arcadia Lakes
-Arial
-Atlantic Beach
-Awendaw
-Aynor
-Bamberg
-Barnwell
-Batesburg-Leesville
-Beaufort
-Belton
-Bennettsville
-Bethune
-Bishopville
-Blacksburg
-Blackville
-Blenheim
-Bluffton
-Blythewood
-Boiling Springs
-Bonneau
-Bowman
-Boykin
-Bradley
-Branchville
-Brattonsville
-Briarcliffe Acres
-Bucksport
-Buffalo
-Calhoun Falls
-Camden
-Cameron
-Campobello
-Cape Romain
-Carlisle
-Catawba Indian Nation
-Cayce
-Central
-Central Pacolet
-Chapin
-Charleston
-Cheraw
-Cherokee Nation
-Cherryvale
-Chesnee
-Chester
-Chesterfield
-Chicora Indian Tribe
-Clemson
-Clinton
-Clio
-Clover
-Cokesbury
-Columbia
-Congaree National Park
-Conway
-Cope
-Cordova
-Coronaca
-Cottageville
-Coward
-Cowpens
-Cross Hill
-Dacusville
-Dalzell
-Daniel Island
-Darlington
-Dataw Island
-Daufuskie Island
-DeBordieu
-Denmark
-Dentsville
-Dewees Island
-Dillon
-Donalds
-Due West
-Duncan
-Easley
-Eastover
-Edgefield
-Edisto - Orangeburg County
-Edisto Beach and Edisto Island
-Ehrhardt
-Elgin - Kershaw County
-Elko
-Elloree
-Enoree
-Eutawville
-Fairfax
-Florence
-Folly Beach
-Forest Acres
-Fort Jackson
-Fort Lawn
-Fort Mill
-Fountain Inn
-Fripp Island
-Gaffney
-Garden City Beach
-Gaston
-Georgetown
-Gilbert
-Glendale
-Glenn Springs
-Goose Creek
-Govan
-Graniteville
-Great Falls
-Greeleyville
-Greenville
-Greenwood
-Greer
-Hampton
-Hanahan
-Harbor Island
-Hardeeville
-Harleyville
-Hartsville
-Hemingway
-Hickory Tavern
-Hilda
-Hilton Head Island
-Holly Hill
-Honea Path
-Hopkins
-Hunting Island State Park
-Indian Land
-Inman
-Irmo
-Isle of Palms
-Iva
-J Strom Thurmond Lake
-James Island
-Jamestown
-Jedburg
-Jefferson
-Johns Island
-Johnsonville
-Johnston
-Kershaw
-Kiawah Island
-Kingstree
-Kline
-Ladson
-Lake City
-Lake Greenwood
-Lake Hartwell
-Lake Jocassee
-Lake Keowee
-Lake Marion
-Lake Moultrie
-Lake Murray
-Lake Russell
-Lake View
-Lake Wateree
-Lake Wylie
-Lamar
-Lancaster
-Landrum
-Latta
-Laurens
-Lexington
-Liberty
-Lincolnville
-Litchfield
-Little Mountain
-Little River
-Lockhart
-Lodge
-Longtown
-Lone Star
-Loris
-Lowrys
-Lugoff
-Lydia
-Lyman
-Manning
-Marion
-Mauldin
-Mayesville
-McBee
-McClellanville
-McCormick
-Meggett
-Meriwether
-Mitchelville
-Modoc
-Moncks Corner
-Monetta
-Morris Island
-Mount Carmel
-Mount Croghan
-Mount Pleasant
-Mountain Rest
-Mullins
-Murrells Inlet
-Myrtle Beach
-Newberry
-Ninety Six
-North
-North Augusta
-North Charleston
-North Myrtle Beach
-Oak Grove
-Oates
-Okatie
-Olanta
-Olar
-Orangeburg
-Pacolet
-Pageland
-Pamplico
-Parksville
-Parris Island
-Patrick
-Pawleys Island
-Paxville
-Peak
-Pee Dee Indian Tribe
-Pelion
-Pelzer
-Pendleton
-Pickens
-Pine Ridge
-Plum Branch
-Pomaria
-Port Royal
-Powdersville
-Prosperity
-Quinby
-Ravenel
-Reevesville
-Richburg
-Ridge Spring
-Ridgeland
-Ridgeville
-Ridgeway
-Rock Hill
-Rockville
-Roebuck
-Ruby
-St George
-St Helena Island
-St Matthews
-St Stephen - St Stephens
-Salem
-Saluda
-Sangaree
-Santee
-Santee Indian Nation
-Savannah Lakes Village
-Scranton
-Seabrook Island
-Seneca
-Serenity - fictional town
-Six Mile
-Smoaks
-Smyrna
-Snelling
-Society Hill - Long Bluff
-South Congaree
-Spartanburg
-Springdale
-Springfield
-Starr
-Stateburg
-Sullivan's Island
-Summerton
-Summerville
-Sumter
-Surfside Beach
-Swansea
-Sycamore
-Table Rock
-Tega Cay
-Tiburon - fictional town
-Timmonsville
-Townville
-Travelers Rest
-Trenton
-Troy
-Turbeville
-Ulmer
-Union
-Varnville
-Vaucluse
-Waccamaw Indian People
-Wadmalaw Island
-Walhalla
-Walterboro
-Ware Shoals
-Wellford
-West Columbia
-Westminster
-Whitmire
-Williams
-Williamston
-Willington
-Williston
-Winnsboro
-Woodford
-Woodruff
-Yemassee
-York
+001|040|Abbeville
+002|040|Aiken
+003|040|Alcolu
+004|040|Allendale
+005|040|Anderson
+006|040|Andrews
+007|040|Arcadia Lakes
+008|040|Arial
+009|040|Atlantic Beach
+010|040|Awendaw
+011|040|Aynor
+012|040|Bamberg
+013|040|Barnwell
+014|040|Batesburg-Leesville
+015|040|Beaufort
+016|040|Belton
+017|040|Bennettsville
+018|040|Bethune
+019|040|Bishopville
+020|040|Blacksburg
+021|040|Blackville
+022|040|Blenheim
+023|040|Bluffton
+024|040|Blythewood
+025|040|Boiling Springs
+026|040|Bonneau
+027|040|Bowman
+028|040|Boykin
+029|040|Bradley
+030|040|Branchville
+031|040|Brattonsville
+032|040|Briarcliffe Acres
+033|040|Bucksport
+034|040|Buffalo
+035|040|Calhoun Falls
+036|040|Camden
+037|040|Rock Hill
+038|040|Rockville
+039|040|Roebuck
+040|040|Ruby
+041|040|St George
+042|040|St Helena Island
+043|040|St Matthews
+044|040|St Stephen - St Stephens
+045|040|Salem
+046|040|Saluda
+047|040|Sangaree
+048|040|Santee
+049|040|Santee Indian Nation
+050|040|York

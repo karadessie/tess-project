@@ -1,197 +1,197 @@
-Afghanistan
-Albania
-Algeria
-Andorra
-Angola
-Antigua and Barbuda
-Argentina
-Armenia
-Australia
-Austria
-Azerbaijan
-Bahamas
-Bahrain
-Bangladesh
-Barbados
-Belarus
-Belgium
-Belize
-Benin
-Bhutan
-Bolivia
-Bosnia and Herzegovina
-Botswana
-Brazil
-Brunei
-Bulgaria
-Burkina Faso
-Burundi
-Cabo Verde
-Cambodia
-Cameroon
-Canada
-Central African Republic (CAR)
-Chad
-Chile
-China
-Colombia
-Comoros
-Congo, Democratic Republic of the
-Congo, Republic of the
-Costa Rica
-Cote d'Ivoire
-Croatia
-Cuba
-Cyprus
-Czechia
-Denmark
-Djibouti
-Dominica
-Dominican Republic
-Ecuador
-Egypt
-El Salvador
-Equatorial Guinea
-Eritrea
-Estonia
-Eswatini
-Ethiopia
-Fiji
-Finland
-France
-Gabon
-Gambia
-Georgia
-Germany
-Ghana
-Greece
-Grenada
-Guatemala
-Guinea
-Guinea-Bissau
-Guyana
-Haiti
-Honduras
-Hungary
-Iceland
-India
-Indonesia
-Iran
-Iraq
-Ireland
-Israel
-Italy
-Jamaica
-Japan
-Jordan
-Kazakhstan
-Kenya
-Kiribati
-Kosovo
-Kuwait
-Kyrgyzstan
-Laos
-Latvia
-Lebanon
-Lesotho
-Liberia
-Libya
-Liechtenstein
-Lithuania
-Luxembourg
-Madagascar
-Malawi
-Malaysia
-Maldives
-Mali
-Malta
-Marshall Islands
-Mauritania
-Mauritius
-Mexico
-Micronesia
-Moldova
-Monaco
-Mongolia
-Montenegro
-Morocco
-Mozambique
-Myanmar
-Namibia
-Nauru
-Nepal
-Netherlands
-New Zealand
-Nicaragua
-Niger
-Nigeria
-North Korea
-North Macedonia
-Norway
-Oman
-Pakistan
-Palau
-Palestine
-Panama
-Papua New Guinea
-Paraguay
-Peru
-Philippines
-Poland
-Portugal
-Qatar
-Romania
-Russia
-Rwanda
-Saint Kitts and Nevis
-Saint Lucia
-Saint Vincent and the Grenadines
-Samoa
-San Marino
-Sao Tome and Principe
-Saudi Arabia
-Senegal
-Serbia
-Seychelles
-Sierra Leone
-Singapore
-Slovakia
-Slovenia
-Solomon Islands
-Somalia
-South Africa
-South Korea
-South Sudan
-Spain
-Sri Lanka
-Sudan
-Suriname
-Sweden
-Switzerland
-Syria
-Taiwan
-Tajikistan
-Tanzania
-Thailand
-Timor-Leste
-Togo
-Tonga
-Trinidad and Tobago
-Tunisia
-Turkey
-Turkmenistan
-Tuvalu
-Uganda
-Ukraine
-United Arab Emirates (UAE)
-United Kingdom (UK)
-United States of America (USA)
-Uruguay
-Uzbekistan
-Vanuatu
-Vatican City (Holy See)
-Venezuela
-Vietnam
-Yemen
-Zambia
-Zimbabwe
+001|Afghanistan
+002|Albania
+003|Algeria
+004|Andorra
+005|Angola
+006|Antigua and Barbuda
+007|Argentina
+008|Armenia
+009|Australia
+010|Austria
+011|Azerbaijan
+012|Bahamas
+013|Bahrain
+014|Bangladesh
+015|Barbados
+016|Belarus
+017|Belgium
+018|Belize
+019|Benin
+020|Bhutan
+021|Bolivia
+022|Bosnia and Herzegovina
+023|Botswana
+024|Brazil
+025|Brunei
+026|Bulgaria
+027|Burkina Faso
+028|Burundi
+029|Cabo Verde
+030|Cambodia
+031|Cameroon
+032|Canada
+033|Central African Republic (CAR)
+034|Chad
+035|Chile
+036|China
+037|Colombia
+038|Comoros
+039|Congo, Democratic Republic of the
+040|Congo, Republic of the
+041|Costa Rica
+042|Cote d'Ivoire
+043|Croatia
+044|Cuba
+045|Cyprus
+046|Czechia
+047|Denmark
+048|Djibouti
+049|Dominica
+050|Dominican Republic
+051|Ecuador
+052|Egypt
+053|El Salvador
+054|Equatorial Guinea
+055|Eritrea
+056|Estonia
+057|Eswatini
+058|Ethiopia
+059|Fiji
+060|Finland
+061|France
+062|Gabon
+063|Gambia
+064|Georgia
+065|Germany
+066|Ghana
+067|Greece
+068|Grenada
+069|Guatemala
+070|Guinea
+071|Guinea-Bissau
+072|Guyana
+073|Haiti
+074|Honduras
+075|Hungary
+076|Iceland
+077|India
+078|Indonesia
+079|Iran
+080|Iraq
+081|Ireland
+082|Israel
+083|Italy
+084|Jamaica
+085|Japan
+086|Jordan
+087|Kazakhstan
+088|Kenya
+089|Kiribati
+090|Kosovo
+091|Kuwait
+092|Kyrgyzstan
+093|Laos
+094|Latvia
+095|Lebanon
+096|Lesotho
+097|Liberia
+098|Libya
+099|Liechtenstein
+100|Lithuania
+101|Luxembourg
+102|Madagascar
+103|Malawi
+104|Malaysia
+105|Maldives
+106|Mali
+107|Malta
+108|Marshall Islands
+109|Mauritania
+110|Mauritius
+111|Mexico
+112|Micronesia
+113|Moldova
+114|Monaco
+115|Mongolia
+116|Montenegro
+117|Morocco
+118|Mozambique
+119|Myanmar
+120|Namibia
+121|Nauru
+122|Nepal
+123|Netherlands
+124|New Zealand
+125|Nicaragua
+126|Niger
+127|Nigeria
+128|North Korea
+129|North Macedonia
+130|Norway
+131|Oman
+132|Pakistan
+133|Palau
+134|Palestine
+135|Panama
+136|Papua New Guinea
+138|Paraguay
+139|Peru
+140|Philippines
+141|Poland
+142|Portugal
+143|Qatar
+144|Romania
+145|Russia
+146|Rwanda
+147|Saint Kitts and Nevis
+148|Saint Lucia
+149|Saint Vincent and the Grenadines
+150|Samoa
+151|San Marino
+152|Sao Tome and Principe
+153|Saudi Arabia
+154|Senegal
+155|Serbia
+156|Seychelles
+157|Sierra Leone
+158|Singapore
+159|Slovakia
+160|Slovenia
+161|Solomon Islands
+162|Somalia
+163|South Africa
+164|South Korea
+165|South Sudan
+166|Spain
+167|Sri Lanka
+168|Sudan
+169|Suriname
+170|Sweden
+171|Switzerland
+172|Syria
+173|Taiwan
+174|Tajikistan
+175|Tanzania
+176|Thailand
+177|Timor-Leste
+178|Togo
+179|Tonga
+180|Trinidad and Tobago
+181|Tunisia
+182|Turkey
+183|Turkmenistan
+184|Tuvalu
+185|Uganda
+186|Ukraine
+187|United Arab Emirates (UAE)
+188|United Kingdom (UK)
+189|United States of America (USA)
+190|Uruguay
+191|Uzbekistan
+192|Vanuatu
+193|Vatican City (Holy See)
+194|Venezuela
+195|Vietnam
+196|Yemen
+197|Zambia
+198|Zimbabwe
