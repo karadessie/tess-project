@@ -1,6 +1,0 @@
-101|Home Admin
-102|Community Admin
-103|State & Region Admin
-104|National Admin
-105|Global Admin
-106|System Admin

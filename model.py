@@ -16,10 +16,10 @@ db = SQLAlchemy()
 #####################################################################
 # Model definitions
 
-class Users(db.Model):
+class User(db.Model):
     """Users in Tess system."""
 
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -28,7 +28,7 @@ class Users(db.Model):
     password = db.Column(db.String(64), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_password_id'), nullable=False)
 
     def __repr__(self):
@@ -37,46 +37,46 @@ class Users(db.Model):
         return f"<Users username={self.username} name={self.name}>"
 
 
-class Access_Codes(db.Model):
+class Admin_Access(db.Model):
     """List of codes for authorized access."""
 
-    __tablename__ = "access_codes"
+    __tablename__ = "admin_access"
 
-    access_code_id = db.Column(db.Integer,
+    admin_access_id = db.Column(db.Integer,
                                 autoincrement=True,
                                 primary_key=True)
-    code = db.Column(db.String(12), nullable=False)
-    children = db.relationship('Users', 'Community_Resources,','State_Region_Resources', 
-                               'National_Resources', 'Global_Resources')
+    admin_access = db.Column(db.String(12), nullable=False)
+    children = db.relationship('Users', 'Community_Resource,','State_Region_Resource', 
+                               'National_Resource', 'Global_Resource')
     
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<Code access_code_id={self.access_code_id} code={self.code}>"
+        return f"<Admin Code admin_access={self.admin_access}>"
 
 
-class One_Time_Passwords(db.Model):
+class One_Time_Password(db.Model):
     """List of temporary one time passwords."""
 
-    __tablename__ = "one_time_passwords"
+    __tablename__ = "one_time_password"
 
     one_time_password_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    child = db.relationship('Users')
+    child = db.relationship('User')
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<One Time Password one_time_password_id={self.one_time_password_id} password={self.password}>"
+        return f"<One Time Password password={self.password}>"
 
 
-class Home_Resources(db.Model):
+class Home_Resource(db.Model):
     """Links for Home App Resources."""
 
-    __tablename__ = "home_resources"
+    __tablename__ = "home_resource"
 
     home_resource_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -88,49 +88,49 @@ class Home_Resources(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<Home Resources home_resource_id={self.home_resource_id} name={self.name}>"
+        return f"<Home Resource name={self.name}>"
 
 
-class Communities(db.Model):
+class Community(db.Model):
     """Communities in Tess system."""
 
-    __tablename__ = "communities"
+    __tablename__ = "community"
 
     community_id = db.Column(db.Integer,
                      autoincrement=True,
                      primary_key=True)
-    name = db.Column(db.String(255))
     state_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
-    children = db.relationship('Home_Resources', 'Community_Resources', 'Users', 'Community Evens', \
-                               'Community_Board_Posts')
+    name = db.Column(db.String(255))
+    children = db.relationship('Home_Resource', 'Community_Resource', 'User', 'Community Event', \
+                               'Community_Board_Post')
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<Communities community_id={self.community_id} name={self.name}>"
+        return f"<Community name={self.name}>"
 
 
-class Community_Boards(db.Model):
+class Community_Board(db.Model):
     """List of Community Boards."""
 
-    __tablename__ = "community_boards"
+    __tablename__ = "community_board"
 
     community_board_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
     title = db.Column(db.String(64), nullable=False)
-    children = db.relationship('Community_Board_Posts')
+    children = db.relationship('Community_Board_Post')
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return f"<Community Boards community_board_id={self.community_board_id} title={self.title}>"
+        return f"<Community Board title={self.title}>"
 
 
-class Community_Board_Posts(db.Model):
+class Community_Board_Post(db.Model):
     """List of Community Board Posts."""
 
-    __tablename__ = "community_board_posts"
+    __tablename__ = "community_board_post"
 
     community_board_post_id = db.Column(db.Integer,
                                autoincrement=True,
@@ -138,7 +138,7 @@ class Community_Board_Posts(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
     community_board_id = db.Column(db.Integer, db.ForeignKey('community_board_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
-    description = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.String(510), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -146,10 +146,10 @@ class Community_Board_Posts(db.Model):
         return f"<Community Board Posts community_board_post_id={self.community_board_post_id} title={self.title}>"
 
 
-class Community_Events(db.Model):
+class Community_Event(db.Model):
     """List of Community Events."""
 
-    __tablename__ = "community_events"
+    __tablename__ = "community_event"
 
     community_event_id = db.Column(db.Integer,
                           autoincrement=True,
@@ -157,7 +157,7 @@ class Community_Events(db.Model):
     date_time = db.Column(db.DateTime)
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
-    description = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.String(510), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -165,35 +165,35 @@ class Community_Events(db.Model):
         return f"<Community Events community_event_id={self.one_time_password_id} title={self.title}>"
 
 
-class Community_Resources(db.Model):
+class Community_Resource(db.Model):
     """Links for Community Resources."""
 
-    __tablename__ = "community_resources"
+    __tablename__ = "community_resource"
 
     community_resource_id = db.Column(db.Integer,
                              autoincrement=True,
                              primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
-    links = db.Column(db.String(64), nullable=False)
+    link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
          """Provide helpful representation when printed."""
 
          return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
-class States_Regions(db.Model):
+class State_Region(db.Model):
     """States and Regions in TESS system."""
 
-    __tablename__ = "states_regions"
+    __tablename__ = "state_region"
 
     state_region_id = db.Column(db.Integer,
                        autoincrement=True,
                        primary_key=True)
+    nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    nations_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
-    children = db.relationship('Communities', 'State_Region_Resources')
+    children = db.relationship('Community', 'State_Region_Resource')
 
 
     def __repr__(self):
@@ -202,16 +202,16 @@ class States_Regions(db.Model):
          return f"<States & Regions state_region_id={self.state_region_id} name={self.name}>" 
 
 
-class State_Region_Resources(db.Model):
+class State_Region_Resource(db.Model):
     """Links for State and Region Resources."""
 
-    __tablename__ = "states_regions_resources"
+    __tablename__ = "state_region_resource"
 
     states_region_resource_id = db.Column(db.Integer,
                                   autoincrement=True,
                                   primary_key=True)
     states_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
-    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -221,10 +221,10 @@ class State_Region_Resources(db.Model):
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} name={self.name}>" 
 
 
-class Nations(db.Model):
+class Nation(db.Model):
     """Nations in Tess system."""
 
-    __tablename__ = "nations"
+    __tablename__ = "nation"
 
     nation_id = db.Column(db.Integer,
                            autoincrement=True,
@@ -238,16 +238,16 @@ class Nations(db.Model):
          return f"<Nations nation_id={self.nation_id} name={self.name}>" 
 
 
-class National_Resources(db.Model):
+class National_Resource(db.Model):
     """Links for National Resources."""
 
-    __tablename__ = "national_resources"
+    __tablename__ = "national_resource"
 
     national_resource_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
     nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
-    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -257,15 +257,15 @@ class National_Resources(db.Model):
         return f"<National Resources national_resources_id={self.national_resources_id} name={self.name}>" 
 
 
-class Global_Resources(db.Model):
+class Global_Resource(db.Model):
     """Links for Global Resources."""
 
-    __tablename__ = "global_resources"
+    __tablename__ = "global_resource"
 
     global_resource_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
-    access_code_id = db.Column(db.Integer, db.ForeignKey('access_code_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
