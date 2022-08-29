@@ -38,7 +38,7 @@ class User(db.Model):
 
 
 class Admin_Access(db.Model):
-    """List of codes for authorized access."""
+    """List of administration access codes."""
 
     __tablename__ = "admin_access"
 
@@ -65,6 +65,8 @@ class One_Time_Password(db.Model):
                             primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False)
     password = db.Column(db.String(64), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
     child = db.relationship('User')
 
     def __repr__(self):
@@ -111,7 +113,7 @@ class Community(db.Model):
 
 
 class Community_Board(db.Model):
-    """List of Community Boards."""
+    """List of Community Board Names."""
 
     __tablename__ = "community_board"
 
@@ -184,7 +186,7 @@ class Community_Resource(db.Model):
          return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
 class State_Region(db.Model):
-    """States and Regions in TESS system."""
+    """States or Regions in TESS system."""
 
     __tablename__ = "state_region"
 
@@ -203,7 +205,7 @@ class State_Region(db.Model):
 
 
 class State_Region_Resource(db.Model):
-    """Links for State and Region Resources."""
+    """Links for State or Region Resources."""
 
     __tablename__ = "state_region_resource"
 
