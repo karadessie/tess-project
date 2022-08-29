@@ -46,7 +46,7 @@ class Admin_Access(db.Model):
                                 autoincrement=True,
                                 primary_key=True)
     admin_access = db.Column(db.String(12), nullable=False)
-    children = db.relationship('Users', 'Community_Resource,','State_Region_Resource', 
+    children = db.relationship('User', 'Community_Resource,','State_Region_Resource', 
                                'National_Resource', 'Global_Resource')
     
     def __repr__(self):
@@ -230,7 +230,7 @@ class Nation(db.Model):
                            autoincrement=True,
                            primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    children = db.relationship('States_Regions', 'National_Resources')
+    children = db.relationship('Stats_Region', 'National_Resource')
 
     def __repr__(self):
          """Provide helpful representation when printed."""
