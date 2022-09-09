@@ -1,9 +1,12 @@
-"""THE EARTH SAVE SYSTEM (TESS) PROJECT"""
+"""THE EARTH SAVE SYSTEM (TESS)"""
 
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
-"""from flask_debugtoolbar import DebugToolbarExtension"""
+
+"""News & Climate APIs"""
+guardian_url = ""
+climatiq_url = ""
 
 from model import connect_to_db, db, User, Admin_Access, One_Time_Password, Home_Resource, Community, \
     Community_Resource, Community_Board, Community_Board_Post, Community_Event, \
@@ -40,9 +43,8 @@ def register_process():
 
     if valid_one_time_password:
         username = request.form["username"]
-        one_time_password = request.form["one_time_password"]
         name = request.form["name"]
-        new_password = request.form["password"]
+        password= request.form["new_password"]
     else:
        flash(f"One time password not found.")
        return redirect("/register")
@@ -64,7 +66,7 @@ def login_form():
 
 @app.route('/login', methods=['POST'])
 def login_process():
-    """Process login. Store user data in session."""
+    """Flask Login."""
 
     # Get form variables
     username = request.form["username"]
@@ -80,7 +82,7 @@ def login_process():
         flash("Incorrect password")
         return redirect("/login")
 
-    user = User(username=username, password=password, admin_access=admin_access, community_id=community_id, name=name)
+    user = User(user_id=user_id, admin_access=admin_access, community_id=community_id, name=name)
     db.session.add(user)
     db.session.commit()
 
@@ -101,40 +103,44 @@ def logout():
 def home_detail(user_id):
     """Display home app page with default or customized resource links."""
 
-    user_id = User.query.options(db.joinedload('user').joinedload('community')).get(user_id)
+    user_id = User.query.options(db.joinedload('user').joinedload('home_resources')).get(user_id)
     return render_template("home.html", user_id=user_id)
 
 
 @app.route('/community', methods=['GET'])
 def community_detail():
-    """Display community page with community boards, daily CO2 and AIQ stats, news, and events."""
+    """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
+       community dbs and news & weather APIs."""
 
-    community_id = Community.query.get()
-    return render_template("community.html", community_id=community_id)
+    community_id = Community.query.get(community_id)
+    return render_template("community.html")
 
 
 @app.route('/state_region', methods=['GET'])
 def state_region_detail():
-    """Display state/region page with resource links, daily CO2 and AIQ stats, and news."""
+    """Display state/region page with resource links, daily CO2 and AIQ stats, and news. Access 
+       state_region dbs and news & weather APIs."""
 
-    state_region_id = State_Region.query.get('state_id')
-    return render_template("state_region.html", state_region_id=state_region_id)
+    state_region_resource = {}
+    state_region_resources = State_Region_Resource.query.all('state_region_id')
+    return render_template("state_region.html")
 
 
 @app.route('/nation', methods=['GET'])
 def nation_detail():
-    """Display national page with resource links daily CO2 and AIQ stats, and news."""
+    """Display national page with resource links daily CO2 and AIQ stats, and news. Access 
+       national dbs and news & weather APIs"""
 
-    nation_id = Nation.query.get('nation_id')
-    return render_template("nation.html", nation_id=nation_id)
+    nation_id = National_Resource.query.all('nation_id')
+    return render_template("nation.html")
 
 
 @app.route('/global', methods=['GET'])
 def global_detail():
-    """Display global page with resource links, daily CO2 and AIQ stats, and news."""
+    """Display global page with resource links, daily CO2 and AIQ stats, and news. Access 
+       global_resourc table and news & weather APIs"""
 
-    global_resource_id = Global_Resource.query.one()
-    return render_template("global.html", global_resource_id=global_resource_id)
+    return render_template("global.html")
 
 
 if __name__ == "__main__":

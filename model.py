@@ -5,6 +5,8 @@ from turtle import title
 from unicodedata import name
 from flask_sqlalchemy import SQLAlchemy
 
+from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
+
 # This is the connection to the PostgreSQL database; we're getting
 # this through the Flask-SQLAlchemy helper library. On this, we can
 # find the `session` object, where we do most of our interactions
@@ -12,11 +14,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
 #####################################################################
 # Model definitions
 
-class User(db.Model):
+
+class User(db.Model, UserMixin):
     """Users in Tess system."""
 
     __tablename__ = "user"
@@ -35,7 +37,7 @@ class User(db.Model):
         """Provide helpful representation when printed."""
 
         return f"<Users username={self.username} name={self.name}>"
-
+        
 
 class Admin_Access(db.Model):
     """List of administration access codes."""
