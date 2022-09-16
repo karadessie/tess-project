@@ -1,1 +1,1 @@
-Prototype of The Earth Save System (TESS). Written for Python Capstone Project.
+Prototype for The Earth Save System (TESS). Python Capstone Project.
