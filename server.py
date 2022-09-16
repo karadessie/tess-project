@@ -1,15 +1,18 @@
 """THE EARTH SAVE SYSTEM (TESS)"""
 
+
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
+
+from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
 
 """News & Climate APIs"""
 guardian_url = ""
 climatiq_url = ""
 
-from model import connect_to_db, db, User, Admin_Access, One_Time_Password, Home_Resource, Community, \
-    Community_Resource, Community_Board, Community_Board_Post, Community_Event, \
+from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Home_Resource, Communities, \
+    Community_Resource, Community_Boards, Community_Board_Post, Community_Event, \
     State_Region, State_Region_Resource, Nation, National_Resource, Global_Resource
 
 app = Flask(__name__)
@@ -49,7 +52,7 @@ def register_process():
        flash(f"One time password not found.")
        return redirect("/register")
 
-    new_user = User(username=username, new_password=password, admin_access=admin_access, \
+    new_user = Users(username=username, new_password=password, admin_access=admin_access, \
                     community_id=community_id, name=name)
     db.session.add(new_user)
     db.session.commit()
@@ -82,7 +85,7 @@ def login_process():
         flash("Incorrect password")
         return redirect("/login")
 
-    user = User(user_id=user_id, admin_access=admin_access, community_id=community_id, name=name)
+    user = Users(user_id=user_id, admin_access=admin_access, community_id=community_id, name=name)
     db.session.add(user)
     db.session.commit()
 
@@ -103,7 +106,7 @@ def logout():
 def home_detail(user_id):
     """Display home app page with default or customized resource links."""
 
-    user_id = User.query.options(db.joinedload('user').joinedload('home_resources')).get(user_id)
+    user_id = Users.query.options(db.joinedload('user').joinedload('home_resources')).get(user_id)
     return render_template("home.html", user_id=user_id)
 
 
@@ -112,7 +115,7 @@ def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
        community dbs and news & weather APIs."""
 
-    community_id = Community.query.get(community_id)
+    community_id = Communities.query.get(community_id)
     return render_template("community.html")
 
 
@@ -122,7 +125,7 @@ def state_region_detail():
        state_region dbs and news & weather APIs."""
 
     state_region_resource = {}
-    state_region_resources = State_Region_Resource.query.all('state_region_id')
+    state_region_resource = State_Region_Resource.query.all('state_region_id')
     return render_template("state_region.html")
 
 

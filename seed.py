@@ -1,12 +1,10 @@
 """Utility file to seed databases in seed_data"""
 
-from turtle import title
-from unicodedata import name
 from sqlalchemy import func
 
-from model import User, Admin_Access, One_Time_Password, Community_Board, Community_Board_Post, \
-                  Home_Resource, Community, Community_Event, Community_Resource, \
-                  Community_Board, Community_Board_Post, State_Region, State_Region_Resource, \
+from model import Users, Admin_Access, One_Time_Passwords, Community_Boards, Community_Board_Post, \
+                  Home_Resource, Communities, Community_Event, Community_Resource, \
+                  Community_Board_Post, State_Region, State_Region_Resource, \
                   Nation, National_Resource, Global_Resource, connect_to_db, db
 from server import app
 
@@ -20,7 +18,7 @@ def load_users(users_filename):
         row = row.rstrip()
         user_id, one_time_password_id, admin_access_id, username, password, name, community_id = row.split("|")
 
-        user = User(user_id=user_id,
+        user = Users(user_id=user_id,
                      one_time_password_id=one_time_password_id,
                      admin_access_id=admin_access_id,
                      community_id=community_id,
@@ -41,7 +39,7 @@ def load_users(users_filename):
 def load_access_codes(admin_access_filename):
     """Load admin codes into database."""
 
-    print("Admin Codes")
+    print("Admin_Access")
 
     for i, row in enumerate(open(admin_access_filename)):
         row = row.rstrip()
@@ -63,15 +61,15 @@ def load_access_codes(admin_access_filename):
 def load_one_time_passwords(one_time_passwords_filename):
     """Load one time passwords into database."""
 
-    print("One Time Passwords")
+    print("One_Time_Passwords")
 
     for i, row in enumerate(open(one_time_password_filename)):
         row = row.rstrip()
         one_time_password_id, date_time, password = row.split("|")
 
-        one_time_password = One_Time_Password(one_time_password_id=one_time_password_id,
-                                              date_time=date_time,
-                                              password=password)
+        one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
+                                               date_time=date_time,
+                                               password=password)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(one_time_password)
@@ -92,9 +90,9 @@ def load_communities(community_filename):
         row = row.rstrip()
         community_id, state_region_id, name = row.split("|")
 
-        community = Community(community_id=community_id,
-                              state_region_id=state_region_id,
-                              name=name)
+        community = Communities(community_id=community_id,
+                                state_region_id=state_region_id,
+                                name=name)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(community)
@@ -110,14 +108,14 @@ def load_communities(community_filename):
 def load_community_boards(community_board_filename):
     """Load community boards into database."""
 
-    print("Community Boards")
+    print("Community_Boards")
 
     for i, row in enumerate(open(community_board_filename)):
         row = row.rstrip()
         community_board_id, title = row.split("|")
 
-        community_board = Community_Board(community_board_id=community_board_id,
-                                          title=title)
+        community_board = Community_Boards(community_board_id=community_board_id,
+                                           title=title)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(community_board)
@@ -137,8 +135,8 @@ def load_community_board_posts(community_board_post_filename):
         community_board_post_id, title, description = row.split("|")
 
         community_board_post = Community_Board_Post(community_board_post_id=community_board_post_id,
-                                                     title=title,
-                                                     description=description)
+                                                    title=title,
+                                                    description=description)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(community_board_post)
@@ -329,11 +327,11 @@ def set_val_user_id():
     """Set value for the next user_id after seeding database"""
 
     # Get the Max user_id in the database
-    result = db.session.query(func.max(User.user_id)).one()
+    result = db.session.query(func.max(Users.user_id)).one()
     max_id = int(result[0])
 
     # Set the value for the next user_id to be max_id + 1
-    query = "SELECT setval('users_user_id_seq', :new_id)"
+    query = "SELECT setval('Users_user_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 

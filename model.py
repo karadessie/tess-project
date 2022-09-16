@@ -1,8 +1,13 @@
 """Models and database functions for Tess project."""
 
-from ast import Global
-from turtle import title
-from unicodedata import name
+from flask_sqlalchemy import SQLAlchemy
+from collections import defaultdict
+
+
+from jinja2 import StrictUndefined
+
+from flask import Flask, render_template, request, flash, redirect, session
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
@@ -18,10 +23,10 @@ db = SQLAlchemy()
 # Model definitions
 
 
-class User(db.Model, UserMixin):
+class Users(UserMixin, db.Model):
     """Users in Tess system."""
 
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -32,6 +37,19 @@ class User(db.Model, UserMixin):
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_password_id'), nullable=False)
+
+    
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.user_id
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -48,8 +66,12 @@ class Admin_Access(db.Model):
                                 autoincrement=True,
                                 primary_key=True)
     admin_access = db.Column(db.String(12), nullable=False)
-    children = db.relationship('User', 'Community_Resource,','State_Region_Resource', 
-                               'National_Resource', 'Global_Resource')
+    users = db.relationship('Users', backref=db.backref("Users"))
+    community_resource = db.relationship('Community_Resource', backref=db.backref("Community_Resource"))
+    state_region_resource = db.relationship('State_Region_Resource', backref=db.backref("State_Region_Resource"))
+    national_resource = db.relationship('National_Resource', backref=db.backref("National_Resource"))
+    global_resource = db.relationship('Global_Resource', backref=db.backref("Global_Resource"))
+
     
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -57,7 +79,7 @@ class Admin_Access(db.Model):
         return f"<Admin Code admin_access={self.admin_access}>"
 
 
-class One_Time_Password(db.Model):
+class One_Time_Passwords(db.Model):
     """List of temporary one time passwords."""
 
     __tablename__ = "one_time_password"
@@ -69,7 +91,7 @@ class One_Time_Password(db.Model):
     password = db.Column(db.String(64), nullable=False)
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    child = db.relationship('User')
+    user = db.relationship('Users', backref=db.backref("Users"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -95,7 +117,7 @@ class Home_Resource(db.Model):
         return f"<Home Resource name={self.name}>"
 
 
-class Community(db.Model):
+class Communities(db.Model):
     """Communities in Tess system."""
 
     __tablename__ = "community"
@@ -105,8 +127,11 @@ class Community(db.Model):
                      primary_key=True)
     state_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
     name = db.Column(db.String(255))
-    children = db.relationship('Home_Resource', 'Community_Resource', 'User', 'Community Event', \
-                               'Community_Board_Post')
+    home_resource = db.relationship('Home_Resource', backref=db.backref("Home_Resource"))
+    community_resource = db.relationship('Community_Resource', backref=db.backref("Community_Resource"))
+    community_event = db.relationship('Community_Event', backref=db.backref("Community_Event"))
+    community_board_post = db.relationship('Community_Board_Post', backref=db.backref("Community_Board_Post"))
+    user = db.relationship('Users', backref=db.backref("Users"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -114,7 +139,7 @@ class Community(db.Model):
         return f"<Community name={self.name}>"
 
 
-class Community_Board(db.Model):
+class Community_Boards(db.Model):
     """List of Community Board Names."""
 
     __tablename__ = "community_board"
@@ -123,7 +148,7 @@ class Community_Board(db.Model):
                           autoincrement=True,
                           primary_key=True)
     title = db.Column(db.String(64), nullable=False)
-    children = db.relationship('Community_Board_Post')
+    community_board_post = db.relationship('Community_Board_Post', backref=db.backref("Community_Board_Post"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -197,7 +222,8 @@ class State_Region(db.Model):
                        primary_key=True)
     nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    children = db.relationship('Community', 'State_Region_Resource')
+    community = db.relationship('Communities', backref=db.backref("Communities"))
+    state_region_resource = db.relationship('State_Region Resource', backref=db.backref("State_Region_Resource"))
 
 
     def __repr__(self):
@@ -234,7 +260,8 @@ class Nation(db.Model):
                            autoincrement=True,
                            primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    children = db.relationship('Stats_Region', 'National_Resource')
+    state_region = db.relationship('State_Region', backref=db.backref("State_Region"))
+    national_resource = db.relationship('National_Resource', backref=db.backref("National_Resource"))
 
     def __repr__(self):
          """Provide helpful representation when printed."""
@@ -285,7 +312,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///users'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/users"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
