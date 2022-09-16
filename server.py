@@ -42,7 +42,7 @@ def register_process():
     """Add new user with valid one-time password. Store user data in session."""
 
     one_time_password = request.form["one_time_password"]
-    valid_one_time_password = User.query.get(one_time_password)
+    valid_one_time_password = Users.query.get(one_time_password)
 
     if valid_one_time_password:
         username = request.form["username"]
@@ -71,26 +71,11 @@ def login_form():
 def login_process():
     """Flask Login."""
 
-    # Get form variables
-    username = request.form["username"]
-    password = request.form["password"]
-
-    user = User.query.get(username=username, password=password)
-
-    if not user:
-        flash("User not found")
-        return redirect("/login")
-
-    if user.password != password:
-        flash("Incorrect password")
-        return redirect("/login")
-
-    user = Users(user_id=user_id, admin_access=admin_access, community_id=community_id, name=name)
     db.session.add(user)
     db.session.commit()
 
     flash("Logged in")
-    return redirect(f"/home/{user.user_id}")
+    return redirect(f"/home/{users.user_id}")
 
 
 @app.route('/logout')

@@ -1,8 +1,6 @@
-"""Models and database functions for Tess project."""
+"""Data Models for TESS Project"""
 
 from flask_sqlalchemy import SQLAlchemy
-from collections import defaultdict
-
 
 from jinja2 import StrictUndefined
 
@@ -19,12 +17,9 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 
 db = SQLAlchemy()
 
-#####################################################################
-# Model definitions
-
 
 class Users(UserMixin, db.Model):
-    """Users in Tess system."""
+    """Users in the database"""
 
     __tablename__ = "users"
 
@@ -58,7 +53,7 @@ class Users(UserMixin, db.Model):
         
 
 class Admin_Access(db.Model):
-    """List of administration access codes."""
+    """List of administrative access codes"""
 
     __tablename__ = "admin_access"
 
@@ -80,7 +75,7 @@ class Admin_Access(db.Model):
 
 
 class One_Time_Passwords(db.Model):
-    """List of temporary one time passwords."""
+    """List of temporary one-time-passwords"""
 
     __tablename__ = "one_time_password"
 
@@ -100,7 +95,7 @@ class One_Time_Passwords(db.Model):
 
 
 class Home_Resource(db.Model):
-    """Links for Home App Resources."""
+    """Links for Home App Resources"""
 
     __tablename__ = "home_resource"
 
@@ -118,7 +113,7 @@ class Home_Resource(db.Model):
 
 
 class Communities(db.Model):
-    """Communities in Tess system."""
+    """Communities in the database"""
 
     __tablename__ = "community"
 
@@ -140,7 +135,7 @@ class Communities(db.Model):
 
 
 class Community_Boards(db.Model):
-    """List of Community Board Names."""
+    """List of Community Board Names"""
 
     __tablename__ = "community_board"
 
@@ -157,7 +152,7 @@ class Community_Boards(db.Model):
 
 
 class Community_Board_Post(db.Model):
-    """List of Community Board Posts."""
+    """List of Community Board Posts"""
 
     __tablename__ = "community_board_post"
 
@@ -176,7 +171,7 @@ class Community_Board_Post(db.Model):
 
 
 class Community_Event(db.Model):
-    """List of Community Events."""
+    """List of Community Events"""
 
     __tablename__ = "community_event"
 
@@ -195,7 +190,7 @@ class Community_Event(db.Model):
 
 
 class Community_Resource(db.Model):
-    """Links for Community Resources."""
+    """Links for Community Resources"""
 
     __tablename__ = "community_resource"
 
@@ -213,7 +208,7 @@ class Community_Resource(db.Model):
          return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
 class State_Region(db.Model):
-    """States or Regions in TESS system."""
+    """States or Regions in the database"""
 
     __tablename__ = "state_region"
 
@@ -225,7 +220,6 @@ class State_Region(db.Model):
     community = db.relationship('Communities', backref=db.backref("Communities"))
     state_region_resource = db.relationship('State_Region Resource', backref=db.backref("State_Region_Resource"))
 
-
     def __repr__(self):
          """Provide helpful representation when printed."""
          
@@ -233,7 +227,7 @@ class State_Region(db.Model):
 
 
 class State_Region_Resource(db.Model):
-    """Links for State or Region Resources."""
+    """Links for State or Region Resources"""
 
     __tablename__ = "state_region_resource"
 
@@ -252,7 +246,7 @@ class State_Region_Resource(db.Model):
 
 
 class Nation(db.Model):
-    """Nations in Tess system."""
+    """Nations in the database"""
 
     __tablename__ = "nation"
 
@@ -270,7 +264,7 @@ class Nation(db.Model):
 
 
 class National_Resource(db.Model):
-    """Links for National Resources."""
+    """Links for National Resources"""
 
     __tablename__ = "national_resource"
 
@@ -289,7 +283,7 @@ class National_Resource(db.Model):
 
 
 class Global_Resource(db.Model):
-    """Links for Global Resources."""
+    """Links for Global Resources"""
 
     __tablename__ = "global_resource"
 
@@ -305,13 +299,10 @@ class Global_Resource(db.Model):
                  
         return f"<Global Resources global_resource_id={self.global_resource_id} name={self.name}>" 
 
-#####################################################################
-# Helper functions
 
 def connect_to_db(app):
-    """Connect the database to our Flask app."""
+    """Connect the database to the Flask app"""
 
-    # Configure to use our PostgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/users"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app

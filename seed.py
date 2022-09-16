@@ -1,4 +1,4 @@
-"""Utility file to seed databases in seed_data"""
+"""Utility file to seed databases"""
 
 from sqlalchemy import func
 
@@ -25,15 +25,8 @@ def load_users(users_filename):
                      username=username,
                      password=password,
                      name=name)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(user)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
 
 def load_access_codes(admin_access_filename):
@@ -47,15 +40,8 @@ def load_access_codes(admin_access_filename):
 
         admin_access = Admin_Access(admin_access_id=admin_access_id,
                                     name=name)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(admin_access)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
 
 def load_one_time_passwords(one_time_passwords_filename):
@@ -70,16 +56,10 @@ def load_one_time_passwords(one_time_passwords_filename):
         one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
                                                date_time=date_time,
                                                password=password)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(one_time_password)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
+
 
 def load_communities(community_filename):
     """Load Communities into database."""
@@ -93,15 +73,8 @@ def load_communities(community_filename):
         community = Communities(community_id=community_id,
                                 state_region_id=state_region_id,
                                 name=name)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(community)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
 
 
@@ -116,13 +89,9 @@ def load_community_boards(community_board_filename):
 
         community_board = Community_Boards(community_board_id=community_board_id,
                                            title=title)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(community_board)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
 
 
 def load_community_board_posts(community_board_post_filename):
@@ -137,13 +106,10 @@ def load_community_board_posts(community_board_post_filename):
         community_board_post = Community_Board_Post(community_board_post_id=community_board_post_id,
                                                     title=title,
                                                     description=description)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(community_board_post)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
+
 
 def load_community_events(community_event_filename):
     """Load community events into database."""
@@ -157,13 +123,9 @@ def load_community_events(community_event_filename):
         community_event = Community_Event(community_event_id=community_event_id,
                                           title=title,
                                           description=description)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(community_event)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
 
 
 def load_community_resources(community_resources_filename):
@@ -179,13 +141,9 @@ def load_community_resources(community_resources_filename):
                                                 community_id=community_id,
                                                 admin_access_id=admin_access_id,
                                                 community_link=community_link)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(community_resource)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
 
 
 def load_home_resources(home_resources_filename):
@@ -200,13 +158,9 @@ def load_home_resources(home_resources_filename):
         home_resource = Home_Resource(home_resource_id=home_resource_id,
                                       community_id=community_id,
                                       home_link=home_link)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(home_resource)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
 
 
 def load_states_regions(state_region_filename):
@@ -221,16 +175,10 @@ def load_states_regions(state_region_filename):
         state_region = State_Region(state_region_id=state_region_id,
                                     nation_id=nation_id,
                                     name=name)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(state_region)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
+
 
 def load_state_region_resources(state_region_resource_filename):
     """Load state and regional resource links into database."""
@@ -245,13 +193,10 @@ def load_state_region_resources(state_region_resource_filename):
                                                        states_region_id=states_region_id,
                                                        admin_access_id=admin_access_id,
                                                        states_region_link=state_region_link)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(state_region_resource)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
+    db.session.commit()
+
 
 def load_nations(nations_filename):
     """Load Nations into database."""
@@ -264,16 +209,10 @@ def load_nations(nations_filename):
 
         nation = Nation(nation_id=nation_id,
                         name=name)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(nation)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
+
 
 def load_national_resources(national_resource_filename):
     """Load national resource links into database."""
@@ -288,16 +227,10 @@ def load_national_resources(national_resource_filename):
                                                nation_id=nation_id,
                                                access_code_id=admin_access_id,
                                                national_link=national_link)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(national_resource)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
+
 
 def load_global_resources(global_resources_filename):
     """Load global resource links into database."""
@@ -311,15 +244,8 @@ def load_global_resources(global_resources_filename):
         global_resource = Global_Resource(global_resource_id=global_resource_id,
                                           admin_access_id=admin_access_id,
                                           global_link=global_link)
-
-        # We need to add to the session or it won't ever be stored
         db.session.add(global_resource)
 
-        # provide some sense of progress
-        if i % 100 == 0:
-            print(i)
-
-    # Once we're done, we should commit our work
     db.session.commit()
 
 
