@@ -1,19 +1,18 @@
 """THE EARTH SAVE SYSTEM (TESS)"""
-
-
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
-
-from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
-
-"""News & Climate APIs"""
-guardian_url = ""
-climatiq_url = ""
+from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Home_Resource, Communities, \
     Community_Resource, Community_Boards, Community_Board_Post, Community_Event, \
     State_Region, State_Region_Resource, Nation, National_Resource, Global_Resource
+
+"""News & Climate APIs"""
+
+guardian_url = ""
+climatiq_url = ""
+
 
 app = Flask(__name__)
 
@@ -25,21 +24,21 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
-    """ Display homepage."""
+    """ Display homepage"""
 
     return render_template("homepage.html")
 
 
 @app.route('/register', methods=['GET'])
 def register_form():
-    """Display form for new user registraion."""
+    """Display form for user registraion"""
 
     return render_template("register_form.html")
 
 
 @app.route('/register', methods=['POST'])
 def register_process():
-    """Add new user with valid one-time password. Store user data in session."""
+    """Add new user with valid one-time password. Store user in session."""
 
     one_time_password = request.form["one_time_password"]
     valid_one_time_password = Users.query.get(one_time_password)
@@ -52,30 +51,28 @@ def register_process():
        flash(f"One time password not found.")
        return redirect("/register")
 
-    new_user = Users(username=username, new_password=password, admin_access=admin_access, \
-                    community_id=community_id, name=name)
+    new_user = Users(username=username, new_password=password, name=name)
     db.session.add(new_user)
     db.session.commit()
     flash(f"{name} added.")
-    return redirect(f"/home/{new_user.user_id}")
+    return redirect(f"/home/")
 
 
 @app.route('/login', methods=['GET'])
 def login_form():
-    """Display login form."""
+    """Display login form"""
 
     return render_template("login_form.html")
 
 
 @app.route('/login', methods=['POST'])
 def login_process():
-    """Flask Login."""
+    """Flask Login"""
 
-    db.session.add(user)
     db.session.commit()
 
     flash("Logged in")
-    return redirect(f"/home/{users.user_id}")
+    return redirect(f"/home/")
 
 
 @app.route('/logout')
@@ -89,7 +86,7 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def home_detail(user_id):
-    """Display home app page with default or customized resource links."""
+    """Display home app page"""
 
     user_id = Users.query.options(db.joinedload('user').joinedload('home_resources')).get(user_id)
     return render_template("home.html", user_id=user_id)
@@ -140,7 +137,6 @@ if __name__ == "__main__":
 
     connect_to_db(app)
 
-    # Use the DebugToolbar
-    """DebugToolbarExtension(app)"""
+    DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")

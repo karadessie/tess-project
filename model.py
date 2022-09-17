@@ -1,19 +1,12 @@
 """Data Models for TESS Project"""
-
 from flask_sqlalchemy import SQLAlchemy
-
-from jinja2 import StrictUndefined
-
-from flask import Flask, render_template, request, flash, redirect, session
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_sqlalchemy import SQLAlchemy
+from collections import defaultdict
 
 from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
 
 # This is the connection to the PostgreSQL database; we're getting
 # this through the Flask-SQLAlchemy helper library. On this, we can
 # find the `session` object, where we do most of our interactions
-# (like committing, etc.)
 
 db = SQLAlchemy()
 
@@ -39,7 +32,7 @@ class Users(UserMixin, db.Model):
         return True
 
     def get_id(self):
-        """Return the email address to satisfy Flask-Login's requirements."""
+        """Return the user_id to satisfy Flask-Login's requirements."""
         return self.user_id
 
     def is_authenticated(self):
@@ -305,6 +298,7 @@ def connect_to_db(app):
 
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/users"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
 
