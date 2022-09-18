@@ -2,7 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict
 
-from flask_login import UserMixin, login_user, LoginManager, login_required, login_user, current_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 # This is the connection to the PostgreSQL database; we're getting
 # this through the Flask-SQLAlchemy helper library. On this, we can
@@ -11,7 +11,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 db = SQLAlchemy()
 
 
-class Users(UserMixin, db.Model):
+class Users(db.Model, UserMixin):
     """Users in the database"""
 
     __tablename__ = "users"

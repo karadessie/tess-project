@@ -1,4 +1,5 @@
 """THE EARTH SAVE SYSTEM (TESS)"""
+from wsgiref import validate
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
@@ -7,6 +8,9 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Home_Resource, Communities, \
     Community_Resource, Community_Boards, Community_Board_Post, Community_Event, \
     State_Region, State_Region_Resource, Nation, National_Resource, Global_Resource
+
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+
 
 """News & Climate APIs"""
 
@@ -21,12 +25,22 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
+"""Flask Login"""
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "users.login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.get(user_id)
+
 
 @app.route('/')
-def index():
-    """ Display homepage"""
+def welcome():
+    """ Display welcomepage"""
 
-    return render_template("homepage.html")
+    return render_template("welcomepage.html")
 
 
 @app.route('/register', methods=['GET'])
@@ -38,7 +52,7 @@ def register_form():
 
 @app.route('/register', methods=['POST'])
 def register_process():
-    """Add new user with valid one-time password. Store user in session."""
+    """Add new user with valid one-time password"""
 
     one_time_password = request.form["one_time_password"]
     valid_one_time_password = Users.query.get(one_time_password)
@@ -46,45 +60,45 @@ def register_process():
     if valid_one_time_password:
         username = request.form["username"]
         name = request.form["name"]
-        password= request.form["new_password"]
+        password = request.form["new_password"]
     else:
-       flash(f"One time password not found.")
+       flash(f"One time password not found")
        return redirect("/register")
 
     new_user = Users(username=username, new_password=password, name=name)
     db.session.add(new_user)
     db.session.commit()
     flash(f"{name} added.")
-    return redirect(f"/home/")
+    return render_template("welcomepage.html")
 
 
-@app.route('/login', methods=['GET'])
-def login_form():
-    """Display login form"""
-
-    return render_template("login_form.html")
-
-
-@app.route('/login', methods=['POST'])
-def login_process():
+@app.route('/login')
+def login():
     """Flask Login"""
 
-    db.session.commit()
+    if login_required:
+        return render_template("login_form.html")
 
-    flash("Logged in")
-    return redirect(f"/home/")
+    login_username = request.form["username"]
+    login_password = request.form["password"]
+    user = Users.query.one_or_none(username=login_username, password=login_password)
+    if user:
+        login_user(user)
+        return render_template("welcomepage.html")
+    else:
+        return render_template("login_form.html")
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    """Log out."""
-
-    del session["user_id"]
-    flash("Logged Out.")
+    logout_user()
+    flash("Logged Out")
     return redirect("/")
 
 
 @app.route('/home', methods=['GET'])
+@login_required
 def home_detail(user_id):
     """Display home app page"""
 
@@ -93,6 +107,7 @@ def home_detail(user_id):
 
 
 @app.route('/community', methods=['GET'])
+@login_required
 def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
        community dbs and news & weather APIs."""
@@ -102,6 +117,7 @@ def community_detail():
 
 
 @app.route('/state_region', methods=['GET'])
+@login_required
 def state_region_detail():
     """Display state/region page with resource links, daily CO2 and AIQ stats, and news. Access 
        state_region dbs and news & weather APIs."""
@@ -112,6 +128,7 @@ def state_region_detail():
 
 
 @app.route('/nation', methods=['GET'])
+@login_required
 def nation_detail():
     """Display national page with resource links daily CO2 and AIQ stats, and news. Access 
        national dbs and news & weather APIs"""
@@ -121,6 +138,7 @@ def nation_detail():
 
 
 @app.route('/global', methods=['GET'])
+@login_required
 def global_detail():
     """Display global page with resource links, daily CO2 and AIQ stats, and news. Access 
        global_resourc table and news & weather APIs"""
