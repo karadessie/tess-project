@@ -69,3 +69,17 @@ a:hover {
 a:active {
   font-weight: bold;
 }
+
+#loginButton {
+  background-color: #fefefa;
+  padding: 11px;
+  font-weight: bold;
+  border-radius: 11px;
+}
+
+#registerButton {
+  background-color: #fefefa;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 10px;
+}

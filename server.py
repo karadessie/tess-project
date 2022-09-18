@@ -12,11 +12,18 @@ from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Ho
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 
-"""News & Climate APIs"""
+"""News & Climate APIs
 
-guardian_url = ""
-climatiq_url = ""
+guardian_url = GUARDIAN-SECRET-KEY
+climatiq_url = CLIMATIQ-SECRET-KEY
 
+from theguardian import theguardian_content
+
+content = theguardian_content.Content(api='test', url=environment)
+
+content_response = content.get_content_response()
+print(content_response)
+"""
 
 app = Flask(__name__)
 
@@ -68,7 +75,7 @@ def register_process():
     new_user = Users(username=username, new_password=password, name=name)
     db.session.add(new_user)
     db.session.commit()
-    flash(f"{name} added.")
+    flash(f"{name} added")
     return render_template("welcomepage.html")
 
 
@@ -86,6 +93,7 @@ def login():
         login_user(user)
         return render_template("welcomepage.html")
     else:
+        flash(f"Login Unsuccessful")
         return render_template("login_form.html")
 
 
