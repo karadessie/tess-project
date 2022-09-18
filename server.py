@@ -14,12 +14,12 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 
 """News & Climate APIs
 
-guardian_url = GUARDIAN-SECRET-KEY
-climatiq_url = CLIMATIQ-SECRET-KEY
+guardian_url = GUARDIAN_URL
+climatiq_url = CLIMATIQ_URL
 
 from theguardian import theguardian_content
 
-content = theguardian_content.Content(api='test', url=environment)
+content = theguardian_content.Content(api='test', url=GUARDIAN_URL)
 
 content_response = content.get_content_response()
 print(content_response)
@@ -51,15 +51,8 @@ def welcome():
 
 
 @app.route('/register', methods=['GET'])
-def register_form():
-    """Display form for user registraion"""
-
-    return render_template("register_form.html")
-
-
-@app.route('/register', methods=['POST'])
-def register_process():
-    """Add new user with valid one-time password"""
+def register_new_user():
+    """Add new user with valid one-time-password"""
 
     one_time_password = request.form["one_time_password"]
     valid_one_time_password = Users.query.get(one_time_password)
@@ -69,7 +62,7 @@ def register_process():
         name = request.form["name"]
         password = request.form["new_password"]
     else:
-       flash(f"One time password not found")
+       flash(f"Please enter username & one-time-password")
        return redirect("/register")
 
     new_user = Users(username=username, new_password=password, name=name)
@@ -84,7 +77,7 @@ def login():
     """Flask Login"""
 
     if login_required:
-        return render_template("login_form.html")
+        return render_template("login.html")
 
     login_username = request.form["username"]
     login_password = request.form["password"]
@@ -94,19 +87,10 @@ def login():
         return render_template("welcomepage.html")
     else:
         flash(f"Login Unsuccessful")
-        return render_template("login_form.html")
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash("Logged Out")
-    return redirect("/")
+        return render_template("login.html")
 
 
 @app.route('/home', methods=['GET'])
-@login_required
 def home_detail(user_id):
     """Display home app page"""
 
@@ -115,7 +99,6 @@ def home_detail(user_id):
 
 
 @app.route('/community', methods=['GET'])
-@login_required
 def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
        community dbs and news & weather APIs."""
@@ -125,7 +108,6 @@ def community_detail():
 
 
 @app.route('/state_region', methods=['GET'])
-@login_required
 def state_region_detail():
     """Display state/region page with resource links, daily CO2 and AIQ stats, and news. Access 
        state_region dbs and news & weather APIs."""
@@ -136,7 +118,6 @@ def state_region_detail():
 
 
 @app.route('/nation', methods=['GET'])
-@login_required
 def nation_detail():
     """Display national page with resource links daily CO2 and AIQ stats, and news. Access 
        national dbs and news & weather APIs"""
@@ -146,12 +127,17 @@ def nation_detail():
 
 
 @app.route('/global', methods=['GET'])
-@login_required
 def global_detail():
     """Display global page with resource links, daily CO2 and AIQ stats, and news. Access 
        global_resourc table and news & weather APIs"""
 
     return render_template("global.html")
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash("Logged Out")
+    return redirect("/")
 
 
 if __name__ == "__main__":
