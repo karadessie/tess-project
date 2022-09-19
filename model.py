@@ -16,7 +16,7 @@ class Users(db.Model, UserMixin):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer,
+    id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
     username = db.Column(db.String(64), nullable=False)
