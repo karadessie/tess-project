@@ -79,3 +79,8 @@ a:active {
   font-weight: bold;
   border-radius: 10px;
 }
+
+.spaced {
+  margin-left:20px; 
+  margin-top: 20px;
+}

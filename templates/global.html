@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
   <h1>TESS GLOBAL</h1>
-  <form action="/global" method="GET">
+
+  <input type="number" id="ciimatiq" name="CO2" readonly> (( CO2 )) </input>
+  <input type="number" id="ciimatiq" name="AQI" readonly> (( AQI )) </input>
+  
+  <div class="well spaced" style="width:50%;">
     <ul>
       {% for global_resource_link in global_resouces %}
         <li>
-          <a href="/global_resource/{{ global_resource_link }}">{{ name }})
+          <a href="/global_resource/{{ global_resource_link }}">{{ global_resource_name }}</a>
           </a>
         </li>
       {% endfor %}
     </ul>
-  </form>
+  </div>
+
+  <div class="well spaced" style="width:50%;">
+    <ul>
+      {% for guardian article in the guardian %}
+        <li>
+          <a href="/guardian/{{ guardian_link }}">{{ guardian_name }}</a>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 
 {% endblock %}

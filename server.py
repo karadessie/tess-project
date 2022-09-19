@@ -128,7 +128,7 @@ def home_detail(user_id):
     return render_template("home.html")
 
 
-@app.route('/community', methods=['GET'])
+@app.route('/communities', methods=['GET'])
 def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
        community dbs and news & weather APIs."""
