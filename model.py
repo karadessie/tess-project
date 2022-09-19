@@ -2,7 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict
 
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import UserMixin
 
 # This is the connection to the PostgreSQL database; we're getting
 # this through the Flask-SQLAlchemy helper library. On this, we can
@@ -26,14 +26,6 @@ class Users(db.Model, UserMixin):
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
     one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_password_id'), nullable=False)
 
-    
-    def is_active(self):
-        """True, as all users are active."""
-        return True
-
-    def get_id(self):
-        """Return the user_id to satisfy Flask-Login's requirements."""
-        return self.user_id
 
     def is_authenticated(self):
         """Return True if the user is authenticated."""
@@ -87,7 +79,7 @@ class One_Time_Passwords(db.Model):
         return f"<One Time Password password={self.password}>"
 
 
-class Home_Resource(db.Model):
+class Home_Resources(db.Model):
     """Links for Home App Resources"""
 
     __tablename__ = "home_resource"
@@ -144,7 +136,7 @@ class Community_Boards(db.Model):
         return f"<Community Board title={self.title}>"
 
 
-class Community_Board_Post(db.Model):
+class Community_Board_Posts(db.Model):
     """List of Community Board Posts"""
 
     __tablename__ = "community_board_post"
@@ -163,7 +155,7 @@ class Community_Board_Post(db.Model):
         return f"<Community Board Posts community_board_post_id={self.community_board_post_id} title={self.title}>"
 
 
-class Community_Event(db.Model):
+class Community_Events(db.Model):
     """List of Community Events"""
 
     __tablename__ = "community_event"
@@ -182,7 +174,7 @@ class Community_Event(db.Model):
         return f"<Community Events community_event_id={self.one_time_password_id} title={self.title}>"
 
 
-class Community_Resource(db.Model):
+class Community_Resources(db.Model):
     """Links for Community Resources"""
 
     __tablename__ = "community_resource"
@@ -200,7 +192,7 @@ class Community_Resource(db.Model):
 
          return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
-class State_Region(db.Model):
+class State_Regions(db.Model):
     """States or Regions in the database"""
 
     __tablename__ = "state_region"
@@ -219,7 +211,7 @@ class State_Region(db.Model):
          return f"<States & Regions state_region_id={self.state_region_id} name={self.name}>" 
 
 
-class State_Region_Resource(db.Model):
+class State_Region_Resources(db.Model):
     """Links for State or Region Resources"""
 
     __tablename__ = "state_region_resource"
@@ -238,7 +230,7 @@ class State_Region_Resource(db.Model):
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} name={self.name}>" 
 
 
-class Nation(db.Model):
+class Nations(db.Model):
     """Nations in the database"""
 
     __tablename__ = "nation"
@@ -256,7 +248,7 @@ class Nation(db.Model):
          return f"<Nations nation_id={self.nation_id} name={self.name}>" 
 
 
-class National_Resource(db.Model):
+class National_Resources(db.Model):
     """Links for National Resources"""
 
     __tablename__ = "national_resource"
@@ -275,7 +267,7 @@ class National_Resource(db.Model):
         return f"<National Resources national_resources_id={self.national_resources_id} name={self.name}>" 
 
 
-class Global_Resource(db.Model):
+class Global_Resources(db.Model):
     """Links for Global Resources"""
 
     __tablename__ = "global_resource"

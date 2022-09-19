@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h1> {{ community_board_name }} </h1>
+  <form action="/communityboard" method="GET">
+  <ul>
+    {% for community board posts %}
+      <li>
+        <a href="/communityboard/{{ community_board_post }}">
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
