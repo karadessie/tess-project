@@ -27,12 +27,11 @@ news_content_response = news_content.get_content_response()
 print(news_content_response)
 
 
-from climatiq import climatiq_content
+from climatiq:
 
-weather_content = climatiq_content.Content(api='test', url=CLIMATIQ_URL)
-
-weather_content_response = weather_content.get_content_response()
-print(weather_content_response)
+curl --request GET 
+    --url 'https://beta3.api.climatiq.io/search?query=category&region' 
+    --header 'Authorization: Bearer CLIMATIQ_API_KEY'
 """
 
 app = Flask(__name__)
@@ -48,8 +47,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.get(user_id)
-
+    return Users.query.filter_by(alternative_id=user_id).first()
 
 @app.route('/')
 def welcome():
@@ -58,7 +56,14 @@ def welcome():
     return render_template("welcomepage.html")
 
 
-@app.route('/register', methods=['GET'])
+@app.route('/register',  methods=['GET'])
+def register():
+    """ Display Register Form"""
+
+    return render_template("register.html")
+
+
+@app.route('/register', methods=['POST'])
 def add_new_user():
     """Add new user with valid one-time-password"""
 
@@ -72,7 +77,7 @@ def add_new_user():
         name = request.form["name"]
         password = request.form["new_password"]
     else:
-       flash(f"Please enter username & one-time-password")
+       flash(f"Please register")
        return redirect("/register")
 
     new_user = Users(username=username, password=password, name=name, admin_access_id=admin_access_id)
@@ -82,7 +87,7 @@ def add_new_user():
     return render_template("welcomepage.html")
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     """Flask Login"""
 
@@ -104,7 +109,7 @@ def login():
         return redirect("/register")
 
 
-@app.route('/home', methods=['GET'])
+@app.route('/home', methods=['GET', 'POST'])
 def home_detail(user_id):
     """Display home app page"""
 
@@ -228,7 +233,7 @@ def global_detail():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash("Logged Out")
+    flash("Logged Out", "error")
     return redirect("/")
 
 

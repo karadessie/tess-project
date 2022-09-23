@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Register</h1>
+<h1 class="header1">THE EARTH SAVE SYSTEM</h1>
+
+<h2>Register</h2>
 
 <form action="register" method="POST">
 
@@ -15,21 +17,21 @@
   <div>
     <label>
       One Time Password:
-      <input type="one_time_password" name="one_time_password">
+      <input type="one_time_password" name="one_time_password" required>
     </label>
   </div>
   <p></p>
   <div>
     <label>
       New Password:
-      <input type="new_password" name="new_password">
+      <input type="new_password" name="new_password" required>
     </label>
   </div>
   <p></p>
   <div>
     <label>
       Confirm New Password:
-      <input type="text" name="new_password">
+      <input type="text" name="new_password" required>
     </label>
   </div>
   <p></p>

@@ -16,17 +16,19 @@ class Users(db.Model, UserMixin):
 
     __tablename__ = "users"
 
-    id = db.Column(db.Integer,
+    user_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
+    one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_password.one_time_password_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
     username = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    name = db.Column(db.String(255), nullable=False)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
-    one_time_password_id = db.Column(db.Integer, db.ForeignKey('one_time_password_id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
 
-
+    def get_id(self):
+        return str(self.alternative_id)
+    
     def is_authenticated(self):
         """Return True if the user is authenticated."""
         return self.authenticated
@@ -46,11 +48,6 @@ class Admin_Access(db.Model):
                                 autoincrement=True,
                                 primary_key=True)
     admin_access = db.Column(db.String(12), nullable=False)
-    users = db.relationship('Users', backref=db.backref("Users"))
-    community_resource = db.relationship('Community_Resource', backref=db.backref("Community_Resource"))
-    state_region_resource = db.relationship('State_Region_Resource', backref=db.backref("State_Region_Resource"))
-    national_resource = db.relationship('National_Resource', backref=db.backref("National_Resource"))
-    global_resource = db.relationship('Global_Resource', backref=db.backref("Global_Resource"))
 
     
     def __repr__(self):
@@ -69,9 +66,9 @@ class One_Time_Passwords(db.Model):
                             primary_key=True)
     date_time = db.Column(db.DateTime, nullable=False)
     password = db.Column(db.String(64), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    user = db.relationship('Users', backref=db.backref("Users"))
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
+
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -87,7 +84,7 @@ class Home_Resources(db.Model):
     home_resource_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -105,13 +102,8 @@ class Communities(db.Model):
     community_id = db.Column(db.Integer,
                      autoincrement=True,
                      primary_key=True)
-    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
+    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region.state_region_id'), nullable=False)
     name = db.Column(db.String(255))
-    home_resource = db.relationship('Home_Resource', backref=db.backref("Home_Resource"))
-    community_resource = db.relationship('Community_Resource', backref=db.backref("Community_Resource"))
-    community_event = db.relationship('Community_Event', backref=db.backref("Community_Event"))
-    community_board_post = db.relationship('Community_Board_Post', backref=db.backref("Community_Board_Post"))
-    user = db.relationship('Users', backref=db.backref("Users"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -128,7 +120,6 @@ class Community_Boards(db.Model):
                           autoincrement=True,
                           primary_key=True)
     title = db.Column(db.String(64), nullable=False)
-    community_board_post = db.relationship('Community_Board_Post', backref=db.backref("Community_Board_Post"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -144,8 +135,8 @@ class Community_Board_Posts(db.Model):
     community_board_post_id = db.Column(db.Integer,
                                autoincrement=True,
                                primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    community_board_id = db.Column(db.Integer, db.ForeignKey('community_board_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
+    community_board_id = db.Column(db.Integer, db.ForeignKey('community_board.community_board_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(510), nullable=False)
 
@@ -164,7 +155,7 @@ class Community_Events(db.Model):
                           autoincrement=True,
                           primary_key=True)
     date_time = db.Column(db.DateTime)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
     title = db.Column(db.String(64), nullable=False)
     description = db.Column(db.String(510), nullable=False)
 
@@ -182,8 +173,8 @@ class Community_Resources(db.Model):
     community_resource_id = db.Column(db.Integer,
                              autoincrement=True,
                              primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey('community_id'), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -200,10 +191,9 @@ class State_Regions(db.Model):
     state_region_id = db.Column(db.Integer,
                        autoincrement=True,
                        primary_key=True)
-    nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
+    nation_id = db.Column(db.Integer, db.ForeignKey('nation.nation_id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    community = db.relationship('Communities', backref=db.backref("Communities"))
-    state_region_resource = db.relationship('State_Region Resource', backref=db.backref("State_Region_Resource"))
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
 
     def __repr__(self):
          """Provide helpful representation when printed."""
@@ -219,8 +209,8 @@ class State_Region_Resources(db.Model):
     states_region_resource_id = db.Column(db.Integer,
                                   autoincrement=True,
                                   primary_key=True)
-    states_region_id = db.Column(db.Integer, db.ForeignKey('state_region_id'), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
+    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region.state_region_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -239,8 +229,6 @@ class Nations(db.Model):
                            autoincrement=True,
                            primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    state_region = db.relationship('State_Region', backref=db.backref("State_Region"))
-    national_resource = db.relationship('National_Resource', backref=db.backref("National_Resource"))
 
     def __repr__(self):
          """Provide helpful representation when printed."""
@@ -256,8 +244,8 @@ class National_Resources(db.Model):
     national_resource_id = db.Column(db.Integer,
                             autoincrement=True,
                             primary_key=True)
-    nation_id = db.Column(db.Integer, db.ForeignKey('nation_id'), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
+    nation_id = db.Column(db.Integer, db.ForeignKey('nation.nation_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -275,7 +263,7 @@ class Global_Resources(db.Model):
     global_resource_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access_id'), nullable=False)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     link = db.Column(db.String(64), nullable=False)
 
@@ -288,7 +276,7 @@ class Global_Resources(db.Model):
 def connect_to_db(app):
     """Connect the database to the Flask app"""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/users"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://aeuiriruznhytf:f271469a21f44207c4806154efc00666af69e02b5b57c30058c6efdc5bded155@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d1c6vl2nchn4s5"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
