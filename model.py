@@ -11,6 +11,90 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 
 
+class Nations(db.Model):
+    """Nations in the database"""
+
+    __tablename__ = "nation"
+
+    nation_id = db.Column(db.Integer,
+                           autoincrement=True,
+                           primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+         """Provide helpful representation when printed."""
+                  
+         return f"<Nations nation_id={self.nation_id} name={self.name}>" 
+
+
+class State_Regions(db.Model):
+    """States or Regions in the database"""
+
+    __tablename__ = "state_region"
+
+    state_region_id = db.Column(db.Integer,
+                       autoincrement=True,
+                       primary_key=True)
+    nation_id = db.Column(db.Integer, db.ForeignKey('nation.nation_id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+         """Provide helpful representation when printed."""
+ 
+         return f"<States & Regions state_region_id={self.state_region_id} name={self.name}>" 
+
+
+class Admin_Access(db.Model):
+    """List of administrative access codes"""
+
+    __tablename__ = "admin_access"
+
+    admin_access_id = db.Column(db.Integer,
+                                autoincrement=True,
+                                primary_key=True)
+    admin_access_name = db.Column(db.String(12), nullable=False)
+    
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"<Admin Code admin_access={self.admin_access}>"
+
+
+class Communities(db.Model):
+    """Communities in the database"""
+
+    __tablename__ = "community"
+
+    community_id = db.Column(db.Integer,
+                     autoincrement=True,
+                     primary_key=True)
+    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region.state_region_id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"<Community name={self.name}>"
+
+
+class One_Time_Passwords(db.Model):
+    """List of one-time-passwords"""
+
+    __tablename__ = "one_time_password"
+
+    one_time_password_id = db.Column(db.Integer,
+                            autoincrement=True,
+                            primary_key=True)
+    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
+    date_time = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return f"<One Time Password password={self.password}>"
+
+
 class Users(db.Model, UserMixin):
     """Users in the database"""
 
@@ -37,43 +121,6 @@ class Users(db.Model, UserMixin):
         """Provide helpful representation when printed."""
 
         return f"<Users username={self.username} name={self.name}>"
-        
-
-class Admin_Access(db.Model):
-    """List of administrative access codes"""
-
-    __tablename__ = "admin_access"
-
-    admin_access_id = db.Column(db.Integer,
-                                autoincrement=True,
-                                primary_key=True)
-    admin_access = db.Column(db.String(12), nullable=False)
-
-    
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return f"<Admin Code admin_access={self.admin_access}>"
-
-
-class One_Time_Passwords(db.Model):
-    """List of temporary one-time-passwords"""
-
-    __tablename__ = "one_time_password"
-
-    one_time_password_id = db.Column(db.Integer,
-                            autoincrement=True,
-                            primary_key=True)
-    date_time = db.Column(db.DateTime, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
-    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
-
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return f"<One Time Password password={self.password}>"
 
 
 class Home_Resources(db.Model):
@@ -92,23 +139,6 @@ class Home_Resources(db.Model):
         """Provide helpful representation when printed."""
 
         return f"<Home Resource name={self.name}>"
-
-
-class Communities(db.Model):
-    """Communities in the database"""
-
-    __tablename__ = "community"
-
-    community_id = db.Column(db.Integer,
-                     autoincrement=True,
-                     primary_key=True)
-    state_region_id = db.Column(db.Integer, db.ForeignKey('state_region.state_region_id'), nullable=False)
-    name = db.Column(db.String(255))
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return f"<Community name={self.name}>"
 
 
 class Community_Boards(db.Model):
@@ -183,23 +213,6 @@ class Community_Resources(db.Model):
 
          return f"<Community Resources community_resource_id={self.community_resource_id} name={self.name}>"
 
-class State_Regions(db.Model):
-    """States or Regions in the database"""
-
-    __tablename__ = "state_region"
-
-    state_region_id = db.Column(db.Integer,
-                       autoincrement=True,
-                       primary_key=True)
-    nation_id = db.Column(db.Integer, db.ForeignKey('nation.nation_id'), nullable=False)
-    name = db.Column(db.String(255), nullable=False)
-    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
-
-    def __repr__(self):
-         """Provide helpful representation when printed."""
-         
-         return f"<States & Regions state_region_id={self.state_region_id} name={self.name}>" 
-
 
 class State_Region_Resources(db.Model):
     """Links for State or Region Resources"""
@@ -218,22 +231,6 @@ class State_Region_Resources(db.Model):
          """Provide helpful representation when printed."""
                   
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} name={self.name}>" 
-
-
-class Nations(db.Model):
-    """Nations in the database"""
-
-    __tablename__ = "nation"
-
-    nation_id = db.Column(db.Integer,
-                           autoincrement=True,
-                           primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-
-    def __repr__(self):
-         """Provide helpful representation when printed."""
-                  
-         return f"<Nations nation_id={self.nation_id} name={self.name}>" 
 
 
 class National_Resources(db.Model):
