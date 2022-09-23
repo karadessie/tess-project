@@ -52,7 +52,7 @@ class Admin_Access(db.Model):
     admin_access_id = db.Column(db.Integer,
                                 autoincrement=True,
                                 primary_key=True)
-    admin_access_name = db.Column(db.String(12), nullable=False)
+    admin_access_name = db.Column(db.String(24), nullable=False)
     
     def __repr__(self):
         """Provide helpful representation when printed."""
