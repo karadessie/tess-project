@@ -1,5 +1,5 @@
-001|037|https://mint.intuit.com/|Budget: Intuit Mint
-002|037|https://www.allrecipes.com/recipes/84/healthy-recipes/|Allrecipes: Healthy Recipes
-003|037|https://www.skywareinventory.com/home-inventory-software|Skyware Home Inventory
-004|037|https://simplyauto.app/|Simply Auto
-005|037|https://www.energystar.gov/campaign/home-energy-yardstick|Home Energy Yardstick
+001|037|101|Intuit Mint Budget|https://mint.intuit.com/
+002|037|101|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
+003|037|101|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
+004|037|101|Simply Auto|https://simplyauto.app/
+005|037|101|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/

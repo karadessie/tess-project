@@ -1,0 +1,5 @@
+001|101|Intuit Mint Budget|https://mint.intuit.com/
+002|101|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
+003|101|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
+004|101|Simply Auto|https://simplyauto.app/
+005|101|Home Enery Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/

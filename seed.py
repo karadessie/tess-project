@@ -78,16 +78,16 @@ def load_one_time_passwords(one_time_passwords_filename):
 
     print("One_Time_Passwords")
 
-    for i, row in enumerate(open(one_time_password_filename)):
+    for i, row in enumerate(open(one_time_passwords_filename)):
         row = row.rstrip()
-        one_time_password_id, admin_access_id, community_id, date_time, password = row.split("|")
+        one_time_password_id, admin_access_id, community_id, date_time, one_time_password = row.split("|")
 
-        one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
-                                               admin_access_id=admin_access_id,
-                                               community_id=community_id,
-                                               date_time=date_time,
-                                               password=password)
-        db.session.add(one_time_password)
+        add_one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
+                                                   admin_access_id=admin_access_id,
+                                                   community_id=community_id,
+                                                   date_time=date_time,
+                                                   one_time_password=one_time_password)
+        db.session.add(add_one_time_password)
 
     db.session.commit()
 
@@ -120,11 +120,12 @@ def load_home_resources(home_resources_filename):
 
     for i, row in enumerate(open(home_resource_filename)):
         row = row.rstrip()
-        home_resource_id, community_id, home_link = row.split("|")
+        home_resource_id, community_id, home_resource_name, home_resource_link = row.split("|")
 
         home_resource = Home_Resources(home_resource_id=home_resource_id,
                                        community_id=community_id,
-                                       home_link=home_link)
+                                       home_resource_name=home_resource_name,
+                                       home_resource_link=home_resource_link)
         db.session.add(home_resource)
 
     db.session.commit()
@@ -153,9 +154,12 @@ def load_community_board_posts(community_board_post_filename):
 
     for i, row in enumerate(open(community_board_post_filename)):
         row = row.rstrip()
-        community_board_post_id, title, description = row.split("|")
+        community_board_post_id, community_id, community_board_id, date_time, title, description = row.split("|")
 
         community_board_posts = Community_Board_Posts(community_board_post_id=community_board_post_id,
+                                                      community_id=community_id,
+                                                      community_board_id=community_board_id,
+                                                      date_time=date_time,
                                                       title=title,
                                                       description=description)
         db.session.add(community_board_posts)
@@ -170,11 +174,13 @@ def load_community_events(community_event_filename):
 
     for i, row in enumerate(open(community_event_filename)):
         row = row.rstrip()
-        community_event_id, title, description = row.split("|")
+        community_event_id, community_id, date_time, community_event_title, community_event_description = row.split("|")
 
         community_event = Community_Events(community_event_id=community_event_id,
-                                           title=title,
-                                           description=description)
+                                           community_id=community_id,
+                                           date_time=date_time,
+                                           community_event_title=community_event_title,
+                                           community_event_description=community_event_description)
         db.session.add(community_event)
 
     db.session.commit()
@@ -187,12 +193,13 @@ def load_community_resources(community_resources_filename):
 
     for i, row in enumerate(open(community_resource_filename)):
         row = row.rstrip()
-        community_resource_id, community_id, admin_access_id, community_link = row.split("|")
+        community_resource_id, community_id, admin_access_id, community_resource_name, community_resource_link = row.split("|")
 
         community_resource = Community_Resources(community_resource_id=community_resource_id,
                                                  community_id=community_id,
                                                  admin_access_id=admin_access_id,
-                                                 community_link=community_link)
+                                                 community_resource_name=community_resource_name,
+                                                 community_resource_link=community_resource_link)
         db.session.add(community_resource)
 
     db.session.commit()
@@ -205,12 +212,14 @@ def load_state_region_resources(state_region_resource_filename):
 
     for i, row in enumerate(open(state_region_resource_filename)):
         row = row.rstrip()
-        state_region_resource_id, states_region_id, admin_access_id, state_region_link = row.split("|")
+        state_region_resource_id, state_region_id, admin_access_id, state_region_resource_name, \
+        state_region_resource_link = row.split("|")
 
         state_region_resource = State_Region_Resources(state_region_resource_id=state_region_resource_id,
-                                                       states_region_id=states_region_id,
+                                                       state_region_id=state_region_id,
                                                        admin_access_id=admin_access_id,
-                                                       states_region_link=state_region_link)
+                                                       state_region_resource_name=state_region_resource_name,
+                                                       state_region_resource_link=state_region_resource_link)
         db.session.add(state_region_resource)
 
     db.session.commit()
@@ -223,29 +232,31 @@ def load_national_resources(national_resource_filename):
 
     for i, row in enumerate(open(national_resource_filename)):
         row = row.rstrip()
-        national_resource_id, nation_id, admin_access_id, national_link = row.split("|")
+        national_resource_id, nation_id, admin_access_id, national_resource_name, national_resource_link = row.split("|")
 
-        national_resource = National_Resources(national_resources_id=national_resource_id,
+        national_resource = National_Resources(national_resource_id=national_resource_id,
                                                nation_id=nation_id,
-                                               access_code_id=admin_access_id,
-                                               national_link=national_link)
+                                               admin_access_id=admin_access_id,
+                                               national_resource_name=national_resource_name,
+                                               national_resource_link=national_resource_link)
         db.session.add(national_resource)
 
     db.session.commit()
 
 
-def load_global_resources(global_resources_filename):
+def load_global_resources(global_resource_filename):
     """Load global resource links into database."""
 
     print("Global Resources")
 
-    for i, row in enumerate(open(global_resources_filename)):
+    for i, row in enumerate(open(global_resource_filename)):
         row = row.rstrip()
-        global_resource_id, admin_access_id, global_link = row.split("|")
+        global_resource_id, admin_access_id, global_resource_name, global_resource_link = row.split("|")
 
         global_resource = Global_Resources(global_resource_id=global_resource_id,
-                                          admin_access_id=admin_access_id,
-                                          global_link=global_link)
+                                           admin_access_id=admin_access_id,
+                                           global_resource_name=global_resource_name,
+                                           global_resource_link=global_resource_link)
         db.session.add(global_resource)
 
     db.session.commit()
@@ -270,7 +281,7 @@ if __name__ == "__main__":
 
     user_filename = "seed_data/user.txt"
     admin_access_filename = "seed_data/admin_access.txt"
-    one_time_password_filename = "seed_data/one_time_password.txt"
+    one_time_passwords_filename = "seed_data/one_time_password.txt"
     community_filename = "seed_data/community.txt"
     community_board_filename = "seed_data/community_board.txt"
     community_board_post_filename = "seed_data/community_board_post.txt"
@@ -286,7 +297,7 @@ if __name__ == "__main__":
     load_states_regions(state_region_filename)
     load_access_codes(admin_access_filename)
     load_communities(community_filename)
-    load_one_time_passwords(one_time_password_filename)
+    load_one_time_passwords(one_time_passwords_filename)
     load_users(user_filename)
     load_home_resources(home_resource_filename)
     load_community_boards(community_board_filename)
