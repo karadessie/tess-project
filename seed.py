@@ -1,4 +1,4 @@
-"""Utility file to seed databases"""
+"""Utility file to seed database"""
 
 from sqlalchemy import func
 
@@ -262,8 +262,8 @@ def load_global_resources(global_resource_filename):
     db.session.commit()
 
 
-"""def set_val_user_id():
-    Set value for the next user_id after seeding database
+def set_val_user_id():
+    """Set value for the next user_id after seeding database"""
 
     # Get the Max user_id in the database
     result = db.session.query(func.max(Users.user_id)).one()
@@ -272,7 +272,7 @@ def load_global_resources(global_resource_filename):
     # Set the value for the next user_id to be max_id + 1
     query = "SELECT setval('Users_user_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
-    db.session.commit()"""
+    db.session.commit()
 
 
 if __name__ == "__main__":
