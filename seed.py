@@ -16,10 +16,10 @@ def load_nations(nations_filename):
 
     for i, row in enumerate(open(nation_filename)):
         row = row.rstrip()
-        nation_id, name = row.split("|")
+        nation_id, nation_name = row.split("|")
 
         nation = Nations(nation_id=nation_id,
-                         name=name)
+                         nation_name=nation_name)
         db.session.add(nation)
 
 
@@ -30,11 +30,11 @@ def load_states_regions(state_region_filename):
 
     for i, row in enumerate(open(state_region_filename)):
         row = row.rstrip()
-        state_region_id, nation_id, name = row.split("|")
+        state_region_id, nation_id, state_region_name = row.split("|")
 
         state_region = State_Regions(state_region_id=state_region_id,
                                      nation_id=nation_id,
-                                     name=name)
+                                     state_region_name=state_region_name)
         db.session.add(state_region)
 
     db.session.commit()
@@ -63,11 +63,11 @@ def load_communities(community_filename):
 
     for i, row in enumerate(open(community_filename)):
         row = row.rstrip()
-        community_id, state_region_id, name = row.split("|")
+        community_id, state_region_id, community_name = row.split("|")
 
         community = Communities(community_id=community_id,
                                 state_region_id=state_region_id,
-                                name=name)
+                                community_name=community_name)
         db.session.add(community)
 
     db.session.commit()
@@ -99,7 +99,7 @@ def load_users(users_filename):
 
     for i, row in enumerate(open(user_filename)):
         row = row.rstrip()
-        user_id, one_time_password_id, admin_access_id, community_id, username, password, name = row.split("|")
+        user_id, one_time_password_id, admin_access_id, community_id, username, password, user_name = row.split("|")
 
         user = Users(user_id=user_id,
                      one_time_password_id=one_time_password_id,
@@ -107,7 +107,7 @@ def load_users(users_filename):
                      community_id=community_id,
                      username=username,
                      password=password,
-                     name=name)
+                     user_name=user_name)
         db.session.add(user)
 
     db.session.commit()
@@ -138,10 +138,10 @@ def load_community_boards(community_board_filename):
 
     for i, row in enumerate(open(community_board_filename)):
         row = row.rstrip()
-        community_board_id, title = row.split("|")
+        community_board_id, community_board_title = row.split("|")
 
         community_board = Community_Boards(community_board_id=community_board_id,
-                                           title=title)
+                                           community_board_title=community_board_title)
         db.session.add(community_board)
 
     db.session.commit()
@@ -154,14 +154,15 @@ def load_community_board_posts(community_board_post_filename):
 
     for i, row in enumerate(open(community_board_post_filename)):
         row = row.rstrip()
-        community_board_post_id, community_id, community_board_id, date_time, title, description = row.split("|")
+        community_board_post_id, community_id, community_board_id, date_time, community_board_title, \
+                                                          community_board_description = row.split("|")
 
         community_board_posts = Community_Board_Posts(community_board_post_id=community_board_post_id,
                                                       community_id=community_id,
                                                       community_board_id=community_board_id,
                                                       date_time=date_time,
-                                                      title=title,
-                                                      description=description)
+                                                      community_board_title=community_board_title,
+                                                      commmunity_board_description=community_board_description)
         db.session.add(community_board_posts)
 
     db.session.commit()

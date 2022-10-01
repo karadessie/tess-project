@@ -1,6 +1,7 @@
 """THE EARTH SAVE SYSTEM (TESS)"""
 
 from ast import Global
+from asyncio.windows_events import NULL
 from wsgiref import validate
 from jinja2 import StrictUndefined
 
@@ -11,12 +12,10 @@ from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Ho
     Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, \
     State_Regions, State_Region_Resources, Nations, National_Resources, Global_Resources
 
-from flask_login import login_user, LoginManager, login_required, logout_user, current_user
 
+"""NEWS & CLIMATE APIS"""
 
-"""News & Climate APIs
-
-guardian_url = GUARDIAN_URL
+"""guardian_url = GUARDIAN_URL
 climatiq_url = CLIMATIQ_URL
 
 from theguardian import theguardian_content
@@ -24,15 +23,17 @@ from theguardian import theguardian_content
 news_content = theguardian_content.Content(api='test', url=GUARDIAN_URL)
 
 news_content_response = news_content.get_content_response()
-print(news_content_response)
+print(news_content_response)"""
 
 
-from climatiq:
+"""from Climatiq:
 
 curl --request GET 
     --url 'https://beta3.api.climatiq.io/search?query=category&region' 
     --header 'Authorization: Bearer CLIMATIQ_API_KEY'
 """
+
+"""CREATE APP"""
 
 app = Flask(__name__)
 
@@ -40,14 +41,8 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-"""Flask Login"""
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return Users.query.filter_by(alternative_id=user_id).first()
+"""ROUTES/FUNCTIONS"""
 
 @app.route('/')
 def welcome():
@@ -67,50 +62,64 @@ def register():
 def add_new_user():
     """Add new user with valid one-time-password"""
 
-    admin_access = ''
-    one_time_password = request.form["one_time_password"]
-    valid_one_time_password = One_Time_Passwords.query.get(one_time_password, admin_access)
-    admin_access_id = Admin_Access.query.get(admin_access)
-
-    if one_time_password == valid_one_time_password:
-        username = request.form["username"]
-        name = request.form["name"]
-        password = request.form["new_password"]
+    if request.method == 'POST':
+        admin_access = ''
+        one_time_password = request.form["one_time_password"]
+        valid_one_time_password = One_Time_Passwords.query.filter_by(one_time_password=one_time_password).first
+        if one_time_password == valid_one_time_password:
+            username = request.form["username"]
+            name = request.form["name"]
+            password = request.form["new_password"]
+            flash(f"{{ name }} registered!")
+        else:
+           flash(f"Invalid password!")
+           return redirect("/register")
     else:
-       flash(f"Please register")
-       return redirect("/register")
+        flash(f"Please register!")
+        return redirect("/register")
+    
 
-    new_user = Users(username=username, password=password, name=name, admin_access_id=admin_access_id)
+    new_user = Users(username=username, password=password, name=name)
     db.session.add(new_user)
     db.session.commit()
     flash(f"{name} added")
     return render_template("welcomepage.html")
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    """Flask Login"""
+@app.route('/login', methods=['GET'])
+def display_login():
+    """Display Login Form"""
 
-    if login_required:
-        return render_template("login.html")
-
-    login_username = request.form["username"]
-    login_password = request.form["password"]
-    user = Users.query.one_or_none(username=login_username, password=login_password)
-
-    if user:
-        login_user(user)
-        db.session.add(user)
-        db.session.commit()
-        flash(f"Login Successful")
-        return render_template("welcomepage.html")
-    else:
-        flash(f"Please register")
-        return redirect("/register")
+    return render_template("login.html")
 
 
-@app.route('/home', methods=['GET', 'POST'])
-def home_detail(user_id):
+@app.route('/login', methods=['POST'])
+def process_login():
+    """Login"""
+
+    if request.method == 'POST':
+        usersignin = []
+        userdata = []
+
+        username = None
+        password = None
+
+        username = request.form["username"]
+        password = request.form["password"]
+        usersignin = [username, password]
+        userdata = Users.query.filter_by(username=username, password=password)
+        if usersignin == userdata:
+            flash('Loggin in!')
+            db.session.add(username, password)
+            db.session.commit()
+            return redirect('/')
+        else:
+            flash('Please log in!')
+            return redirect('/login')
+
+
+@app.route('/home', methods=['GET']) 
+def home_detail():
     """Display home app page"""
 
     community_resources = {}
@@ -135,8 +144,7 @@ def home_detail(user_id):
 
 @app.route('/communities', methods=['GET'])
 def community_detail():
-    """Display community page with community boards, daily CO2 and AIQ stats, news, and events. Access 
-       community dbs and news & weather APIs."""
+    """Display community page with community boards, daily CO2 and AIQ stats, news, and events"""
 
     community_resources = {}
     community_events = {}
@@ -176,10 +184,9 @@ def community_board():
     return render_template("community_board.html")
 
 
-@app.route('/state_region', methods=['GET'])
+@app.route('/state_region', methods=['GET']) 
 def state_region_detail():
-    """Display state/region page with resource links, daily CO2 and AIQ stats, and news. Access 
-       state_region dbs and news & weather APIs."""
+    """Display state/region page with resource links, daily CO2 and AIQ stats, and news"""
 
     state_region_resources = {}
     state_region_name = ' '
@@ -197,8 +204,7 @@ def state_region_detail():
 
 @app.route('/nation', methods=['GET'])
 def nation_detail():
-    """Display national page with resource links daily CO2 and AIQ stats, and news. Access 
-       national dbs and news & weather APIs"""
+    """Display national page with resource links daily CO2 and AIQ stats and news"""
 
     national_resources = {}
     nation_name = ' '
@@ -216,8 +222,7 @@ def nation_detail():
 
 @app.route('/global', methods=['GET'])
 def global_detail():
-    """Display global page with resource links, daily CO2 and AIQ stats, and news. Access 
-       global_resourc table and news & weather APIs"""
+    """Display global page with resource links, daily CO2 and AIQ stats and news"""
 
     global_resources= {}
     admin_access_id = Users.query.get(admin_access_id)
@@ -232,10 +237,11 @@ def global_detail():
 
 @app.route('/logout')
 def logout():
-    logout_user()
-    flash("Logged Out", "error")
+    flash("Logged out!")
     return redirect("/")
 
+
+"""MAIN"""
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
