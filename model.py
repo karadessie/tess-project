@@ -120,8 +120,18 @@ class Users(db.Model):
     password = db.Column(db.String(64), nullable=False)
     user_name = db.Column(db.String(64), nullable=False)
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __init__(self, username, password, admin_access_id, community_id):
+        self.username = username
+        self.password = password
+        self.admin_access_id = admin_access_id
+        self.community_id = community_id
+
     def __repr__(self):
-        return f"<User username={self.username} user_name={self.user_name}>"
+        return f"<User username={self.username} password={self.password}>"
 
 
 class Home_Resources(db.Model):
