@@ -80,12 +80,12 @@ def load_one_time_passwords(one_time_passwords_filename):
 
     for i, row in enumerate(open(one_time_passwords_filename)):
         row = row.rstrip()
-        one_time_password_id, admin_access_id, community_id, date_time, one_time_password = row.split("|")
+        one_time_password_id, admin_access_id, community_id, one_time_password_datetime, one_time_password = row.split("|")
 
         add_one_time_password = One_Time_Passwords(one_time_password_id=one_time_password_id,
                                                    admin_access_id=admin_access_id,
                                                    community_id=community_id,
-                                                   date_time=date_time,
+                                                   one_time_password_datetime=one_time_password_datetime,
                                                    one_time_password=one_time_password)
         db.session.add(add_one_time_password)
 
@@ -154,15 +154,16 @@ def load_community_board_posts(community_board_post_filename):
 
     for i, row in enumerate(open(community_board_post_filename)):
         row = row.rstrip()
-        community_board_post_id, community_id, community_board_id, date_time, community_board_title, \
-                                                          community_board_description = row.split("|")
+        community_board_post_id, community_id, community_board_id, community_board_post_datetime, \
+                                                          community_board_post_title, \
+                                                          community_board_post_description = row.split("|")
 
         community_board_posts = Community_Board_Posts(community_board_post_id=community_board_post_id,
                                                       community_id=community_id,
                                                       community_board_id=community_board_id,
-                                                      date_time=date_time,
-                                                      community_board_title=community_board_title,
-                                                      commmunity_board_description=community_board_description)
+                                                      community_board_post_datetime=community_board_post_datetime,
+                                                      community_board_post_title=community_board_post_title,
+                                                      community_board_post_description=community_board_post_description)
         db.session.add(community_board_posts)
 
     db.session.commit()
@@ -175,11 +176,11 @@ def load_community_events(community_event_filename):
 
     for i, row in enumerate(open(community_event_filename)):
         row = row.rstrip()
-        community_event_id, community_id, date_time, community_event_title, community_event_description = row.split("|")
+        community_event_id, community_id, community_event_datetime, community_event_title, community_event_description = row.split("|")
 
         community_event = Community_Events(community_event_id=community_event_id,
                                            community_id=community_id,
-                                           date_time=date_time,
+                                           community_event_datetime=community_event_datetime,
                                            community_event_title=community_event_title,
                                            community_event_description=community_event_description)
         db.session.add(community_event)
