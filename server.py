@@ -8,9 +8,8 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, Users, Admin_Access, One_Time_Passwords, Home_Resources, Communities, \
-    Community_Resources, Community_Boards, Community_Board_Posts, Community_Events, \
-    State_Regions, State_Region_Resources, Nations, National_Resources, Global_Resources
+from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Community_Boards, \
+     Community_Board_Posts, Community_Events, State_Region_Resources, National_Resources, Global_Resources
 
 
 """NEWS & CLIMATE APIS"""
@@ -63,7 +62,6 @@ def add_new_user():
     """Add new user with valid one-time-password"""
 
     if request.method == 'POST':
-        admin_access = ''
         one_time_password = request.form["one_time_password"]
         valid_one_time_password = One_Time_Passwords.query.filter_by(one_time_password=one_time_password).first
         if one_time_password == valid_one_time_password:
@@ -79,8 +77,8 @@ def add_new_user():
         return redirect("/register")
     
 
-    new_user = Users(username=username, password=password, name=name)
-    db.session.add(new_user)
+    user = Users(username=username, password=password, name=name)
+    db.session.add(user)
     db.session.commit()
     flash(f"{name} added")
     return render_template("welcomepage.html")
@@ -98,20 +96,19 @@ def process_login():
     """Login"""
 
     if request.method == 'POST':
-        usersignin = []
-        userdata = []
-
-        username = None
-        password = None
-
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form['username']
+        password = request.form['password']
         usersignin = [username, password]
         userdata = Users.query.filter_by(username=username, password=password)
         if usersignin == userdata:
-            flash('Loggin in!')
-            db.session.add(username, password)
+            user_id = Users.query.filter_by(username)
+            community_id = Users.query.filter_by(user_id)
+            admin_access_id = Users.query.filter_by(user_id)
+            user_name = Users.query.filter_by(user_id)
+            user=(user_id, username, password, admin_access_id, community_id, user_name)
+            db.session.add(user)
             db.session.commit()
+            flash('Logged in!')
             return redirect('/')
         else:
             flash('Please log in!')
@@ -122,23 +119,8 @@ def process_login():
 def home_detail():
     """Display home app page"""
 
-    community_resources = {}
-    home_resources = {}
+    Home_Resources.get_home_resource_links(session.user_id)
 
-    user_id = Users.query.get(user_id)
-    community_id = Users.query.get(community_id)
-    admin_access_id = Users.query.get(admin_access_id)
-
-    if Users.user_resources:
-       for i in Home_Resources:
-           home_resources[i] = Home_Resources.query.filter_by(user_id)
-           db.session.add(home_resources)
-    else:
-        for i in community_resources:
-            community_resources[i] = Community_Resources.query.filter_by(community_id, admin_access_id)
-            db.session.add(community_resources)
-
-    db.session.commit()
     return render_template("home.html")
 
 
@@ -146,22 +128,9 @@ def home_detail():
 def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events"""
 
-    community_resources = {}
-    community_events = {}
-    community_name = ' '
-    admin_access_id = Users.query.get(admin_access_id)
+    Community_Events.get_community_events(session.community_id)
+    Community_Boards.get_community_boards(session.community_id)
 
-    community_id = Users.query.get(community_id)
-    community_name = Communities.query.get(community_name)
-
-    for i in community_resources:
-        community_resources[i] = Community_Resources.query.filter_by(community_id, admin_access_id)
-        db.session.add(community_resources)
-    for i in community_events:
-        community_events[i] = Community_Events.query.filter_by(community_id)
-
-    db.session.add(community_resources, community_events, community_name)
-    db.session.commit()
     return render_template("community.html")
 
 
@@ -169,18 +138,8 @@ def community_detail():
 def community_board():
     """Display community board and posts"""
 
-    community_board_posts = {}
-    community_board_name = ' '
+    Community_Board_Posts.get_community_board_posts(session.community_id)
 
-    community_id = Users.query.get(community_id)
-    community_board_name = Community_Boards.query.get(community_board_name)
-
-    for i in community_board_posts:
-        community_board_posts[i] = Community_Board_Posts.query.filter_by(community_id)
-        db.session.add(community_board_posts)
-
-    db.session.add(community_board_posts, community_board_name)
-    db.session.commit()
     return render_template("community_board.html")
 
 
@@ -188,17 +147,10 @@ def community_board():
 def state_region_detail():
     """Display state/region page with resource links, daily CO2 and AIQ stats, and news"""
 
-    state_region_resources = {}
-    state_region_name = ' '
-    admin_access_id = Users.query.get(admin_access_id)
+    
+    Users.get_state_region_nation_id(session.community_id)
+    State_Region_Resources.get_state_region_resource_links(session.admin_access_id)
 
-    state_region_name = State_Regions.query.get(state_region_name)
-
-    for i in state_region_resources:
-        state_region_resources[i] = State_Region_Resources.query.filter_by(state_region_name, admin_access_id)
-
-    db.session.add(state_region_resources, state_region_name)
-    db.session.commit()
     return render_template("state_region.html")
 
 
@@ -206,17 +158,10 @@ def state_region_detail():
 def nation_detail():
     """Display national page with resource links daily CO2 and AIQ stats and news"""
 
-    national_resources = {}
-    nation_name = ' '
+    
+    Users.get_state_region_nation_id(session.community_id)
+    National_Resources.get_national_resource_links(session.admin_access_id)
 
-    nation_name = Nations.query.get(nation_name)
-    admin_access_id = Users.query.get(admin_access_id)
-
-    for i in national_resources:
-        national_resources = National_Resources.query.all(admin_access_id)
-
-    db.session.add(national_resources, nation_name)
-    db.session.commit()
     return render_template("nation.html")
 
 
@@ -224,21 +169,27 @@ def nation_detail():
 def global_detail():
     """Display global page with resource links, daily CO2 and AIQ stats and news"""
 
-    global_resources= {}
-    admin_access_id = Users.query.get(admin_access_id)
-    
-    for i in global_resources:
-        global_resources = Global_Resources.query.all(admin_access_id)
+    Global_Resources.get_global_resource_links(session.admin_access_id)
 
-    db.session.add(global_resources)
-    db.session.commit()
     return render_template("global.html")
 
 
 @app.route('/logout')
-def logout():
-    flash("Logged out!")
-    return redirect("/")
+def logout(user_id):
+    """Log Out"""
+
+    if username:
+        try:
+            username = Users.query.get(user_id)
+            db.session.delete(username)       
+            flash("Logged out!")
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+    else:
+        return redirect("/")
 
 
 """MAIN"""

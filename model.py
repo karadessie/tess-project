@@ -221,32 +221,6 @@ class Community_Events(db.Model):
                   commmunity_event_title={self.community_event_title}>"
 
 
-class Community_Resources(db.Model):
-    """Community Resource Links"""
-
-    __tablename__ = "community_resources"
-
-    community_resource_id = db.Column(db.Integer,
-                             autoincrement=True,
-                             primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
-    admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
-    community_resource_name = db.Column(db.String(64), nullable=False)
-    community_resource_link = db.Column(db.String(255), nullable=False)
-        
-    def get_community_resource_links(community_id, admin_access_id):
-        user_community_resource_links = {}
-        while Community_Resources.community_id == community_id and \
-              Community_Resources.admin_access_id == admin_access_id:
-              user_community_resource_links.append(Community_Resources.community_resource_name, \
-                                              Community_Resources.community_resource_link)
-        return user_community_resource_links
-
-    def __repr__(self):
-         return f"<Community Resources community_resource_id={self.community_resource_id} \
-                  community_resource_name={self.community_resource_name}>"
-
-
 class State_Region_Resources(db.Model):
     """State or Region Resource Links"""
 
@@ -263,8 +237,8 @@ class State_Region_Resources(db.Model):
     def get_state_region_resource_links(state_region_id, admin_access_id):
         user_state_region_resource_links = {}
         while State_Region_Resources.state_region_id == state_region_id and \
-            State_Region_Resources.admin_access_id == admin_access_id:
-            user_state_region_resource_links.append(State_Region_Resources.state_region_resource_name, \
+              State_Region_Resources.admin_access_id == admin_access_id:
+              user_state_region_resource_links.append(State_Region_Resources.state_region_resource_name, \
                                                State_Region_Resources.state_region_resource_link)
         return user_state_region_resource_links
 
