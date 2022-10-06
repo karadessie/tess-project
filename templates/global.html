@@ -3,29 +3,20 @@
 
   <h1>TESS GLOBAL</h1>
 
-  <input type="number" id="ciimatiq" name="CO2" readonly> (( CO2 )) </input>
-  <input type="number" id="ciimatiq" name="AQI" readonly> (( AQI )) </input>
+  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
+  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
-  <div class="well spaced" style="width:50%;">
+  <div class="wellspaced" style="width:50%;">
+   <form action="/global" method="GET">
     <ul>
-      {% for link in user_global_resouces %}
+      {% for i in user_global_resouces %}
         <li>
-          <a href="/global_resource/{{ global_resource_link }}">{{ global_resource_name }}</a>
+          <a href="/global/{{ global_resource_link }}">{{ global_resource_name }}</a>
           </a>
         </li>
       {% endfor %}
     </ul>
-  </div>
-
-  <div class="well spaced" style="width:50%;">
-    <ul>
-      {% for guardian article in the guardian %}
-        <li>
-          <a href="/guardian/{{ guardian_link }}">{{ guardian_name }}</a>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+  </form>
   </div>
 
 {% endblock %}

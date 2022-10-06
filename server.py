@@ -159,9 +159,6 @@ def community_board():
 @app.route('/state_region', methods=['GET']) 
 def state_region_detail():
     """Display state/region page with resource links, daily CO2 and AIQ stats, and news"""
-  
-    Users.get_state_region_nation_id(Users.community_id)
-    State_Region_Resources.get_state_region_resource_links('users.admin_access_id')
 
     user_state_region_resources = {}
     while State_Region_Resources.community_id == ('users.community_id'):

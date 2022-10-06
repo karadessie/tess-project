@@ -195,13 +195,6 @@ class State_Region_Resources(db.Model):
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     state_region_resource_name = db.Column(db.String(64), nullable=False)
     state_region_resource_link = db.Column(db.String(255), nullable=False)
-    
-    def get_state_region_resource_links(state_region_id, admin_access_id):
-        user_state_region_resource_links = {}
-        while State_Region_Resources.state_region_id == state_region_id and \
-              State_Region_Resources.admin_access_id == admin_access_id:
-              user_state_region_resource_links.append(State_Region_Resources.state_region_resource_name, \
-                                               State_Region_Resources.state_region_resource_link)
 
     def __repr__(self):            
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} \
@@ -220,13 +213,6 @@ class National_Resources(db.Model):
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     national_resource_name = db.Column(db.String(64), nullable=False)
     national_resource_link = db.Column(db.String(255), nullable=False)
-  
-    def get_national_resource_links(national_id, admin_access_id):
-        user_national_resource_links = {}
-        while National_Resources.national_id == national_id and \
-              National_Resources.admin_access_id == admin_access_id:
-              user_national_resource_links.append(National_Resources.national_resource_name, \
-                                                  National_Resources.national_resource_link)
 
     def __repr__(self):      
         return f"<National Resources national_resource_id={self.national_resource_id}\
@@ -244,12 +230,6 @@ class Global_Resources(db.Model):
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     global_resource_name = db.Column(db.String(64), nullable=False)
     global_resource_link = db.Column(db.String(255), nullable=False)
-        
-    def get_global_resource_links(admin_access_id):
-        user_global_resource_links = {}
-        while Global_Resources.global_resource_id == admin_access_id:
-              user_global_resource_links.append(Global_Resources.global_resource_name, \
-                                                Global_Resources.global_resource_link)
 
     def __repr__(self):           
         return f"<Global Resources global_resource_id={self.global_resource_id} \

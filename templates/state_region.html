@@ -3,11 +3,11 @@
 
 <h1>TESS {{ State_Regions.state_region_name }}</h1>
 
-<input type="number" id="ciimatiq" name="CO2" readonly> (( CO2 )) </input>
-<input type="number" id="ciimatiq" name="AQI" readonly> (( AQI )) </input>
+<input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
+<input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
  <div class="well spaced" style="width:50%;">
-  <form>
+  <form action="/state_region" method="GET">
   <ul>
     {% for i in user_state_region_resouces %}
       <li>
@@ -17,17 +17,6 @@
     {% endfor %}
   </ul>
 </form>
-</div>
-
-<div class="well spaced" style="width:50%;">
-  <ul>
-    {% for guardian article in the guardian %}
-      <li>
-        <a href="/guardian/{{ guardian_link }}">{{ guardian_name }}</a>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
 </div>
 
 {% endblock %}
