@@ -87,6 +87,16 @@ a:active {
   margin-top: 20px;
 }
 
+.wellspaced {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+  width: 350px;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
 .error {
   font-weight: bolder;
   color: red;

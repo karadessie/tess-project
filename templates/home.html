@@ -3,19 +3,20 @@
 
   <h1>TESS HOME</h1>
 
-  <input type="number" id="ciimatiq" name="CO2" readonly> (( CO2 )) </input>
-  <input type="number" id="ciimatiq" name="AQI" readonly> (( AQI )) </input>
+  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
+  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
-  <div class="well spaced" style="width:50%;">
+  <div class="wellspaced" style="width:50%;">
   <form action="/home" method="GET">
   <ul>
-    {% for line in user_resource_links %}
+    {% for i in user_home_resources %}
       <li>
         <a href="/home/{{ user_home_resource_link }}">{{ user_home_resource_name }}</a>
         </a>
       </li>
     {% endfor %}
   </ul>
+  </form>
   </div>
 
 {% endblock %}

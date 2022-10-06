@@ -121,10 +121,11 @@ def load_home_resources(home_resource_filename):
 
     for i, row in enumerate(open(home_resource_filename)):
         row = row.rstrip()
-        home_resource_id, community_id, home_resource_name, home_resource_link = row.split("|")
+        home_resource_id, community_id, user_id, home_resource_name, home_resource_link = row.split("|")
 
         home_resource = Home_Resources(home_resource_id=home_resource_id,
                                        community_id=community_id,
+                                       user_id=user_id,
                                        home_resource_name=home_resource_name,
                                        home_resource_link=home_resource_link)
         db.session.add(home_resource)

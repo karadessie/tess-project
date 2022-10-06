@@ -9,13 +9,14 @@
 <div class="well spaced" style="width:50%;">
  <form action="/nation" method="GET">
   <ul>
-    {% for line in user_national_resouces %}
+    {% for i in user_national_resouces %}
       <li>
         <a href="/nation/{{ user_national_resource_link }}">{{ user_national_resource_name }}</a>
         </a>
       </li>
     {% endfor %}
   </ul>
+  </form>
 </div>
 
 <div class="well spaced" style="width:50%;">

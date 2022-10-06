@@ -117,6 +117,7 @@ class Home_Resources(db.Model):
                         autoincrement=True,
                         primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     home_resource_name = db.Column(db.String(64), nullable=False)
     home_resource_link = db.Column(db.String(255), nullable=False)
 
