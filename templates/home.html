@@ -7,10 +7,11 @@
   <input type="number" id="ciimatiq" name="AQI" readonly> (( AQI )) </input>
   
   <div class="well spaced" style="width:50%;">
+  <form action="/home" method="GET">
   <ul>
-    {% for home_resource_links in home_resouces %}
+    {% for line in user_resource_links %}
       <li>
-        <a href="/home/{{ home_resource_link }}">{{ home_resource_link_name }}</a>
+        <a href="/home/{{ user_home_resource_link }}">{{ user_home_resource_name }}</a>
         </a>
       </li>
     {% endfor %}

@@ -8,9 +8,9 @@
   
  <div class="well spaced" style="width:50%;">
   <ul>
-    {% for state_region_resource_link in state_region_resouces %}
+    {% for line in user_state_region_resouces %}
       <li>
-        <a href="/state_region/{{ state_region_resource_link }}">{{ state_region_resource_name }}</a>
+        <a href="/state_region/{{ user_state_region_resource_link }}">{{ user_state_region_resource_name }}</a>
         </a>
       </li>
     {% endfor %}

@@ -115,9 +115,14 @@ def process_login():
 def home_detail():
     """Display home app page"""
 
-    Home_Resources.get_home_resource_links(Users.user_id)
+    user_home_resources = {}
+    while Home_Resources.community_id == Users.user_id:
+              Home_Resources.append(Home_Resources.home_resource_name, \
+              Home_Resources.home_resource_link)
 
-    return render_template("home.html")
+    print(user_home_resources)
+
+    return render_template("home.html", user_home_resources)
 
 
 @app.route('/communities', methods=['GET'])
