@@ -16,13 +16,9 @@ class Nations(db.Model):
     __tablename__ = "nations"
 
     nation_id = db.Column(db.Integer,
-                           autoincrement=True,
-                           primary_key=True)
-    nation_name = db.Column(db.String(255), nullable=False)
-
-    def get_nation_by_id(nation_id):
-        user_nation_name=Nations.query.get(nation_id)
-        return user_nation_name
+                          autoincrement=True,
+                          primary_key=True)
+    nation_name = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):     
          return f"<Nations nation_id={self.nation_id} name={self.nation_name}>" 
@@ -56,10 +52,6 @@ class Admin_Access(db.Model):
                                 autoincrement=True,
                                 primary_key=True)
     admin_access_name = db.Column(db.String(24), nullable=False)
-
-    def get_admin_access_by_id(admin_access_id):
-        user_admin_access=Admin_Access.query.get(admin_access_id)
-        return user_admin_access
     
     def __repr__(self):
         return f"<Admin Access admin_access_name={self.admin_access_name}>"
@@ -75,10 +67,6 @@ class Communities(db.Model):
                      primary_key=True)
     state_region_id = db.Column(db.Integer, db.ForeignKey('state_regions.state_region_id'), nullable=False)
     community_name = db.Column(db.String(255), nullable=False)
-
-    def community_by_id(community_id):
-        user_community_name=Communities.query.get(community_id)
-        return user_community_name
 
     def __repr__(self):
         return f"<Community name={self.community_name}>"
@@ -96,10 +84,6 @@ class One_Time_Passwords(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
     one_time_password_datetime = db.Column(db.DateTime, nullable=False)
     one_time_password = db.Column(db.String(32), nullable=False)
-
-    def get_one_time_password_by_id(one_time_password_id):
-        user_one_time_password=One_Time_Passwords.query.get(one_time_password_id)
-        return user_one_time_password
 
     def __repr__(self):
         return f"<One Time Password password={self.one_time_password}>"
@@ -120,11 +104,6 @@ class Users(db.Model):
     password = db.Column(db.String(64), nullable=False)
     user_name = db.Column(db.String(64), nullable=False)
 
-    def get_state_region_nation_id(community_id):
-        state_region_id=State_Regions.query.get(community_id)
-        national_id=Nations.query.get(state_region_id)
-        return state_region_id, national_id
-
     def __repr__(self):
         return f"<User username={self.username} password={self.password}>"
 
@@ -141,12 +120,6 @@ class Home_Resources(db.Model):
     home_resource_name = db.Column(db.String(64), nullable=False)
     home_resource_link = db.Column(db.String(255), nullable=False)
 
-    def get_home_resource_links(user_id):
-        home_resource_links = {}
-        while Home_Resources.user_id == user_id:
-            home_resource_links.append(Home_Resources.home_resource_name, Home_Resources.home_resource_link)
-        return home_resource_links
-
     def __repr__(self):
         return f"<Home Resource name={self.home_resource_name}>"
 
@@ -160,10 +133,6 @@ class Community_Boards(db.Model):
                           autoincrement=True,
                           primary_key=True)
     community_board_title = db.Column(db.String(64), nullable=False)
-
-    def get_community_board(community_board_id):
-        user_community_board=Community_Boards.query.get(community_board_id)
-        return user_community_board
 
     def __repr__(self):
         return f"<Community Board title={self.community_board_title}>"
@@ -189,7 +158,6 @@ class Community_Board_Posts(db.Model):
               Community_Board_Posts.community_board_post_id == community_board_post_id:
               user_community_board_posts.append(Community_Board_Posts.community_board_post_title, \
                                                 Community_Board_Posts.community_board_post_description)
-        return user_community_board_posts
 
     def __repr__(self):
         return f"<Community Board Posts community_board_post_id={self.community_board_post_id} \
@@ -208,13 +176,6 @@ class Community_Events(db.Model):
     community_event_datetime = db.Column(db.DateTime)
     community_event_title = db.Column(db.String(64), nullable=False)
     community_event_description = db.Column(db.String(500), nullable=False)
-        
-    def get_community_events(community_id):
-        user_community_events= {}
-        while Community_Events.community_id == community_id:
-              user_community_events.append(Community_Events.community_event_title, \
-              Community_Events.community_event_description)
-        return user_community_events
 
     def __repr__(self):
         return f"<Community Events community_event_id={self.commmunity_event_id} \
@@ -240,7 +201,6 @@ class State_Region_Resources(db.Model):
               State_Region_Resources.admin_access_id == admin_access_id:
               user_state_region_resource_links.append(State_Region_Resources.state_region_resource_name, \
                                                State_Region_Resources.state_region_resource_link)
-        return user_state_region_resource_links
 
     def __repr__(self):            
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} \
@@ -263,10 +223,9 @@ class National_Resources(db.Model):
     def get_national_resource_links(national_id, admin_access_id):
         user_national_resource_links = {}
         while National_Resources.national_id == national_id and \
-            National_Resources.admin_access_id == admin_access_id:
-            user_national_resource_links.append(National_Resources.national_resource_name, \
-                                           National_Resources.national_resource_link)
-        return user_national_resource_links
+              National_Resources.admin_access_id == admin_access_id:
+              user_national_resource_links.append(National_Resources.national_resource_name, \
+                                                  National_Resources.national_resource_link)
 
     def __repr__(self):      
         return f"<National Resources national_resource_id={self.national_resource_id}\
@@ -288,9 +247,8 @@ class Global_Resources(db.Model):
     def get_global_resource_links(admin_access_id):
         user_global_resource_links = {}
         while Global_Resources.global_resource_id == admin_access_id:
-            user_global_resource_links.append(Global_Resources.global_resource_name, \
-                                         Global_Resources.global_resource_link)
-        return user_global_resource_links
+              user_global_resource_links.append(Global_Resources.global_resource_name, \
+                                                Global_Resources.global_resource_link)
 
     def __repr__(self):           
         return f"<Global Resources global_resource_id={self.global_resource_id} \

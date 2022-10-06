@@ -8,7 +8,7 @@ from model import Home_Resources, National_Resources, State_Region_Resources, St
 from server import app
 
 
-def load_nations():
+def load_nations(nation_filename):
     """Load Nations into database."""
 
     print("Nations")
@@ -21,8 +21,10 @@ def load_nations():
                          nation_name=nation_name)
         db.session.add(nation)
 
+    db.session.commit()
 
-def load_states_regions():
+
+def load_states_regions(state_region_filename):
     """Load states and regions into database."""
 
     print("States & Regions")
@@ -39,7 +41,7 @@ def load_states_regions():
     db.session.commit()
 
 
-def load_access_codes():
+def load_access_codes(admin_access_filename):
     """Load admin codes into database."""
 
     print("Admin_Access")
@@ -55,7 +57,7 @@ def load_access_codes():
     db.session.commit()
 
 
-def load_communities():
+def load_communities(community_filename):
     """Load Communities into database."""
 
     print("Communities")
@@ -72,7 +74,7 @@ def load_communities():
     db.session.commit()
 
 
-def load_one_time_passwords():
+def load_one_time_passwords(one_time_passwords_filename):
     """Load one time passwords into database."""
 
     print("One_Time_Passwords")
@@ -91,7 +93,7 @@ def load_one_time_passwords():
     db.session.commit()
 
 
-def load_users():
+def load_users(user_filename):
     """Load users into database."""
 
     print("Users")
@@ -112,7 +114,7 @@ def load_users():
     db.session.commit()
 
 
-def load_home_resources():
+def load_home_resources(home_resource_filename):
     """Load home resource links into database."""
 
     print("Home Resources")
@@ -130,7 +132,7 @@ def load_home_resources():
     db.session.commit()
 
 
-def load_community_boards():
+def load_community_boards(community_board_filename):
     """Load community boards into database."""
 
     print("Community_Boards")
@@ -146,7 +148,7 @@ def load_community_boards():
     db.session.commit()
 
 
-def load_community_board_posts():
+def load_community_board_posts(community_board_post_filename):
     """Load community board posts into database."""
 
     print("Community Board Posts")
@@ -168,7 +170,7 @@ def load_community_board_posts():
     db.session.commit()
 
 
-def load_community_events():
+def load_community_events(community_event_filename):
     """Load community events into database."""
 
     print("Community Events")
@@ -187,7 +189,7 @@ def load_community_events():
     db.session.commit()
 
 
-def load_state_region_resources():
+def load_state_region_resources(state_region_resource_filename):
     """Load state and regional resource links into database."""
 
     print("State & Region Resources")
@@ -207,7 +209,7 @@ def load_state_region_resources():
     db.session.commit()
 
 
-def load_national_resources():
+def load_national_resources(national_resource_filename):
     """Load national resource links into database."""
 
     print("National Resources")
@@ -226,7 +228,7 @@ def load_national_resources():
     db.session.commit()
 
 
-def load_global_resources():
+def load_global_resources(global_resource_filename):
     """Load global resource links into database."""
 
     print("Global Resources")
