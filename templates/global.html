@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1>TESS GLOBAL</h1>
+  <h1 class="header1">TESS GLOBAL</h1>
 
-  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
+  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
   <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
   <div class="wellspaced" style="width:50%;">
    <form action="/global" method="GET">
     <ul>
-      {% for i in user_global_resouces %}
+      {% for i in user_global_resources %}
         <li>
           <a href="/global/{{ global_resource_link }}">{{ global_resource_name }}</a>
           </a>

@@ -3,11 +3,11 @@
 
   <h1> {{ community_board_name }} </h1>
   
-  <form action="/communityboard" method="GET">
+  <form action="/community_board" method="GET">
   <ul>
     {% for community_board_posts %}
       <li>
-        <a href="/communityboard/{{ community_board_post }}">
+        <a href="/community_board/{{ url_for community_board_post }}">
         </a>
       </li>
     {% endfor %}

@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1> TESS {{ nation_name }}</h1>
+<h1 class="header1"> TESS NATION</h1>
 
-<input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
+<input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
 <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
 
 <div class="wellspaced" style="width:50%;">
  <form action="/nation" method="GET">
   <ul>
-    {% for i in user_national_resouces %}
+    {% for i in user_national_resources %}
       <li>
         <a href="/nation/{{ user_national_resource_link }}">{{ user_national_resource_name }}</a>
         </a>

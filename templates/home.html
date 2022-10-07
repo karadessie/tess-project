@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1>TESS HOME</h1>
+  <h1 class="header1">TESS HOME</h1>
 
-  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input>
-  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
+  <input type="number" id="ciimatiq" name="CO2" class="home" maxlength="3" readonly> CO2 </input><br></br>
+  <input type="number" id="ciimatiq" name="AQI" class="home" maxlength="3" readonly> AQI </input>
   
-  <div class="wellspaced" style="width:50%;">
-  <form action="/home" method="GET">
+  <div>
+  <form action="/home" class="home" method="GET">
   <ul>
     {% for i in user_home_resources %}
       <li>

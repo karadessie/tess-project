@@ -140,9 +140,10 @@ def load_community_boards(community_board_filename):
 
     for i, row in enumerate(open(community_board_filename)):
         row = row.rstrip()
-        community_board_id, community_board_title = row.split("|")
+        community_board_id, community_id, community_board_title = row.split("|")
 
         community_board = Community_Boards(community_board_id=community_board_id,
+                                           community_id=community_id,
                                            community_board_title=community_board_title)
         db.session.add(community_board)
 

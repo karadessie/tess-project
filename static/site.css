@@ -97,6 +97,23 @@ a:active {
   margin-bottom: 10px;
 }
 
+.home {
+  justify-content: center;
+  text-align: center;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+  width: 250px;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
 .error {
   font-weight: bolder;
   color: red;
