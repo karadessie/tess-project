@@ -177,7 +177,7 @@ class Community_Events(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
     community_event_datetime = db.Column(db.DateTime)
     community_event_title = db.Column(db.String(64), nullable=False)
-    community_event_description = db.Column(db.String(500), nullable=False)
+    community_event_description = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return f"<Community Events community_event_id={self.commmunity_event_id} \

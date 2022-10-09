@@ -1,13 +1,15 @@
 """THE EARTH SAVE SYSTEM (TESS)"""
 
 from asyncio.windows_events import NULL
+from unicodedata import name
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Community_Boards, \
-     Community_Board_Posts, Community_Events, State_Region_Resources, National_Resources, Global_Resources
+from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
+     Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
+     Nations, Global_Resources
 
 
 """NEWS & CLIMATE APIS"""
@@ -93,15 +95,19 @@ def process_login():
 
     try:
         if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
-            print(username, password)
+            username = request.form["username"]
+            password = request.form["password"]
             user = Users.query.filter_by(username=username).first()
             if user:
                password_check = password == user.password
                if password_check:
+                    community_id = user.community_id
+                    admin_access_id = user.admin_access_id
                     session["username"] = username
                     session["password"] = password
+                    session["community_id"] = community_id
+                    session["admin_access_id"] = admin_access_id
+                    print(username, password, community_id, admin_access_id)
                     flash('Logged in!')
                     return render_template("welcomepage.html")
     except Exception:
@@ -117,16 +123,16 @@ def home_detail():
     """Display home app page"""
     
     try:
-        user_home_resources = {}
+        home_resources = {}
         community_id = session.get["community_id"]
         for i in Home_Resources.query.filter_by(community_id=community_id).all():
-              user_home_resources[i.home_resource_name] = i.home_resource_link
+              home_resources[i.home_resource_name] = i.home_resource_link
     except Exception:
         flash('Error!')
 
-    print(user_home_resources)
+    print(home_resources)
 
-    return render_template("home.html", user_home_resources=user_home_resources)
+    return render_template("home.html", home_resources=home_resources)
 
 
 @app.route('/community', methods=['GET'])
@@ -135,7 +141,8 @@ def community_detail():
 
     try:
         user_community_events = {}
-        community_id = session["community_id"]
+        user_community = " "
+        community_id = session.get["community_id"]
         for i in Community_Events.query.filter_by(community_id=community_id).all():
               user_community_events[i.community_event_title] = i.community_event_description
     except Exception:
@@ -143,14 +150,14 @@ def community_detail():
     
     try:
         user_community_boards = {}
-        community_id = session["community.id"]
+        community_id = session.get["community.id"]
         for i in Community_Boards.query.filter_by(community_id=community_id).all():
               user_community_boards[i.community_board_title] = i.community_board_link
     except Exception:
         flash('Error!')
 
     return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards)
+                            user_community_boards=user_community_boards, user_community=user_community)
 
 
 @app.route('/communityboard', methods=['GET'])
@@ -159,8 +166,8 @@ def community_board():
 
     try:
         user_community_board_posts = {}
-        community_id = session["community_id"]
-        for i in Community_Board_Posts.query.filter_by(community_id=community_id).add():
+        community_name = session.get["community_id"]
+        for i in Community_Board_Posts.query.filter_by(community_name=community_name).add():
               user_community_board_posts[i.community_board_post_title] = i.community_board_post_description
     except Exception:
         flash('Error!')
@@ -174,6 +181,7 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
+        user_state_region = " "
         state_region_id = session["state_region_id"]
         admin_access_id = session["admin_access_id"]
         for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id, \
@@ -182,7 +190,8 @@ def state_region_detail():
     except Exception:
         flash('Error!')
 
-    return render_template("state_region.html", user_state_region_resources=user_state_region_resources)
+    return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
+                            user_state_region=user_state_region)
 
 
 @app.route('/nation', methods=['GET'])
@@ -190,15 +199,17 @@ def nation_detail():
     """Display national page with resource links daily CO2 and AIQ stats and news"""
 
     try:
+        user_nation = " "
         user_national_resources = {}
-        admin_access_id = session["admin_access_id"]
-        nation_id = session["nation_id"]
+        admin_access_id = session.get["admin_access_id"]
+        nation_id = session.get["nation_id"]
+        user_nation = Nations.query.filter_by(nation_id=nation_id).first()
         for i in National_Resources.query.filter_by(admin_access_id=admin_access_id, nation_id=nation_id).all():
               user_national_resources[i.national_resource_name] = i.national_resource_link
     except Exception:
         flash('Error!')
 
-    return render_template("nation.html", user_national_resources=user_national_resources)
+    return render_template("nation.html", user_national_resources=user_national_resources, user_nation=user_nation)
 
 
 @app.route('/global', methods=['GET'])
@@ -207,7 +218,7 @@ def global_detail():
 
     try:
         user_global_resources = {}
-        admin_access_id = session["admin_access_id"]
+        admin_access_id = session.get["admin_access_id"]
         for i in Global_Resources.query.filter_by(admin_access_id).all():
               user_global_resources[i.global_resource_name] = i.global_resource_link
     except Exception:
@@ -220,8 +231,9 @@ def global_detail():
 def logout():
     """Log Out"""
 
-    del session["username"]
-    flash(f"Logged Out!")
+    if "username" in session:
+        del session["username"]
+        flash(f"Logged Out!")
     return redirect("/")
 
 

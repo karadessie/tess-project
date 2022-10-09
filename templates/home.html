@@ -9,9 +9,9 @@
   <div>
   <form action="/home" class="home" method="GET">
   <ul>
-    {% for i in user_home_resources %}
+    {% for i in home_resources %}
       <li>
-        <a href="/home/{{ user_home_resource_link }}">{{ user_home_resource_name }}</a>
+        <a href="/home/{{ home_resource_link }}">{{ home_resource_name }}</a>
         </a>
       </li>
     {% endfor %}
