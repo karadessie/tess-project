@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
- <h1 class="header1">TESS {{ user_community }}</h1>
+ <h1 class="header1">TESS {{ community_name }}</h1>
  
  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
@@ -11,7 +11,7 @@
   <ul>
     {% for i in user_community_boards %}
       <li>
-        <a href="/community/{{ user_community_boards }}">{{ community_board_name }}</a>
+        <a href="/community/{{ i.community_board_link }}">{{ i.community_board_title }}</a>
         </a>
       </li>
     {% endfor %}
@@ -20,7 +20,7 @@
   <ul>
     {% for i in user_community_events %}
       <li>
-        <a href="/community/{{ user_community_events }}"><{{ community_event_description }}</a>
+        <a href="/community/{{ i.community_event_link }}"><{{ i.community_event_title }}</a>
         </a>
       </li>
     {% endfor %}

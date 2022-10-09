@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="header1"> TESS {{ user_nation  }}</h1>
+<h1 class="header1"> TESS {{ nation_name }}</h1>
 
 <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
 <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
@@ -11,7 +11,7 @@
   <ul>
     {% for i in user_national_resources %}
       <li>
-        <a href="/nation/{{ user_national_resource_link }}">{{ user_national_resource_name }}</a>
+        <a href="/nation/{{ national_resource_link }}">{{ national_resource_name }}</a>
         </a>
       </li>
     {% endfor %}

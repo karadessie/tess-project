@@ -11,7 +11,7 @@
   <ul>
     {% for i in home_resources %}
       <li>
-        <a href="/home/{{ home_resource_link }}">{{ home_resource_name }}</a>
+        <a href="/home/{{ i.home_resource_link }}">{{ i.home_resource_name }}</a>
         </a>
       </li>
     {% endfor %}

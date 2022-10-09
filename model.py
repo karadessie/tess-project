@@ -35,9 +35,9 @@ class State_Regions(db.Model):
     nation_id = db.Column(db.Integer, db.ForeignKey('nations.nation_id'), nullable=False)
     state_region_name = db.Column(db.String(255), nullable=False)
 
-    def get_state_region_by_id(state_region_id):
-        user_state_region=State_Regions.query.get(state_region_id)
-        return user_state_region
+    def get_nation_by_id(state_region_id):
+        nation_id=Nations.query.filter_by(state_region_id).first()
+        return nation_id
 
     def __repr__(self):
          return f"<States & Regions state_region_id={self.state_region_id} name={self.state_region_name}>" 
@@ -67,6 +67,10 @@ class Communities(db.Model):
                      primary_key=True)
     state_region_id = db.Column(db.Integer, db.ForeignKey('state_regions.state_region_id'), nullable=False)
     community_name = db.Column(db.String(255), nullable=False)
+    
+    def get_state_region_by_id(community_id):
+        state_region_id=State_Regions.query.filter_by(community_id).first()
+        return state_region_id
 
     def __repr__(self):
         return f"<Community name={self.community_name}>"

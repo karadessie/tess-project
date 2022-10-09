@@ -2,9 +2,10 @@
 
 from asyncio.windows_events import NULL
 from unicodedata import name
+from unittest import result
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
@@ -124,7 +125,7 @@ def home_detail():
     
     try:
         home_resources = {}
-        community_id = session.get["community_id"]
+        community_id = session["community_id"]
         for i in Home_Resources.query.filter_by(community_id=community_id).all():
               home_resources[i.home_resource_name] = i.home_resource_link
     except Exception:
@@ -141,23 +142,25 @@ def community_detail():
 
     try:
         user_community_events = {}
-        user_community = " "
-        community_id = session.get["community_id"]
+        community_id = session["community_id"]
+        community_name = Communities.query.filter_by(community_id=community_id).first()
+        print(community_id, community_name)
         for i in Community_Events.query.filter_by(community_id=community_id).all():
-              user_community_events[i.community_event_title] = i.community_event_description
+              user_community_events[i.community_event_title] = i.community_event_link
+              print(user_community_events)
     except Exception:
         flash('Error!')
     
     try:
         user_community_boards = {}
-        community_id = session.get["community.id"]
+        community_id = session["community.id"]
         for i in Community_Boards.query.filter_by(community_id=community_id).all():
               user_community_boards[i.community_board_title] = i.community_board_link
     except Exception:
         flash('Error!')
 
     return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards, user_community=user_community)
+                            user_community_boards=user_community_boards, community_name=community_name)
 
 
 @app.route('/communityboard', methods=['GET'])
@@ -166,7 +169,7 @@ def community_board():
 
     try:
         user_community_board_posts = {}
-        community_name = session.get["community_id"]
+        community_name = session["community_id"]
         for i in Community_Board_Posts.query.filter_by(community_name=community_name).add():
               user_community_board_posts[i.community_board_post_title] = i.community_board_post_description
     except Exception:
@@ -181,9 +184,10 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
-        user_state_region = " "
+        state_region_name = " "
         state_region_id = session["state_region_id"]
         admin_access_id = session["admin_access_id"]
+        state_region_name = State_Regions.query.filter_by(state_region_id=state_region_id).first()
         for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id, \
                                                         admin_access_id=admin_access_id).all():
               user_state_region_resources[i.state_region_resource_name] = i.state_region_resource_link
@@ -191,7 +195,7 @@ def state_region_detail():
         flash('Error!')
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
-                            user_state_region=user_state_region)
+                            state_region_name=state_region_name)
 
 
 @app.route('/nation', methods=['GET'])
@@ -199,17 +203,18 @@ def nation_detail():
     """Display national page with resource links daily CO2 and AIQ stats and news"""
 
     try:
-        user_nation = " "
         user_national_resources = {}
-        admin_access_id = session.get["admin_access_id"]
-        nation_id = session.get["nation_id"]
-        user_nation = Nations.query.filter_by(nation_id=nation_id).first()
+        nation_name = " "
+        admin_access_id = session["admin_access_id"]
+        nation_id = session["nation_id"]
+        nation_name = Nations.query.filter_by(nation_id=nation_id).first()
+        user_nation = National_Resources.query.filter_by(nation_id=nation_id).first()
         for i in National_Resources.query.filter_by(admin_access_id=admin_access_id, nation_id=nation_id).all():
               user_national_resources[i.national_resource_name] = i.national_resource_link
     except Exception:
         flash('Error!')
 
-    return render_template("nation.html", user_national_resources=user_national_resources, user_nation=user_nation)
+    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name)
 
 
 @app.route('/global', methods=['GET'])
@@ -218,7 +223,7 @@ def global_detail():
 
     try:
         user_global_resources = {}
-        admin_access_id = session.get["admin_access_id"]
+        admin_access_id = session["admin_access_id"]
         for i in Global_Resources.query.filter_by(admin_access_id).all():
               user_global_resources[i.global_resource_name] = i.global_resource_link
     except Exception:
