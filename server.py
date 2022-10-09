@@ -143,7 +143,8 @@ def community_detail():
     try:
         user_community_events = {}
         community_id = session["community_id"]
-        community_name = Communities.query.filter_by(community_id=community_id).first()
+        community = Communities.query.filter_by(community_id=community_id).first()
+        community_name = community.community_name
         print(community_id, community_name)
         for i in Community_Events.query.filter_by(community_id=community_id).all():
               user_community_events[i.community_event_title] = i.community_event_link
@@ -184,12 +185,14 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
-        state_region_name = " "
-        state_region_id = session["state_region_id"]
+        community_id = session["community_id"]
         admin_access_id = session["admin_access_id"]
-        state_region_name = State_Regions.query.filter_by(state_region_id=state_region_id).first()
-        for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id, \
-                                                        admin_access_id=admin_access_id).all():
+        community = Communities.query.filter_by(community_id=community_id).first()
+        state_region_id = community.state_region_id
+        state_region = State_Regions.query.filter_by(state_region_id=state_region_id).first()
+        state_region_id = state_region.state_region_id
+        state_region_name = state_region.state_region_name
+        for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id).all():
               user_state_region_resources[i.state_region_resource_name] = i.state_region_resource_link
     except Exception:
         flash('Error!')
@@ -204,12 +207,15 @@ def nation_detail():
 
     try:
         user_national_resources = {}
-        nation_name = " "
-        admin_access_id = session["admin_access_id"]
-        nation_id = session["nation_id"]
-        nation_name = Nations.query.filter_by(nation_id=nation_id).first()
-        user_nation = National_Resources.query.filter_by(nation_id=nation_id).first()
-        for i in National_Resources.query.filter_by(admin_access_id=admin_access_id, nation_id=nation_id).all():
+        community_id = session["community_id"]
+        community = Communities.query.filter_by(community_id=community_id).first()
+        state_region_id = community.state_region_id
+        state_region = State_Regions.query.filter_by(state_region_id=state_region_id).first()
+        nation_id = state_region.nation_id
+        nation = Nations.query.filter_by(nation_id=nation_id).first()
+        nation_id = nation.nation_id
+        nation_name = nation.nation_name
+        for i in National_Resources.query.filter_by(nation_id=nation_id).all():
               user_national_resources[i.national_resource_name] = i.national_resource_link
     except Exception:
         flash('Error!')
