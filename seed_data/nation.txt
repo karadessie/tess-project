@@ -185,7 +185,7 @@
 186|Ukraine
 187|United Arab Emirates (UAE)
 188|United Kingdom (UK)
-189|United States of America (USA)
+189|USA
 190|Uruguay
 191|Uzbekistan
 192|Vanuatu

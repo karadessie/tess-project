@@ -9,18 +9,18 @@
  <div class="wellspaced" style="width:50%;">
  <form action="/community" method="GET">
   <ul>
-    {% for i in user_community_boards %}
+    {% for community_board_title in user_community_boards %}
       <li>
-        <a href="/community/{{ i.community_board_link }}">{{ i.community_board_title }}</a>
+        <a href="/{{ community_board_link }}">{{ community_board_title }}</a>
         </a>
       </li>
     {% endfor %}
   </ul>
   <br></br>
   <ul>
-    {% for i in user_community_events %}
+    {% for community_event_title in user_community_events %}
       <li>
-        <a href="/community/{{ i.community_event_link }}"><{{ i.community_event_title }}</a>
+        <a href="/{{ community_event_link }}"><{{ community_event_title }}</a>
         </a>
       </li>
     {% endfor %}

@@ -124,16 +124,20 @@ def home_detail():
     """Display home app page"""
     
     try:
-        home_resources = {}
+        user_home_resources = {}
         community_id = session["community_id"]
+        home = Home_Resources.query.filter_by(community_id=community_id).first()
+        print(home)
         for i in Home_Resources.query.filter_by(community_id=community_id).all():
-              home_resources[i.home_resource_name] = i.home_resource_link
+              home_resource_link = i.home_resource_link
+              home_resource_name = i.home_resource_name
+              user_home_resources[home_resource_name] = home_resource_link
     except Exception:
         flash('Error!')
 
-    print(home_resources)
+    print(user_home_resources)
 
-    return render_template("home.html", home_resources=home_resources)
+    return render_template("home.html", user_home_resources=user_home_resources)
 
 
 @app.route('/community', methods=['GET'])
@@ -147,7 +151,9 @@ def community_detail():
         community_name = community.community_name
         print(community_id, community_name)
         for i in Community_Events.query.filter_by(community_id=community_id).all():
-              user_community_events[i.community_event_title] = i.community_event_link
+              community_event_title = i.community_event_title
+              community_event_link = i.community_event_link
+              user_community_events[community_event_title] = community_event_link
               print(user_community_events)
     except Exception:
         flash('Error!')
@@ -156,7 +162,9 @@ def community_detail():
         user_community_boards = {}
         community_id = session["community.id"]
         for i in Community_Boards.query.filter_by(community_id=community_id).all():
-              user_community_boards[i.community_board_title] = i.community_board_link
+              community_board_title = i.community_board_title
+              community_board_link = i.community_board_link
+              user_community_boards[community_board_title] = community_board_link
     except Exception:
         flash('Error!')
 
@@ -172,7 +180,9 @@ def community_board():
         user_community_board_posts = {}
         community_name = session["community_id"]
         for i in Community_Board_Posts.query.filter_by(community_name=community_name).add():
-              user_community_board_posts[i.community_board_post_title] = i.community_board_post_description
+              community_board_post_title = i.community_board_post_title
+              community_board_post_description = i.community_board_post_descripttion
+              user_community_board_posts[community_board_post_title] = community_board_post_description
     except Exception:
         flash('Error!')
 
@@ -186,14 +196,15 @@ def state_region_detail():
     try:
         user_state_region_resources = {}
         community_id = session["community_id"]
-        admin_access_id = session["admin_access_id"]
         community = Communities.query.filter_by(community_id=community_id).first()
         state_region_id = community.state_region_id
         state_region = State_Regions.query.filter_by(state_region_id=state_region_id).first()
         state_region_id = state_region.state_region_id
         state_region_name = state_region.state_region_name
         for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id).all():
-              user_state_region_resources[i.state_region_resource_name] = i.state_region_resource_link
+              state_region_resource_name = i.state_region_resource_name
+              state_region_resource_link = i.state_region_resource_link
+              user_state_region_resources[state_region_resource_name] = state_region_resource_link
     except Exception:
         flash('Error!')
 
@@ -216,7 +227,9 @@ def nation_detail():
         nation_id = nation.nation_id
         nation_name = nation.nation_name
         for i in National_Resources.query.filter_by(nation_id=nation_id).all():
-              user_national_resources[i.national_resource_name] = i.national_resource_link
+              national_resource_name = i.national_resource_name
+              national_resource_link = i.national_resource_link
+              user_national_resources[national_resource_name] = national_resource_link
     except Exception:
         flash('Error!')
 
@@ -231,7 +244,9 @@ def global_detail():
         user_global_resources = {}
         admin_access_id = session["admin_access_id"]
         for i in Global_Resources.query.filter_by(admin_access_id).all():
-              user_global_resources[i.global_resource_name] = i.global_resource_link
+              global_resource_name = i.global_resource_name
+              global_resource_link = i.global_resource_link
+              user_global_resources[global_resource_name] = global_resource_link
     except Exception:
         flash('Error!')
 

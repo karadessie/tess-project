@@ -6,13 +6,12 @@
   <input type="number" id="ciimatiq" name="CO2" class="home" maxlength="3" readonly> CO2 </input><br></br>
   <input type="number" id="ciimatiq" name="AQI" class="home" maxlength="3" readonly> AQI </input>
   
-  <div>
+  <div><br></br>
   <form action="/home" class="home" method="GET">
   <ul>
-    {% for i in home_resources %}
+    {% for home_resource_link in user_home_resources %}
       <li>
-        <a href="/home/{{ i.home_resource_link }}">{{ i.home_resource_name }}</a>
-        </a>
+        <a href="/home/{{ home_resource_link }}">LINK</a>
       </li>
     {% endfor %}
   </ul>

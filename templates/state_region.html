@@ -9,10 +9,9 @@
  <div class="wellspaced" style="width:50%;">
   <form action="/state_region" method="GET">
   <ul>
-    {% for i in user_state_region_resources %}
+    {% for state_region_resource_name in user_state_region_resources %}
       <li>
-        <a href="/state_region/{{ state_region_resource_link }}">{{ state_region_resource_name }}</a>
-        </a>
+        <a href="/{{ state_region_resource_link }}">{{ state_region_resource_name }}</a>
       </li>
     {% endfor %}
   </ul>
