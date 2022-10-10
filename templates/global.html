@@ -6,14 +6,11 @@
   <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
   <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
-  <div class="wellspaced" style="width:50%;">
+  <div class="H3" style="width:50%;"><br></br>
    <form action="/global" method="GET">
     <ul>
       {% for global_resource_link in user_global_resources %}
-        <li>
-          <a href="/{{ global_resource_link }}">{{ global_resource_name }}</a>
-          </a>
-        </li>
+          <h3><a href="/{{ global_resource_link }}">LINK</a></h3>
       {% endfor %}
     </ul>
   </form>

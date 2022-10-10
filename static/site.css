@@ -104,6 +104,13 @@ a:active {
   margin-bottom: 10px;
 }
 
+.H3 {
+  justify-content: left;
+  text-align: left;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+
 .login {
   display: flex;
   flex-direction: row;

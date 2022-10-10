@@ -10,19 +10,14 @@
  <form action="/community" method="GET">
   <ul>
     {% for community_board_title in user_community_boards %}
-      <li>
-        <a href="/{{ community_board_link }}">{{ community_board_title }}</a>
-        </a>
-      </li>
+        <h3><a href="/{{ community_board_link }}">LINK</a></h3>
     {% endfor %}
   </ul>
   <br></br>
   <ul>
     {% for community_event_title in user_community_events %}
-      <li>
-        <a href="/{{ community_event_link }}"><{{ community_event_title }}</a>
+        <h3><a href="/{{ community_event_link }}">LINK</a></h3>
         </a>
-      </li>
     {% endfor %}
   </ul>
 </form>

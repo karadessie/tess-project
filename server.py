@@ -125,12 +125,10 @@ def home_detail():
     
     try:
         user_home_resources = {}
-        community_id = session["community_id"]
-        home = Home_Resources.query.filter_by(community_id=community_id).first()
-        print(home)
-        for i in Home_Resources.query.filter_by(community_id=community_id).all():
+        for i in Home_Resources.query.filter_by(community_id=session["community_id"]).all():
               home_resource_link = i.home_resource_link
               home_resource_name = i.home_resource_name
+              print(home_resource_link)
               user_home_resources[home_resource_name] = home_resource_link
     except Exception:
         flash('Error!')
@@ -146,11 +144,9 @@ def community_detail():
 
     try:
         user_community_events = {}
-        community_id = session["community_id"]
-        community = Communities.query.filter_by(community_id=community_id).first()
+        community = Communities.query.filter_by(community_id=session["community_id"]).first()
         community_name = community.community_name
-        print(community_id, community_name)
-        for i in Community_Events.query.filter_by(community_id=community_id).all():
+        for i in Community_Events.query.filter_by(community_id=session["community_id"]).first():
               community_event_title = i.community_event_title
               community_event_link = i.community_event_link
               user_community_events[community_event_title] = community_event_link
@@ -160,8 +156,7 @@ def community_detail():
     
     try:
         user_community_boards = {}
-        community_id = session["community.id"]
-        for i in Community_Boards.query.filter_by(community_id=community_id).all():
+        for i in Community_Boards.query.filter_by(community_id=session["community_id"]).first():
               community_board_title = i.community_board_title
               community_board_link = i.community_board_link
               user_community_boards[community_board_title] = community_board_link
@@ -178,15 +173,17 @@ def community_board():
 
     try:
         user_community_board_posts = {}
-        community_name = session["community_id"]
-        for i in Community_Board_Posts.query.filter_by(community_name=community_name).add():
+        community = session["community_id"]
+        community_board_name = community.community_board_name
+        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).add():
               community_board_post_title = i.community_board_post_title
               community_board_post_description = i.community_board_post_descripttion
               user_community_board_posts[community_board_post_title] = community_board_post_description
     except Exception:
         flash('Error!')
 
-    return render_template("community_board.html", user_community_board_posts=user_community_board_posts)
+    return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
+                            community_board_name=community_board_name)
 
 
 @app.route('/state_region', methods=['GET']) 
@@ -195,11 +192,9 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
-        community_id = session["community_id"]
-        community = Communities.query.filter_by(community_id=community_id).first()
+        community = Communities.query.filter_by(community_id=session["community_id"]).first()
         state_region_id = community.state_region_id
-        state_region = State_Regions.query.filter_by(state_region_id=state_region_id).first()
-        state_region_id = state_region.state_region_id
+        state_region = State_Regions.query.filter_by(state_region_id=community.state_region_id).first()
         state_region_name = state_region.state_region_name
         for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id).all():
               state_region_resource_name = i.state_region_resource_name
@@ -218,15 +213,11 @@ def nation_detail():
 
     try:
         user_national_resources = {}
-        community_id = session["community_id"]
-        community = Communities.query.filter_by(community_id=community_id).first()
-        state_region_id = community.state_region_id
-        state_region = State_Regions.query.filter_by(state_region_id=state_region_id).first()
-        nation_id = state_region.nation_id
-        nation = Nations.query.filter_by(nation_id=nation_id).first()
-        nation_id = nation.nation_id
+        community = Communities.query.filter_by(community_id=session["community_id"]).first()
+        state_region = State_Regions.query.filter_by(state_region_id=community.state_region_id).first()
+        nation = Nations.query.filter_by(nation_id=state_region.nation_id).first()
         nation_name = nation.nation_name
-        for i in National_Resources.query.filter_by(nation_id=nation_id).all():
+        for i in National_Resources.query.filter_by(nation_id=nation.nation_id).all():
               national_resource_name = i.national_resource_name
               national_resource_link = i.national_resource_link
               user_national_resources[national_resource_name] = national_resource_link
@@ -242,8 +233,7 @@ def global_detail():
 
     try:
         user_global_resources = {}
-        admin_access_id = session["admin_access_id"]
-        for i in Global_Resources.query.filter_by(admin_access_id).all():
+        for i in Global_Resources.query.filter_by(admin_access_id=session["admin_access_id"]).all():
               global_resource_name = i.global_resource_name
               global_resource_link = i.global_resource_link
               user_global_resources[global_resource_name] = global_resource_link
