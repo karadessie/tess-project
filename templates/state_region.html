@@ -9,8 +9,8 @@
  <div><br></br>
   <form action="/state_region" method="GET">
   <ul>
-    {% for state_region_resource_link in user_state_region_resources %}
-        <h3><a href="{{ state_region_resource_link }}">LINK</a></h3>
+    {% for key, value in user_state_region_resources.items() %}
+        <h3><a href="{{ value }}">{{ key }}</a></h3>
     {% endfor %}
   </ul>
 </form>

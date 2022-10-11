@@ -9,8 +9,8 @@
 <div><br></br>
   <form action="/nation" class="H3" method="GET">
   <ul>
-    {% for national_resource_link in user_national_resources %}
-     <h3><a href="{{ national_resource_link }}">LINK</a></h3>
+    {% for key, value in user_national_resources.items() %}
+     <h3><a href="{{ value }}">{{ key }}</a></h3>
     {% endfor %}
   </ul>
   </form>

@@ -9,8 +9,8 @@
   <div><br></br>
   <form action="/home" class="H3" method="GET">
   <ul>
-    {% for home_resource_link in user_home_resources %}
-     <h3><a href="{{ home_resource_link }}">LINK</a></h3>
+    {% for key, value in user_home_resources.items() %}
+     <h3><a href="{{ value }}">{{ key }}</a></h3>
     {% endfor %}
   </ul>
   </form>

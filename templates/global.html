@@ -9,8 +9,8 @@
   <div class="H3" style="width:50%;"><br></br>
    <form action="/global" method="GET">
     <ul>
-      {% for global_resource_link in user_global_resources %}
-          <h3><a href="/{{ global_resource_link }}">LINK</a></h3>
+      {% for key, value in user_global_resources.items() %}
+          <h3><a href="{{ value }}">{{ key }}</a></h3>
       {% endfor %}
     </ul>
   </form>
