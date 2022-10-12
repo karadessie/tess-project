@@ -6,17 +6,19 @@
  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
- <div class="wellspaced" style="width:50%;">
- <form action="/community" method="GET">
+ <div><br></br>
+ <form action="/community" class="H3" method="GET">
   <ul>
-    {% for key, value in user_community_boards.items() %}
-        <h3><a href="/{{ value }}">{{ key }}</a></h3>
+    {% for community_board_title in user_community_boards %}
+        <h3><a href="/community">{{ community_board_title }}</a></h3>
     {% endfor %}
   </ul>
+ </form>
   <br></br>
+  <form>
   <ul>
     {% for key, value in user_community_events.items() %}
-        <h3><a href="/{{ value }}">{{ key }}</a></h3>
+        <h3><a href="{{ value }}">{{ key }}</a></h3>
         </a>
     {% endfor %}
   </ul>

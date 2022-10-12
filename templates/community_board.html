@@ -5,9 +5,9 @@
   
   <form action="/community_board" method="GET">
   <ul>
-    {% for community_board_posts %}
+    {% for key, value in community_board_posts.items() %}
       <li>
-        <a href="/community_board/{{ url_for community_board_post }}">
+        <h3><a href="{{ value }}">{{ key }}</a></h3>
         </a>
       </li>
     {% endfor %}

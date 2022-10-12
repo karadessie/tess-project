@@ -7,13 +7,17 @@
 <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
   
  <div><br></br>
-  <form action="/state_region" method="GET">
+  <form action="/state_region" class="H3" method="GET">
   <ul>
     {% for key, value in user_state_region_resources.items() %}
         <h3><a href="{{ value }}">{{ key }}</a></h3>
     {% endfor %}
   </ul>
 </form>
+</div>
+
+<div class="wrapper">
+  <input type="textarea" id="guardian" name="guardian readonly"></input>
 </div>
 
 {% endblock %}

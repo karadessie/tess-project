@@ -1,5 +1,5 @@
-001|037|101|Intuit Mint Budget|https://mint.intuit.com/
-002|037|101|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
-003|037|101|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
-004|037|101|Simply Auto|https://simplyauto.app/
-005|037|101|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/
+001|189|101|Heat.gov|https://www.heat.gov/
+002|189|101|FEMA|https://www.fema.gov/
+003|189|101|EPA Climate Change|https://www.epa.gov/climate-change
+004|189|101|NASA/Global Climate Change|https://climate.nasa.gov/
+005|189|101|National Center for Climate Simulation|https://www.nccs.nasa.gov/

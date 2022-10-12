@@ -12,21 +12,19 @@ from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, 
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
 
-
-"""NEWS & CLIMATE APIS"""
-
-"""guardian_url = GUARDIAN_URL
-climatiq_url = CLIMATIQ_URL
-
 from theguardian import theguardian_content
+
+"""The Guardian"""
 
 news_content = theguardian_content.Content(api='test', url=GUARDIAN_URL)
 
 news_content_response = news_content.get_content_response()
-print(news_content_response)"""
+print(news_content_response)
 
 
 """from Climatiq:
+
+climatiq_url = CLIMATIQ_URL
 
 curl --request GET 
     --url 'https://beta3.api.climatiq.io/search?query=category&region' 
@@ -104,13 +102,10 @@ def process_login():
                if password_check:
                     community_id = user.community_id
                     admin_access_id = user.admin_access_id
-                    session["username"] = username
-                    session["password"] = password
-                    session["community_id"] = community_id
-                    session["admin_access_id"] = admin_access_id
-                    print(username, password, community_id, admin_access_id)
+                    user=(username, password, admin_access_id, community_id)
+                    session["user"] = user
                     flash('Logged in!')
-                    return render_template("welcomepage.html")
+                    return redirect('/')
     except Exception:
         flash('Invalid Login!')
         return redirect('/login')
@@ -146,20 +141,19 @@ def community_detail():
         user_community_events = {}
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         community_name = community.community_name
-        for i in Community_Events.query.filter_by(community_id=session["community_id"]).first():
+        for i in Community_Events.query.filter_by(community_id=session["community_id"]).all():
               community_event_title = i.community_event_title
-              community_event_link = i.community_event_link
-              user_community_events[community_event_title] = community_event_link
+              community_event_description = i.community_event_description
+              user_community_events[community_event_title] = community_event_description
               print(user_community_events)
     except Exception:
         flash('Error!')
     
     try:
-        user_community_boards = {}
-        for i in Community_Boards.query.filter_by(community_id=session["community_id"]).first():
-              community_board_title = i.community_board_title
-              community_board_link = i.community_board_link
-              user_community_boards[community_board_title] = community_board_link
+        user_community_boards = []
+        for i in Community_Boards.query.filter_by(community_id=session["community_id"]).all():
+                 community_board_title = i.community_board_title
+                 user_community_boards.append(community_board_title)
     except Exception:
         flash('Error!')
 
@@ -167,15 +161,15 @@ def community_detail():
                             user_community_boards=user_community_boards, community_name=community_name)
 
 
-@app.route('/communityboard', methods=['GET'])
+@app.route('/community_board', methods=['GET'])
 def community_board():
     """Display community board and posts"""
 
     try:
         user_community_board_posts = {}
-        community = session["community_id"]
-        community_board_name = community.community_board_name
-        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).add():
+        community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
+        community_board_name = community_board.community_board_name
+        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).all():
               community_board_post_title = i.community_board_post_title
               community_board_post_description = i.community_board_post_descripttion
               user_community_board_posts[community_board_post_title] = community_board_post_description
@@ -193,10 +187,10 @@ def state_region_detail():
     try:
         user_state_region_resources = {}
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
-        state_region_id = community.state_region_id
-        state_region = State_Regions.query.filter_by(state_region_id=community.state_region_id).first()
+        session["state_region_id"] = community.state_region_id
+        state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
         state_region_name = state_region.state_region_name
-        for i in State_Region_Resources.query.filter_by(state_region_id=state_region_id).all():
+        for i in State_Region_Resources.query.filter_by(state_region_id=session["state_region_id"]).all():
               state_region_resource_name = i.state_region_resource_name
               state_region_resource_link = i.state_region_resource_link
               user_state_region_resources[state_region_resource_name] = state_region_resource_link
@@ -214,7 +208,8 @@ def nation_detail():
     try:
         user_national_resources = {}
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
-        state_region = State_Regions.query.filter_by(state_region_id=community.state_region_id).first()
+        session["state_region_id"] = community.state_region_id
+        state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
         nation = Nations.query.filter_by(nation_id=state_region.nation_id).first()
         nation_name = nation.nation_name
         for i in National_Resources.query.filter_by(nation_id=nation.nation_id).all():
@@ -247,8 +242,8 @@ def global_detail():
 def logout():
     """Log Out"""
 
-    if "username" in session:
-        del session["username"]
+    if "user" in session:
+        del session["user"]
         flash(f"Logged Out!")
     return redirect("/")
 
