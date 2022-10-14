@@ -138,7 +138,7 @@ class Community_Boards(db.Model):
                           autoincrement=True,
                           primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
-    community_board_title = db.Column(db.String(64), nullable=False)
+    community_board_title = db.Column(db.String(32), nullable=False)
 
     def __repr__(self):
         return f"<Community Board title={self.community_board_title}>"
@@ -153,17 +153,10 @@ class Community_Board_Posts(db.Model):
                                autoincrement=True,
                                primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
-    community_board_id = db.Column(db.Integer, db.ForeignKey('community_boards.community_board_id'), nullable=False)
+    community_board_id = db.Column(db.Integer, nullable=False)
     community_board_post_datetime = db.Column(db.DateTime, nullable=False)
     community_board_post_title = db.Column(db.String(64), nullable=False)
-    community_board_post_description = db.Column(db.String(510), nullable=False)
-
-    def get_community_board_posts(community_id, community_board_post_id):
-        user_community_board_posts = {}
-        while Community_Board_Posts.community_id == community_id and \
-              Community_Board_Posts.community_board_post_id == community_board_post_id:
-              user_community_board_posts.append(Community_Board_Posts.community_board_post_title, \
-                                                Community_Board_Posts.community_board_post_description)
+    community_board_post_description = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return f"<Community Board Posts community_board_post_id={self.community_board_post_id} \

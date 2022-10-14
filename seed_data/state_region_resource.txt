@@ -1,5 +1,5 @@
 001|040|101|Intuit Mint Budget|https://mint.intuit.com/
 002|040|101|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
 003|040|101|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
-004|040|101|Simply Autho|https://simplyauto.app/
+004|040|101|Simply Auto|https://simplyauto.app/
 005|040|101|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/

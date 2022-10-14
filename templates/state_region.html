@@ -3,8 +3,8 @@
 
 <h1 class="header1">TESS {{ state_region_name  }}</h1>
 
-<input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
-<input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
+<input type="number" id="airvisual" name="weather" readonly> Weather </input><br></br>
+<input type="number" id="airvisual" name="AQI" readonly> AQI </input>
   
  <div><br></br>
   <form action="/state_region" class="H3" method="GET">
@@ -17,7 +17,7 @@
 </div>
 
 <div class="wrapper">
-  <input type="textarea" id="guardian" name="guardian readonly"></input>
+  <textarea id="guardian" name="guardian" rows="5" cols="50" readonly"></textarea>
 </div>
 
 {% endblock %}

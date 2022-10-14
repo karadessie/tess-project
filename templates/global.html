@@ -3,17 +3,21 @@
 
   <h1 class="header1">TESS GLOBAL</h1>
 
-  <input type="number" id="ciimatiq" name="CO2" readonly> CO2 </input><br></br>
-  <input type="number" id="ciimatiq" name="AQI" readonly> AQI </input>
+  <input type="number" id="airvisual" name="weather" readonly> Weather </input><br></br>
+  <input type="number" id="airvisual" name="AQI" readonly> AQI </input>
   
   <div class="H3" style="width:50%;"><br></br>
-   <form action="/global" method="GET">
+   <form action="/global" class="H3" method="GET">
     <ul>
       {% for key, value in user_global_resources.items() %}
           <h3><a href="{{ value }}">{{ key }}</a></h3>
       {% endfor %}
     </ul>
   </form>
+  </div>
+
+  <div class="wrapper">
+    <textarea id="guardian" name="guardian" rows="5" cols="55" readonly"></textarea>
   </div>
 
 {% endblock %}

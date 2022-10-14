@@ -88,13 +88,12 @@ a:active {
 }
 
 .wrapper {
-  margin-right: auto; /* 1 */
-  margin-left:  auto; /* 1 */
-
-  max-width: 960px; /* 2 */
-
-  padding-right: 10px; /* 3 */
-  padding-left:  10px; /* 3 */
+    display: flexbox;
+    width: 50%;
+    float: right;
+    height: 100%;
+    font-weight: 700px;
+    font-size: large;
 }
 
 .home {
@@ -107,8 +106,30 @@ a:active {
 .H3 {
   justify-content: left;
   text-align: left;
+  line-height: 20px;
+  font-weight: bolder;
+}
+
+.input1 {
+  justify-content: left;
+  text-align: left;
   line-height: 26px;
   margin-bottom: 10px;
+  font-weight: bolder;
+}
+
+.input2 {
+  justify-content: left;
+  text-align: left;
+  line-height: 26px;
+  margin-bottom: 10px;
+  font-weight: bolder;
+}
+
+.input3 {
+  border: none;
+  font-size: 35px;
+  font-weight: bolder;
 }
 
 .login {

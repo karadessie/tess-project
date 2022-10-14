@@ -12,24 +12,40 @@ from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, 
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
 
-from theguardian import theguardian_content
+import os
+import json
 
-"""The Guardian"""
+"""from theguardian import theguardian_content
 
-news_content = theguardian_content.Content(api='test', url=GUARDIAN_URL)
+news_content = theguardian_content.Content(api='test', url="GUARDIAN_URL")
 
-news_content_response = news_content.get_content_response()
-print(news_content_response)
+json_content = news_content.get_content_response()
+all_results = news_content.get_results(json_content)
+print("All results {}." .format(all_results))"""
 
+"""from Climatiq
 
-"""from Climatiq:
+MY_API_KEY="CLIMATIQ_API_KEY"
 
-climatiq_url = CLIMATIQ_URL
+url = "CLIMATIQ_URL"
+query="grid mix"
 
-curl --request GET 
-    --url 'https://beta3.api.climatiq.io/search?query=category&region' 
-    --header 'Authorization: Bearer CLIMATIQ_API_KEY'
-"""
+query_params = {
+    # Free text query can be writen as the "query" parameter
+    "query": query,
+    # You can also filter on region, year, source and more
+    "region": "US"
+}
+authorization_headers = {"Authorization": f"Bearer: {MY_API_KEY}"}
+response = request.get(url, params=query_params, headers=authorization_headers).json()
+
+# And here you can do whatever you want with the results
+print(response)"""
+
+"""IQAir API"""
+
+url = "IQAIR_URL"
+
 
 """CREATE APP"""
 
@@ -169,7 +185,8 @@ def community_board():
         user_community_board_posts = {}
         community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
         community_board_name = community_board.community_board_name
-        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).all():
+        community_board_id = community_board.community_board_id
+        for i in Community_Board_Posts.query.filter_by(sorted(community_board_id=community_board_id)).all():
               community_board_post_title = i.community_board_post_title
               community_board_post_description = i.community_board_post_descripttion
               user_community_board_posts[community_board_post_title] = community_board_post_description
@@ -242,9 +259,7 @@ def global_detail():
 def logout():
     """Log Out"""
 
-    if "user" in session:
-        del session["user"]
-        flash(f"Logged Out!")
+    flash(f"Logged Out!")
     return redirect("/")
 
 
