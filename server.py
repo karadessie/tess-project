@@ -14,37 +14,46 @@ from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, 
 
 import os
 import json
+import requests
 
-"""from theguardian import theguardian_content
 
-news_content = theguardian_content.Content(api='test', url="GUARDIAN_URL")
+"""The Guardian API"""
 
-json_content = news_content.get_content_response()
-all_results = news_content.get_results(json_content)
-print("All results {}." .format(all_results))"""
+base_url = "https://content.guardianapis.com/"
+api_key = "GUARDIAN_API_KEY"
 
-"""from Climatiq
+	# set up parameters
+search_keyword = 'Environment'
+data_format = 'json'
+section = 'environment'
+from_date = '2022-01-01'
+to_date = '2022-01-02'
+page = 1
+page_size = 10
+order_by = 'newest'
+production_office = 'us'
+lang = 'en'
 
-MY_API_KEY="CLIMATIQ_API_KEY"
+finalized_url = "{}search?/q={}&format={}&section={}&from-date={}&to-date={}&page={}&page-size={}&order-by={} \
+                 &production-office={}&lang={}&api-key={}" \
+                .format(base_url, search_keyword, data_format, section, from_date, to_date, \
+                 page, page_size, order_by, production_office, lang, api_key)
 
-url = "CLIMATIQ_URL"
-query="grid mix"
+r = requests.get(url = finalized_url, params={})
 
-query_params = {
-    # Free text query can be writen as the "query" parameter
-    "query": query,
-    # You can also filter on region, year, source and more
-    "region": "US"
-}
-authorization_headers = {"Authorization": f"Bearer: {MY_API_KEY}"}
-response = request.get(url, params=query_params, headers=authorization_headers).json()
+print(finalized_url, '\t')
 
-# And here you can do whatever you want with the results
-print(response)"""
+Guardian = json.loads(r.text)
+with open('Guardian_data_query1.json', 'w') as outfile:  
+	    json.dump(Guardian, outfile, indent=4)
+
 
 """IQAir API"""
 
-url = "IQAIR_URL"
+url = "http://{IQAIR_URL}"
+
+response = requests.get(url)
+print(response)
 
 
 """CREATE APP"""
@@ -259,6 +268,7 @@ def global_detail():
 def logout():
     """Log Out"""
 
+    session["user"] = None
     flash(f"Logged Out!")
     return redirect("/")
 
