@@ -5,17 +5,16 @@ from unicodedata import name
 from unittest import result
 from jinja2 import StrictUndefined
 
+import os
+import json
+import requests
+
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
-
-import os
-import json
-import requests
-
 
 """The Guardian API"""
 
@@ -51,18 +50,16 @@ with open('Guardian_data_query1.json', 'w') as outfile:
 
 """IQAir API"""
 
-community_name = 'Rock Hill'
-state_region_name = 'South Carolina'
+"""community_name = 'RockHill'
+state_region_name = 'SouthCarolina'
 nation_name = 'USA'
 
 url = "https://{IQAIR_URL}"
 
 IQAIR_URL="api.airvisual.com/v2/city?city={community_name}={state_region_name}&country={nation_name}&key={IQAIR_API_KEY}"
 
-"""secure_url = url.replace(scheme='https')"""
-
 response = requests.get(url)
-print(response)
+print(response)"""
 
 
 """CREATE APP"""
@@ -134,8 +131,13 @@ def process_login():
             if user:
                password_check = password == user.password
                if password_check:
+                    session["user"] = None
                     community_id = user.community_id
+                    session["community_id"] = community_id
                     admin_access_id = user.admin_access_id
+                    session["admin_access_id"] = admin_access_id
+                    user_name = user.user_name
+                    session["user_name"] = user_name
                     user=(username, password, admin_access_id, community_id)
                     session["user"] = user
                     flash('Logged in!')
@@ -154,6 +156,7 @@ def home_detail():
     
     try:
         user_home_resources = {}
+        user_name = session["user_name"]
         for i in Home_Resources.query.filter_by(community_id=session["community_id"]).all():
               home_resource_link = i.home_resource_link
               home_resource_name = i.home_resource_name
@@ -164,7 +167,7 @@ def home_detail():
 
     print(user_home_resources)
 
-    return render_template("home.html", user_home_resources=user_home_resources)
+    return render_template("home.html", user_home_resources=user_home_resources, user_name=user_name)
 
 
 @app.route('/community', methods=['GET'])
@@ -173,6 +176,7 @@ def community_detail():
 
     try:
         user_community_events = {}
+        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         community_name = community.community_name
         for i in Community_Events.query.filter_by(community_id=session["community_id"]).all():
@@ -192,7 +196,8 @@ def community_detail():
         flash('Error!')
 
     return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards, community_name=community_name)
+                            user_community_boards=user_community_boards, community_name=community_name, \
+                            user_name=user_name)
 
 
 @app.route('/community_board', methods=['GET'])
@@ -201,6 +206,7 @@ def community_board():
 
     try:
         user_community_board_posts = {}
+        user_name = session["user_name"]
         community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
         community_board_name = community_board.community_board_name
         community_board_id = community_board.community_board_id
@@ -212,7 +218,7 @@ def community_board():
         flash('Error!')
 
     return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
-                            community_board_name=community_board_name)
+                            community_board_name=community_board_name, user_name=user_name)
 
 
 @app.route('/state_region', methods=['GET']) 
@@ -221,6 +227,7 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
+        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         session["state_region_id"] = community.state_region_id
         state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
@@ -233,7 +240,7 @@ def state_region_detail():
         flash('Error!')
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
-                            state_region_name=state_region_name)
+                            state_region_name=state_region_name, user_name=user_name)
 
 
 @app.route('/nation', methods=['GET'])
@@ -242,6 +249,7 @@ def nation_detail():
 
     try:
         user_national_resources = {}
+        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         session["state_region_id"] = community.state_region_id
         state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
@@ -254,7 +262,8 @@ def nation_detail():
     except Exception:
         flash('Error!')
 
-    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name)
+    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
+                            user_name=user_name)
 
 
 @app.route('/global', methods=['GET'])
@@ -263,6 +272,7 @@ def global_detail():
 
     try:
         user_global_resources = {}
+        user_name = session["user_name"]
         for i in Global_Resources.query.filter_by(admin_access_id=session["admin_access_id"]).all():
               global_resource_name = i.global_resource_name
               global_resource_link = i.global_resource_link
@@ -270,7 +280,7 @@ def global_detail():
     except Exception:
         flash('Error!')
 
-    return render_template("global.html", user_global_resources=user_global_resources)
+    return render_template("global.html", user_global_resources=user_global_resources, user_name=user_name)
 
 
 @app.route('/logout')

@@ -3,11 +3,16 @@
 
 <h1 class="header1"> TESS {{ nation_name }}</h1>
 
-<input type="number" id="airvisual" name="weather" readonly> Weather </input><br></br>
-<input type="number" id="airvisual" name="AQI" readonly> AQI </input>
+<div>
+<text id="iqair" name="weather" readonly>Weather</text>
+<text id="name" name="name" readonly>{{ user_name }}</text>
+</div>
+<text id="iqair" name="AQI" readonly>AQI</text>
 
-<div><br></br>
-  <form action="/nation" class="H3" method="GET">
+<div class="flex-parent-element"><br></br>
+
+<div>
+  <form action="/nation" class="flex-child-element" method="GET">
   <ul>
     {% for key, value in user_national_resources.items() %}
      <h3><a href="{{ value }}">{{ key }}</a></h3>
@@ -16,7 +21,7 @@
   </form>
 </div>
 
-<div class="wrapper">
+<div class="flex-child-element:first-child"><br></br>
   <textarea id="guardian" name="guardian" rows="5" cols="50" readonly></textarea>
 </div>
 

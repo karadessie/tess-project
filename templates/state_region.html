@@ -3,11 +3,16 @@
 
 <h1 class="header1">TESS {{ state_region_name  }}</h1>
 
-<input type="number" id="airvisual" name="weather" readonly> Weather </input><br></br>
-<input type="number" id="airvisual" name="AQI" readonly> AQI </input>
+<div>
+<text id="airvisual" name="weather" display: inline-block; readonly>Weather</text>
+<text id="name" name="name"  display: inline-block; float: right; width: 100%; readonly>{{ user_name }}</text>
+</div>
+<textid="airvisual" name="AQI" readonly>AQI</text>
+
+<div class="flex-parent-element"><br></br>
   
- <div><br></br>
-  <form action="/state_region" class="H3" method="GET">
+ <div>
+  <form action="/state_region" class="flex-child-element" method="GET">
   <ul>
     {% for key, value in user_state_region_resources.items() %}
         <h3><a href="{{ value }}">{{ key }}</a></h3>
@@ -16,7 +21,7 @@
 </form>
 </div>
 
-<div class="wrapper">
+<div class="flex-child-element:first-child"><br></br>
   <textarea id="guardian" name="guardian" rows="5" cols="50" readonly"></textarea>
 </div>
 

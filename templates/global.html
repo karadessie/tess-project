@@ -3,11 +3,16 @@
 
   <h1 class="header1">TESS GLOBAL</h1>
 
-  <input type="number" id="airvisual" name="weather" readonly> Weather </input><br></br>
-  <input type="number" id="airvisual" name="AQI" readonly> AQI </input>
+  <div>
+  <text id="iqair" name="weather" display: inline-block; readonly>Weather</text>
+  <text id="name" name="name" display: inline-block; float: right; width: 100%; readonly>{{ user_name }}</text>
+  </div>
+  <text id="iqair" name="AQI" readonly>AQI</text>
+   
+  <div class="flex-parent-element"><br></br>
   
-  <div class="H3" style="width:50%;"><br></br>
-   <form action="/global" class="H3" method="GET">
+  <div class="flex-child-element">
+   <form action="/global" method="GET">
     <ul>
       {% for key, value in user_global_resources.items() %}
           <h3><a href="{{ value }}">{{ key }}</a></h3>
@@ -16,7 +21,7 @@
   </form>
   </div>
 
-  <div class="wrapper">
+  <div class="flex-child-element:first-child"><br></br>
     <textarea id="guardian" name="guardian" rows="5" cols="55" readonly"></textarea>
   </div>
 
