@@ -15,14 +15,11 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
+     
 
 """The Guardian API"""
 
-"""base_url = "https://content.guardianapis.com/"
-api_key = "GUARDIAN_API_KEY"
-
-	# set up parameters
-search_keyword = 'Environment'
+"""search_keyword = 'environment'
 data_format = 'json'
 section = 'environment'
 from_date = '2022-01-01'
@@ -33,33 +30,11 @@ order_by = 'newest'
 production_office = 'us'
 lang = 'en'
 
-finalized_url = "{base_url}search?/q={search_keyword}&format={data_format}&section={section}&from-date={from_date} \
+finalized_url = "search?/q={search_keyword}&format={data_format}&section={section}&from-date={from_date} \
                  &to-date={to_date}&page={page}&page-size={page_size}&order-by={order_by} \
                  &production-office={production_office}&lang={lang}&api-key={api_key}" \
                 .format(base_url, search_keyword, data_format, section, from_date, to_date, \
-                 page, page_size, order_by, production_office, lang, api_key)
-
-r = requests.get(url = finalized_url, params={})
-
-print(finalized_url, '\t')
-
-Guardian = json.loads(r.text)
-with open('Guardian_data_query1.json', 'w') as outfile:  
-	    json.dump(Guardian, outfile, indent=4)"""
-
-
-"""IQAir API"""
-
-city_name = 'Rock Hill'
-state_region_name = 'South Carolina'
-nation_name = 'USA'
-
-url = "https://{IQAIR_URL}"
-
-IQAIR_URL="api.airvisual.com/v2/city?city={city_name}={state_region_name}&country={nation_name}&key={IQAIR_API_KEY}"
-
-response = requests.get(url)
-print(response)
+                 page, page_size, order_by, production_office, lang, api_key)"""
 
 
 """CREATE APP"""
@@ -72,6 +47,7 @@ app.jinja_env.undefined = StrictUndefined
 
 
 """ROUTES/FUNCTIONS"""
+
 
 @app.route('/')
 def welcome():
@@ -167,6 +143,19 @@ def home_detail():
 
     print(user_home_resources)
 
+    """def get_local_news():
+        url = "http://{GUARDIAN_URL}"
+        response = requests.get(url)
+        print(response)
+
+    def get_local_weather_aqi():
+        url = "https://{IQAIR_URL}"
+        response = requests.get(url)
+        print(response) 
+
+    get_local_weather_aqi()
+    get_local_news()"""
+
     return render_template("home.html", user_home_resources=user_home_resources, user_name=user_name)
 
 
@@ -194,6 +183,13 @@ def community_detail():
                  user_community_boards.append(community_board_title)
     except Exception:
         flash('Error!')
+
+    """def get_local_weather_aqi():
+        url = "https://{IQAIR_URL}"
+        response = requests.get(url)
+        print(response) 
+
+    get_local_weather_aqi()"""
 
     return render_template("community.html", user_community_events=user_community_events, \
                             user_community_boards=user_community_boards, community_name=community_name, \
@@ -239,6 +235,19 @@ def state_region_detail():
     except Exception:
         flash('Error!')
 
+    """def get_state_region_aqi():
+        url = "https://{IQAIR_URL}"
+        response = requests.get(url)
+        print(response)
+
+    def get_state_region_news():
+        url = "http://{GUARDIAN_URL}"
+        response = requests.get(url)
+        print(response)
+
+    get_state_region_aqi()
+    get_state_region_news()"""
+
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
                             state_region_name=state_region_name, user_name=user_name)
 
@@ -262,6 +271,19 @@ def nation_detail():
     except Exception:
         flash('Error!')
 
+    """def get_national_aqi():
+        url = "https://{IQAIR_URL}"
+        response = requests.get(url)
+        print(response)
+
+    def get_national_news():
+        url = "http://{GUARDIAN_URL}"
+        response = requests.get(url)
+        print(response)
+
+    get_national_aqi()
+    get_national_news()"""
+
     return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
                             user_name=user_name)
 
@@ -279,6 +301,19 @@ def global_detail():
               user_global_resources[global_resource_name] = global_resource_link
     except Exception:
         flash('Error!')
+
+    """def get_global_news():
+        url = "http://{GUARDIAN_URL}"
+        response = requests.get(url)
+        print(response)
+
+    def get_global_aqi():
+        url = "https://{IQAIR_URL}"
+        response = requests.get(url)
+        print(response)
+
+    get_global_aqi()
+    get_global_news()"""
 
     return render_template("global.html", user_global_resources=user_global_resources, user_name=user_name)
 
