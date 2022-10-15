@@ -123,7 +123,7 @@ class Home_Resources(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     home_resource_name = db.Column(db.String(64), nullable=False)
-    home_resource_link = db.Column(db.String(255), nullable=False)
+    home_resource_link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         return f"<Home Resource name={self.home_resource_name}>"
@@ -192,7 +192,7 @@ class State_Region_Resources(db.Model):
     state_region_id = db.Column(db.Integer, db.ForeignKey('state_regions.state_region_id'), nullable=False)
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     state_region_resource_name = db.Column(db.String(64), nullable=False)
-    state_region_resource_link = db.Column(db.String(255), nullable=False)
+    state_region_resource_link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):            
          return f"<State & Region Resources state_region_resource_id={self.state_region_resource_id} \
@@ -210,7 +210,7 @@ class National_Resources(db.Model):
     nation_id = db.Column(db.Integer, db.ForeignKey('nations.nation_id'), nullable=False)
     admin_access_id = db.Column(db.Integer, db.ForeignKey('admin_access.admin_access_id'), nullable=False)
     national_resource_name = db.Column(db.String(64), nullable=False)
-    national_resource_link = db.Column(db.String(255), nullable=False)
+    national_resource_link = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):      
         return f"<National Resources national_resource_id={self.national_resource_id}\

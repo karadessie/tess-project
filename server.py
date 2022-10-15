@@ -19,7 +19,7 @@ import requests
 
 """The Guardian API"""
 
-base_url = "https://content.guardianapis.com/"
+"""base_url = "https://content.guardianapis.com/"
 api_key = "GUARDIAN_API_KEY"
 
 	# set up parameters
@@ -34,8 +34,9 @@ order_by = 'newest'
 production_office = 'us'
 lang = 'en'
 
-finalized_url = "{}search?/q={}&format={}&section={}&from-date={}&to-date={}&page={}&page-size={}&order-by={} \
-                 &production-office={}&lang={}&api-key={}" \
+finalized_url = "{base_url}search?/q={search_keyword}&format={data_format}&section={section}&from-date={from_date} \
+                 &to-date={to_date}&page={page}&page-size={page_size}&order-by={order_by} \
+                 &production-office={production_office}&lang={lang}&api-key={api_key}" \
                 .format(base_url, search_keyword, data_format, section, from_date, to_date, \
                  page, page_size, order_by, production_office, lang, api_key)
 
@@ -45,12 +46,20 @@ print(finalized_url, '\t')
 
 Guardian = json.loads(r.text)
 with open('Guardian_data_query1.json', 'w') as outfile:  
-	    json.dump(Guardian, outfile, indent=4)
+	    json.dump(Guardian, outfile, indent=4)"""
 
 
 """IQAir API"""
 
-url = "http://{IQAIR_URL}"
+community_name = 'Rock Hill'
+state_region_name = 'South Carolina'
+nation_name = 'USA'
+
+url = "https://{IQAIR_URL}"
+
+IQAIR_URL="api.airvisual.com/v2/city?city={community_name}={state_region_name}&country={nation_name}&key={IQAIR_API_KEY}"
+
+"""secure_url = url.replace(scheme='https')"""
 
 response = requests.get(url)
 print(response)

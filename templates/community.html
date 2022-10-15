@@ -6,7 +6,7 @@
  <input type="number" id="iqair" name="weather" readonly> Weather </input><br></br>
  <input type="number" id="iqair" name="AQI" readonly> AQI </input>
   
- <div style="width:50%; float: left;"></div><br></br>
+ <div style="width: 50%; height: 100%; float: left; position: relative;"></div><br></br>
  <form action="/community" class="H3" method="GET">
   <ul>
     {% for community_board_title in user_community_boards %}
@@ -16,7 +16,7 @@
  </form>
 </div>
 
-<div style="width:50%; float: right; font-weight: 700; font-size: large; display: flexbox;">
+<div style="width: 50%; float: right; font-weight: 700; font-size: large; position: relative; display: flexbox;">
   <form action="/community" method="GET">
   <ul>
     {% for key, value in user_community_events.items() %}
