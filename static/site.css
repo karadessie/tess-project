@@ -157,6 +157,7 @@ a:active {
 .flex-child-element {
   flex: 1;
   min-width: 600px;
+  justify-content: left;
   margin: 5px;
 }
 

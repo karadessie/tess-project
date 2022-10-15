@@ -50,16 +50,16 @@ with open('Guardian_data_query1.json', 'w') as outfile:
 
 """IQAir API"""
 
-"""community_name = 'RockHill'
-state_region_name = 'SouthCarolina'
+city_name = 'Rock Hill'
+state_region_name = 'South Carolina'
 nation_name = 'USA'
 
 url = "https://{IQAIR_URL}"
 
-IQAIR_URL="api.airvisual.com/v2/city?city={community_name}={state_region_name}&country={nation_name}&key={IQAIR_API_KEY}"
+IQAIR_URL="api.airvisual.com/v2/city?city={city_name}={state_region_name}&country={nation_name}&key={IQAIR_API_KEY}"
 
 response = requests.get(url)
-print(response)"""
+print(response)
 
 
 """CREATE APP"""
