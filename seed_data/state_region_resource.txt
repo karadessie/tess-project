@@ -1,8 +1,8 @@
-001|040|101|Sea Grant|https://www.scseagrant.org/sea-level-rise-and-climate-change/
-002|040|101|Live Healthy SC|https://livehealthy.sc.gov/
-003|040|101|Southern Environmental Law Center|https://www.southernenvironment.org/our-states/south-carolina/
-004|040|101|Conservation Voters of South Carolina|https://www.cvsc.org/legislative/scorecards/
-005|040|101|Foodshare South Carolina|https://foodsharesc.org/
-006|040|101|Coastal Conservation League|https://www.coastalconservationleague.org/
-007|040|101|NRCS South Carolina|https://www.nrcs.usda.gov/wps/portal/nrcs/site/sc/home/
-008|040|101|Recycle Here SC|https://scdhec.gov/environment/recycling-waste-reduction/where-recycle-locally
+001|040|101|Coastal Conservation League|https://www.coastalconservationleague.org/
+002|040|101|Conservation Voters of South Carolina|https://www.cvsc.org/legislative/scorecards/
+003|040|101|Foodshare South Carolina|https://foodsharesc.org/
+004|040|101|Live Healthy SC|https://livehealthy.sc.gov/
+005|040|101|NRCS South Carolina|https://www.nrcs.usda.gov/wps/portal/nrcs/site/sc/home/
+006|040|101|Recycle Here SC|https://scdhec.gov/environment/recycling-waste-reduction/where-recycle-locally/
+007|040|101|Sea Grant|https://www.scseagrant.org/sea-level-rise-and-climate-change/
+008|040|101|Southern Environmental Law Center|https://www.southernenvironment.org/our-states/south-carolina/

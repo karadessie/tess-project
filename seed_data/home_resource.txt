@@ -1,8 +1,8 @@
-001|037|001|Intuit Mint Budget|https://mint.intuit.com/
-002|037|001|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
-003|037|001|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
-004|037|001|Simply Auto|https://simplyauto.app/
-005|037|001|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/
-006|037|001|Carbon Footprint Calculator|https://www3.epa.gov/carbon-footprint-calculator/
-007|037|001|Save Your Wardrobe|https://www.saveyourwardrobe.com/2021/01/01/syw-a-year-in-review/
-008|037|001|IQs Air Visual|https://www.iqair.com/us/commercial/air-quality-monitors/airvisual-platform/air-quality-app/
+001|037|001|Allrecipes Healthy Recipes|https://www.allrecipes.com/recipes/84/healthy-recipes/
+002|037|001|Carbon Footprint Calculator|https://www3.epa.gov/carbon-footprint-calculator/
+003|037|001|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/
+004|037|001|IQ Air Visual|https://www.iqair.com/us/commercial/air-quality-monitors/airvisual-platform/air-quality-app/
+005|037|001|Intuit Budget|https://mint.intuit.com/
+006|037|001|Save Your Wardrobe|https://www.saveyourwardrobe.com/2021/01/01/syw-a-year-in-review/
+007|037|001|Simply Auto|https://simplyauto.app/
+008|037|001|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/

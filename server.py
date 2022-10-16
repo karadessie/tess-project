@@ -132,7 +132,6 @@ def home_detail():
     
     try:
         user_home_resources = {}
-        user_name = session["user_name"]
         for i in Home_Resources.query.filter_by(community_id=session["community_id"]).all():
               home_resource_link = i.home_resource_link
               home_resource_name = i.home_resource_name
@@ -156,7 +155,7 @@ def home_detail():
     get_local_weather_aqi()
     get_local_news()"""
 
-    return render_template("home.html", user_home_resources=user_home_resources, user_name=user_name)
+    return render_template("home.html", user_home_resources=user_home_resources)
 
 
 @app.route('/community', methods=['GET'])
@@ -165,7 +164,6 @@ def community_detail():
 
     try:
         user_community_events = {}
-        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         community_name = community.community_name
         for i in Community_Events.query.filter_by(community_id=session["community_id"]).all():
@@ -192,8 +190,7 @@ def community_detail():
     get_local_weather_aqi()"""
 
     return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards, community_name=community_name, \
-                            user_name=user_name)
+                            user_community_boards=user_community_boards, community_name=community_name)
 
 
 @app.route('/community_board', methods=['GET'])
@@ -202,7 +199,6 @@ def community_board():
 
     try:
         user_community_board_posts = {}
-        user_name = session["user_name"]
         community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
         community_board_name = community_board.community_board_name
         community_board_id = community_board.community_board_id
@@ -214,7 +210,7 @@ def community_board():
         flash('Error!')
 
     return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
-                            community_board_name=community_board_name, user_name=user_name)
+                            community_board_name=community_board_name)
 
 
 @app.route('/state_region', methods=['GET']) 
@@ -223,7 +219,6 @@ def state_region_detail():
 
     try:
         user_state_region_resources = {}
-        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         session["state_region_id"] = community.state_region_id
         state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
@@ -249,7 +244,7 @@ def state_region_detail():
     get_state_region_news()"""
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
-                            state_region_name=state_region_name, user_name=user_name)
+                            state_region_name=state_region_name)
 
 
 @app.route('/nation', methods=['GET'])
@@ -258,7 +253,6 @@ def nation_detail():
 
     try:
         user_national_resources = {}
-        user_name = session["user_name"]
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         session["state_region_id"] = community.state_region_id
         state_region = State_Regions.query.filter_by(state_region_id=session["state_region_id"]).first()
@@ -284,8 +278,7 @@ def nation_detail():
     get_national_aqi()
     get_national_news()"""
 
-    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
-                            user_name=user_name)
+    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name)
 
 
 @app.route('/global', methods=['GET'])
@@ -294,7 +287,6 @@ def global_detail():
 
     try:
         user_global_resources = {}
-        user_name = session["user_name"]
         for i in Global_Resources.query.filter_by(admin_access_id=session["admin_access_id"]).all():
               global_resource_name = i.global_resource_name
               global_resource_link = i.global_resource_link
@@ -315,7 +307,7 @@ def global_detail():
     get_global_aqi()
     get_global_news()"""
 
-    return render_template("global.html", user_global_resources=user_global_resources, user_name=user_name)
+    return render_template("global.html", user_global_resources=user_global_resources)
 
 
 @app.route('/logout')
