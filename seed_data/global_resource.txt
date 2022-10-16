@@ -3,3 +3,6 @@
 003|101|Blue Map App|http://wwwen.ipe.org.cn/appdownload30_en/pc/index.html
 004|101|Restor.eco|https://restor.eco/
 005|101|Environmental Justice Atlas|https://ejatlas.org/
+006|101|NatureServe|https://www.natureserve.org/
+007|101|The Red Cross|https://www.climatecentre.org/
+008|101|One Earth|https://www.oneearth.org/

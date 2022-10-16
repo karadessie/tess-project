@@ -61,28 +61,14 @@ a:active {
   margin-top: 20px;
 }
 
-.wrapper {
-    position: relative;
-    display: flexbox;
-    width: 50%;
-    float: right;
-    height: 60%;
-    font-weight: 700px;
-    font-size: large;
+textarea {
+  font-size: large;
+  font-weight: bolder;
+  border: none;
 }
 
-.home {
-  justify-content: center;
-  text-align: center;
-  line-height: 26px;
-  margin-bottom: 10px;
-}
-
-.H3 {
-  display: flexbox;
-  width: 50%;
-  text-align: left;
-  line-height: 20px;
+text {
+  font-size: medium;
   font-weight: bolder;
 }
 

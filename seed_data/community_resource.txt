@@ -3,3 +3,6 @@
 003|037|101|Skyware Home Inventory|https://www.skywareinventory.com/home-inventory-software/
 004|037|101|Simply Auto|https://simplyauto.app/
 005|037|101|Home Energy Yardstick|https://www.energystar.gov/campaign/home-energy-yardstick/
+006|037|101|Carbon Footprint Calculator|https://www3.epa.gov/carbon-footprint-calculator/
+007|037|101|Save Your Wardrobe|https://www.saveyourwardrobe.com/2021/01/01/syw-a-year-in-review/
+008|037|101|IQ's Air Visual|https://www.iqair.com/us/commercial/air-quality-monitors/airvisual-platform/air-quality-app

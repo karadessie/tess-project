@@ -3,3 +3,6 @@
 003|189|101|EPA Climate Change|https://www.epa.gov/climate-change
 004|189|101|NASA/Global Climate Change|https://climate.nasa.gov/
 005|189|101|National Center for Climate Simulation|https://www.nccs.nasa.gov/
+006|189|101|National Climate Task Force|https://www.whitehouse.gov/climate/
+007|189|101|Climate Action Tracker|https://climateactiontracker.org/countries/usa/
+008|189|101|Clean Air Task Force|https://www.catf.us/
