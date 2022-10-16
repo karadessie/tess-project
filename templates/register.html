@@ -5,40 +5,30 @@
 
 <h2>Register</h2>
 
-<form action="register" method="POST">
-
+<form action="/register" method="POST">
   <div>
     <label>
       Name:
-      <input type="username" name="username" required>
+      <input type="username" name="username" class= required>
     </label>
-  </div>
   <p></p>
-  <div>
     <label>
       One Time Password:
-      <input type="one_time_password" name="one_time_password" required>
+      <input type="text" name="one_time_password" required>
     </label>
-  </div>
   <p></p>
-  <div>
     <label>
       New Password:
-      <input type="new_password" name="new_password" required>
+      <input type="text" name="new_password" required>
     </label>
-  </div>
   <p></p>
-  <div>
     <label>
       Confirm New Password:
       <input type="text" name="new_password" required>
     </label>
-  </div>
   <p></p>
-  <div>
     <button id="registerButton" value="Register">Register</button>
   </div>
-
 </form>
 
 {% endblock %}

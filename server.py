@@ -116,7 +116,7 @@ def process_login():
                     session["user_name"] = user_name
                     user=(username, password, admin_access_id, community_id)
                     session["user"] = user
-                    flash('Logged in!')
+                    flash(f'{user_name} logged in!')
                     return redirect('/')
     except Exception:
         flash('Invalid Login!')
@@ -322,8 +322,10 @@ def global_detail():
 def logout():
     """Log Out"""
 
+    user_name = session["user_name"]
     session["user"] = None
-    flash(f"Logged Out!")
+    flash(f"{user_name} logged out!")
+    session["user"] = None
     return redirect("/")
 
 

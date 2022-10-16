@@ -9,21 +9,6 @@ body {
   font-family: serif;
 }
 
-.resources {
-  position: relative;
-  width: 30%;
-  float: left;
-  height: 100%;
-}
-
-.news {
-position: relative;
-display: flexbox;
-width: 70%;
-float: right;
-height: 100%
-}
-
 label {
   display: flex;
   flex-direction: row;
@@ -32,17 +17,6 @@ label {
   width: 350px;
   line-height: 26px;
   margin-bottom: 10px;
-}
-
-input {
-  height: 20px;
-  flex: 0 0 200px;
-}
-
-a {
-  outline: none;
-  text-decoration: none;
-  padding: 2px 1px 0;
 }
 
 a:link {
@@ -112,36 +86,13 @@ a:active {
   font-weight: bolder;
 }
 
-.input1 {
-  justify-content: left;
-  text-align: left;
-  line-height: 26px;
-  margin-bottom: 10px;
-  font-weight: bolder;
-}
-
-.input2 {
-  justify-content: left;
-  text-align: left;
-  line-height: 26px;
-  margin-bottom: 10px;
-  font-weight: bolder;
-}
-
-.input3 {
-  border: none;
-  font-size: 35px;
-  font-weight: bolder;
+input {
+  height: 20px;
+  flex: 0 0 200px;
 }
 
 .login {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  text-align: right;
-  width: 250px;
-  line-height: 26px;
-  margin-bottom: 10px;
+  width: 265px;
 }
 
 .error {
