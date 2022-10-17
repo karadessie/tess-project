@@ -137,7 +137,7 @@ class Community_Boards(db.Model):
     community_board_id = db.Column(db.Integer,
                           autoincrement=True,
                           primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
+    community_id = db.Column(db.Integer, nullable=False)
     community_board_title = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):

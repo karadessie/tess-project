@@ -200,17 +200,22 @@ def community_board():
     try:
         user_community_board_posts = {}
         community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
-        community_board_name = community_board.community_board_name
-        community_board_id = community_board.community_board_id
-        for i in Community_Board_Posts.query.filter_by(sorted(community_board_id=community_board_id)).all():
+        community_board_title = community_board.community_board_title
+        session["community_board_id"] = community_board.community_board_id
+        print(community_board_title)
+        for i in Community_Board_Posts.query.filter_by(community_board_id=session["community_board_id"]).all():
               community_board_post_title = i.community_board_post_title
               community_board_post_description = i.community_board_post_descripttion
               user_community_board_posts[community_board_post_title] = community_board_post_description
     except Exception:
         flash('Error!')
+    else:
+        flash('Board is empty!')
+        return redirect('/community')
+    
 
     return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
-                            community_board_name=community_board_name)
+                            community_board_title=community_board_title)
 
 
 @app.route('/state_region', methods=['GET']) 

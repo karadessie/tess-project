@@ -14,7 +14,7 @@
  <form action="/community" method="GET">
   <ul>
     {% for community_board_title in user_community_boards %}
-        <h3><a href="/community_board">{{ community_board_title }}</a></h3>
+        <h3><a href="/community_board" title="Community Board">{{ community_board_title }}</a></h3>
     {% endfor %}
   </ul>
  </form>
