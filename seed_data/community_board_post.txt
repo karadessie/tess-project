@@ -1,1 +1,2 @@
-001|037|006|24-Aug-2022|The Country Carrot|"Help us build a better local food system and support other small businesses."
+001|037|005|24-Aug-2022|The Country Carrot|"Help us build a better local food system and support other small businesses."
+002|037|006|24-Aug-2022|RESIDENTIAL RECYCLING|"Residential recycling is collected in blue bins at the curb on the same day as residential garbage."

@@ -8,6 +8,7 @@ from jinja2 import StrictUndefined
 import os
 import json
 import requests
+from pprint import pprint
 
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
@@ -15,6 +16,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
+
+"""from newsdataapi import NewsDataApiClient"""
      
 
 """The Guardian API"""
@@ -143,17 +146,19 @@ def home_detail():
     print(user_home_resources)
 
     """def get_local_news():
-        url = "http://{GUARDIAN_URL}"
-        response = requests.get(url)
-        print(response)
+        API_KEY = os.environ.get("NEWSDATA_API_KEY")
+        api = NewsDataApiClient(apikey="API_KEY")
+        response = api.news_api( q= "environment" , country = "us")
+        pprint(response)"""
 
     def get_local_weather_aqi():
-        url = "https://{IQAIR_URL}"
-        response = requests.get(url)
-        print(response) 
+        API_KEY = os.environ.get("IQAIR_API_KEY")
+        url = "http://api.airvisual.com/v2/city?city=RockHill=SouthCarolina&country=USA&key={{API_KEY}}"
+        response = requests.get(url).json()
+        pprint(response) 
 
     get_local_weather_aqi()
-    get_local_news()"""
+    """get_local_news()"""
 
     return render_template("home.html", user_home_resources=user_home_resources)
 
