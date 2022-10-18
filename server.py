@@ -152,8 +152,11 @@ def home_detail():
         pprint(response)"""
 
     def get_local_weather_aqi():
+        CITY = "Rock Hill"
+        STATE = "South Carolina"
+        COUNTRY = "USA"
         API_KEY = os.environ.get("IQAIR_API_KEY")
-        url = "http://api.airvisual.com/v2/city?city=RockHill=SouthCarolina&country=USA&key={{API_KEY}}"
+        url = "http://api.airvisual.com/v2/city?city={{CITY}}&state={{STATE}}&country={{COUNTRY}}&key={{API_KEY}}"
         response = requests.get(url).json()
         pprint(response) 
 
