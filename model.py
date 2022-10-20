@@ -9,6 +9,11 @@ from collections import defaultdict
 
 db = SQLAlchemy()
 
+class NewsdataException(Exception):
+    """Base class for all other exceptions"""
+
+    def __init__(self, Error):
+        self.Error = Error
 
 class Nations(db.Model):
     """Nations"""

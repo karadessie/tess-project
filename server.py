@@ -3,6 +3,7 @@
 from asyncio.windows_events import NULL
 from unicodedata import name
 from unittest import result
+from urllib import response
 from jinja2 import StrictUndefined
 
 import os
@@ -17,27 +18,12 @@ from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, 
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
 
-"""from newsdataapi import NewsDataApiClient"""
-     
+from newsdataapi import NewsDataApiClient
+from newsdataapi import constants
+from newsdataapi.utils import is_valid_string, is_valid_integer
+from newsdataapi.newsdataapi_exception import NewsdataException
 
-"""The Guardian API"""
-
-"""search_keyword = 'environment'
-data_format = 'json'
-section = 'environment'
-from_date = '2022-01-01'
-to_date = '2022-01-02'
-page = 1
-page_size = 10
-order_by = 'newest'
-production_office = 'us'
-lang = 'en'
-
-finalized_url = "search?/q={search_keyword}&format={data_format}&section={section}&from-date={from_date} \
-                 &to-date={to_date}&page={page}&page-size={page_size}&order-by={order_by} \
-                 &production-office={production_office}&lang={lang}&api-key={api_key}" \
-                .format(base_url, search_keyword, data_format, section, from_date, to_date, \
-                 page, page_size, order_by, production_office, lang, api_key)"""
+DEFAULT_REQUEST_TIMEOUT = 300
 
 
 """CREATE APP"""
@@ -144,26 +130,29 @@ def home_detail():
         flash('Error!')
 
     print(user_home_resources)
-
-    """def get_local_news():
-        API_KEY = os.environ.get("NEWSDATA_API_KEY")
-        api = NewsDataApiClient(apikey="API_KEY")
-        response = api.news_api( q= "environment" , country = "us")
-        pprint(response)"""
-
+    
     def get_local_weather_aqi():
-        CITY = "Rock Hill"
-        STATE = "South Carolina"
-        COUNTRY = "USA"
-        API_KEY = os.environ.get("IQAIR_API_KEY")
-        url = "http://api.airvisual.com/v2/city?city={{CITY}}&state={{STATE}}&country={{COUNTRY}}&key={{API_KEY}}"
+        LAT = 34.924866
+        LON = -81.025078
+        API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+        url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={{LAT}}&lon={{LON}}&appid={{API_KEY}}"
         response = requests.get(url).json()
         pprint(response) 
 
     get_local_weather_aqi()
+
+    returned_response = {}
+
+    """def get_local_news():
+        API_KEY = os.environ.get("NEWSDATA_API_KEY")
+        api = NewsDataApiClient(apikey="API_KEY")
+        response = api.news_api(category = "environment", country = "us")
+        returned_response['us'] = response
+        pprint(response)"""
+
     """get_local_news()"""
 
-    return render_template("home.html", user_home_resources=user_home_resources)
+    return render_template("home.html", user_home_resources=user_home_resources, returned_response=returned_response)
 
 
 @app.route('/community', methods=['GET'])
@@ -189,13 +178,16 @@ def community_detail():
                  user_community_boards.append(community_board_title)
     except Exception:
         flash('Error!')
+       
+    def get_local_weather_aqi():
+        LAT = 34.924866
+        LON = -81.025078
+        API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+        url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={{LAT}}&lon={{LON}}&appid={{API_KEY}}"
+        response = requests.get(url).json
+        pprint(response) 
 
-    """def get_local_weather_aqi():
-        url = "https://{IQAIR_URL}"
-        response = requests.get(url)
-        print(response) 
-
-    get_local_weather_aqi()"""
+    get_local_weather_aqi()
 
     return render_template("community.html", user_community_events=user_community_events, \
                             user_community_boards=user_community_boards, community_name=community_name)
@@ -219,8 +211,7 @@ def community_board():
         flash('Error!')
     else:
         flash('Board is empty!')
-        return redirect('/community')
-    
+        return redirect('/community') 
 
     return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
                             community_board_title=community_board_title)
@@ -242,22 +233,30 @@ def state_region_detail():
               user_state_region_resources[state_region_resource_name] = state_region_resource_link
     except Exception:
         flash('Error!')
-
-    """def get_state_region_aqi():
-        url = "https://{IQAIR_URL}"
-        response = requests.get(url)
-        print(response)
-
-    def get_state_region_news():
-        url = "http://{GUARDIAN_URL}"
-        response = requests.get(url)
-        print(response)
+   
+    def get_state_region_aqi():
+        LAT = 34.924866
+        LON = -81.025078
+        API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+        url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={{LAT}}&lon={{LON}}&appid={{API_KEY}}"
+        response = requests.get(url).json()
+        pprint(response) 
 
     get_state_region_aqi()
-    get_state_region_news()"""
+
+    returned_response = {}
+
+    """def get_state_region_news():
+        API_KEY = os.environ.get("NEWSDATA_API_KEY")
+        api = NewsDataApiClient(apikey="API_KEY")
+        response = api.news_api(category = "environment", country = "us")
+        returned_response['us'] = response
+        pprint(response)"""
+
+    """get_state_region_news()"""
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
-                            state_region_name=state_region_name)
+                            state_region_name=state_region_name, returned_response=returned_response)
 
 
 @app.route('/nation', methods=['GET'])
@@ -278,20 +277,30 @@ def nation_detail():
     except Exception:
         flash('Error!')
 
+       
     """def get_national_aqi():
-        url = "https://{IQAIR_URL}"
-        response = requests.get(url)
-        print(response)
+        LAT = 34.924866
+        LON = -81.025078
+        API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+        url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={{LAT}}&lon={{LON}}&appid={{API_KEY}}"
+        response = requests.get(url).json()
+        pprint(response) 
 
-    def get_national_news():
-        url = "http://{GUARDIAN_URL}"
-        response = requests.get(url)
-        print(response)
+    get_national_aqi()"""
 
-    get_national_aqi()
+    returned_response = {}
+
+    """def get_national_news():
+        API_KEY = os.environ.get("NEWSDATA_API_KEY")
+        api = NewsDataApiClient(apikey=API_KEY)
+        response = api.news_api(category = "environment", country = "us")
+        returned_response['us'] = response
+        pprint(returned_response)
+
     get_national_news()"""
 
-    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name)
+    return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
+                            returned_response=returned_response)
 
 
 @app.route('/global', methods=['GET'])
@@ -307,20 +316,28 @@ def global_detail():
     except Exception:
         flash('Error!')
 
+    """def get_global_aqi():
+        LAT = 34.924866
+        LON = -81.025078
+        API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+        url = "http://api.openweathermap.org/data/2.5/air_pollution?lat={{LAT}}&lon={{LON}}&appid={{API_KEY}}"
+        response = requests.get(url).json()
+        pprint(response) 
+
+    get_global_aqi()"""
+
+    returned_response = {}
+
     """def get_global_news():
-        url = "http://{GUARDIAN_URL}"
-        response = requests.get(url)
-        print(response)
+        API_KEY = os.environ.get("NEWSDATA_API_KEY")
+        api = NewsDataApiClient(apikey="API_KEY")
+        response = api.news_api(category = "environment")
+        returned_response['us'] = response
+        pprint(response)"""
 
-    def get_global_aqi():
-        url = "https://{IQAIR_URL}"
-        response = requests.get(url)
-        print(response)
+    """get_global_news()"""
 
-    get_global_aqi()
-    get_global_news()"""
-
-    return render_template("global.html", user_global_resources=user_global_resources)
+    return render_template("global.html", user_global_resources=user_global_resources, returned_response=returned_response)
 
 
 @app.route('/logout')
