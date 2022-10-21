@@ -86,6 +86,10 @@ input {
   font-size: large;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .error {
   font-weight: bolder;
   color: red;

@@ -18,12 +18,17 @@
   </form>
 </div>
 
-<div class="flex-child-element:first-child">
+<div class="flex-child-element:first-child"><br></br>
   <form action="/nation" method="GET">
     <ul>
       {% for key, value in returned_response.items() %}
-       <text class="news"><a href="{{ value }}">{{ key }}</a></text><br></br>
+       <text class="news" display: inline;><a href="{{ value }}">{{ key }}</a></text><br></br>
+       {% endfor %}
+    <div class="invisible">
+       {% for key, value in returned_image.items() %}
+       <img src="{{ value }}" display: inline;></img>
       {% endfor %}
+    </div>
     </ul>
   </form>
 </div>

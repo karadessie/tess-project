@@ -289,19 +289,21 @@ def nation_detail():
     get_national_aqi()"""
 
     returned_response = {}
+    returned_image = {}
 
     def get_national_news():
         API_KEY = os.environ.get("NEWSDATA_API_KEY")
         api = NewsDataApiClient(apikey=API_KEY)
         response = api.news_api(category = "environment", country = "us")
         for article in response["results"]:
-            returned_response[article["description"]] = article["link"]
+            returned_response[article["title"]] = article["link"]
+            returned_image[article["image_url"]] = article["image_url"]
         pprint(returned_response)
 
     get_national_news()
 
     return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
-                            returned_response=returned_response)
+                            returned_response=returned_response, returned_image=returned_image)
 
 
 @app.route('/global', methods=['GET'])
