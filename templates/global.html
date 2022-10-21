@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1 class="header1">TESS GLOBAL</h1>
+<h1 style="display:inline; margin-left:400px" style="position:center">TESS GLOBAL</h1>
 
-  <text id="iqair" name="AQI" readonly>AQI</text>
-  <br></br>
-  <div class="flex-parent-element"><br></br>
+<p style="display:inline">
+<img style="display:inline; position:relative; margin-left:350px" height="80" width="80" src="static/tess_logo1.png" />
+</p>
+
+<div class="flex-parent-element"><br></br>
   
   <div class="flex-child-element">
    <form action="/global" method="GET">
@@ -17,8 +19,19 @@
   </form>
   </div>
 
-  <div class="flex-child-element:first-child"><br></br>
-    <textarea rows="10" cols="55" readonly"></textarea>
+  <div class="flex-child-element:first-child">
+    <form action="/nation" method="GET">
+      <ul>
+        {% for key, value in returned_response.items() %}
+         <h3 class="news" display: inline; style="font: weight 750px"><a href="{{ value }}">{{ key }}</a></h3>
+         {% endfor %}
+      <div class="invisible">
+         {% for key, value in returned_image.items() %}
+         <img src="{{ value }}" display: inline;></img>
+        {% endfor %}
+      </div>
+      </ul>
+    </form>
   </div>
 
 {% endblock %}

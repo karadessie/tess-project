@@ -143,17 +143,20 @@ def home_detail():
     get_local_weather_aqi()"""
 
     returned_response = {}
+    returned_image = {}
 
-    """def get_local_news():
+    def get_local_news():
         API_KEY = os.environ.get("NEWSDATA_API_KEY")
-        api = NewsDataApiClient(apikey="API_KEY")
+        api = NewsDataApiClient(apikey=API_KEY)
         response = api.news_api(category = "environment", country = "us")
-        returned_response['us'] = response
-        pprint(response)"""
+        for article in response["results"]:
+            returned_response[article["title"]] = article["link"]
+            returned_image[article["image_url"]] = article["image_url"]
 
-    """get_local_news()"""
+    get_local_news()
 
-    return render_template("home.html", user_home_resources=user_home_resources, returned_response=returned_response)
+    return render_template("home.html", user_home_resources=user_home_resources, returned_response=returned_response, \
+                            returned_image=returned_image)
 
 
 @app.route('/community', methods=['GET'])
@@ -180,7 +183,7 @@ def community_detail():
     except Exception:
         flash('Error!')
        
-    """def get_local_weather_aqi():
+    def get_local_weather_aqi():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
@@ -188,7 +191,7 @@ def community_detail():
         response = requests.get(url).json
         pprint(response) 
 
-    get_local_weather_aqi()"""
+    get_local_weather_aqi()
 
     return render_template("community.html", user_community_events=user_community_events, \
                             user_community_boards=user_community_boards, community_name=community_name)
@@ -246,18 +249,21 @@ def state_region_detail():
     get_state_region_aqi()"""
 
     returned_response = {}
+    returned_image = {}
 
-    """def get_state_region_news():
+    def get_state_region_news():
         API_KEY = os.environ.get("NEWSDATA_API_KEY")
-        api = NewsDataApiClient(apikey="API_KEY")
+        api = NewsDataApiClient(apikey=API_KEY)
         response = api.news_api(category = "environment", country = "us")
-        returned_response['us'] = response
-        pprint(response)"""
+        for article in response["results"]:
+            returned_response[article["title"]] = article["link"]
+            returned_image[article["image_url"]] = article["image_url"]
 
-    """get_state_region_news()"""
+    get_state_region_news()
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
-                            state_region_name=state_region_name, returned_response=returned_response)
+                            state_region_name=state_region_name, returned_response=returned_response, \
+                            returned_image=returned_image)
 
 
 @app.route('/nation', methods=['GET'])
@@ -298,7 +304,6 @@ def nation_detail():
         for article in response["results"]:
             returned_response[article["title"]] = article["link"]
             returned_image[article["image_url"]] = article["image_url"]
-        pprint(returned_response)
 
     get_national_news()
 
@@ -330,17 +335,20 @@ def global_detail():
     get_global_aqi()"""
 
     returned_response = {}
+    returned_image = {}
 
-    """def get_global_news():
+    def get_global_news():
         API_KEY = os.environ.get("NEWSDATA_API_KEY")
-        api = NewsDataApiClient(apikey="API_KEY")
-        response = api.news_api(category = "environment")
-        returned_response['us'] = response
-        pprint(response)"""
+        api = NewsDataApiClient(apikey=API_KEY)
+        response = api.news_api(category = "environment", country = "us")
+        for article in response["results"]:
+            returned_response[article["title"]] = article["link"]
+            returned_image[article["image_url"]] = article["image_url"]
 
-    """get_global_news()"""
+    get_global_news()
 
-    return render_template("global.html", user_global_resources=user_global_resources, returned_response=returned_response)
+    return render_template("global.html", user_global_resources=user_global_resources, \
+                            returned_response=returned_response, returned_image=returned_image)
 
 
 @app.route('/logout')
