@@ -18,9 +18,13 @@
   </form>
 </div>
 
-<div class="flex-child-element:first-child"><br></br>
+<div class="flex-child-element:first-child">
   <form action="/nation" method="GET">
-  <textarea rows="10" cols="55" readonly>{{ returned_response }}</textarea>
+    <ul>
+      {% for key, value in returned_response.items() %}
+       <text class="news"><a href="{{ value }}">{{ key }}</a></text><br></br>
+      {% endfor %}
+    </ul>
   </form>
 </div>
 

@@ -7,6 +7,7 @@ from urllib import response
 from jinja2 import StrictUndefined
 
 import os
+import sys
 import json
 import requests
 from pprint import pprint
@@ -131,7 +132,7 @@ def home_detail():
 
     print(user_home_resources)
     
-    def get_local_weather_aqi():
+    """def get_local_weather_aqi():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
@@ -139,7 +140,7 @@ def home_detail():
         response = requests.get(url).json()
         pprint(response) 
 
-    get_local_weather_aqi()
+    get_local_weather_aqi()"""
 
     returned_response = {}
 
@@ -179,7 +180,7 @@ def community_detail():
     except Exception:
         flash('Error!')
        
-    def get_local_weather_aqi():
+    """def get_local_weather_aqi():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
@@ -187,7 +188,7 @@ def community_detail():
         response = requests.get(url).json
         pprint(response) 
 
-    get_local_weather_aqi()
+    get_local_weather_aqi()"""
 
     return render_template("community.html", user_community_events=user_community_events, \
                             user_community_boards=user_community_boards, community_name=community_name)
@@ -234,7 +235,7 @@ def state_region_detail():
     except Exception:
         flash('Error!')
    
-    def get_state_region_aqi():
+    """def get_state_region_aqi():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
@@ -242,7 +243,7 @@ def state_region_detail():
         response = requests.get(url).json()
         pprint(response) 
 
-    get_state_region_aqi()
+    get_state_region_aqi()"""
 
     returned_response = {}
 
@@ -277,7 +278,6 @@ def nation_detail():
     except Exception:
         flash('Error!')
 
-       
     """def get_national_aqi():
         LAT = 34.924866
         LON = -81.025078
@@ -290,14 +290,15 @@ def nation_detail():
 
     returned_response = {}
 
-    """def get_national_news():
+    def get_national_news():
         API_KEY = os.environ.get("NEWSDATA_API_KEY")
         api = NewsDataApiClient(apikey=API_KEY)
         response = api.news_api(category = "environment", country = "us")
-        returned_response['us'] = response
+        for article in response["results"]:
+            returned_response[article["description"]] = article["link"]
         pprint(returned_response)
 
-    get_national_news()"""
+    get_national_news()
 
     return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
                             returned_response=returned_response)

@@ -82,6 +82,10 @@ input {
   width: 265px;
 }
 
+.news {
+  font-size: large;
+}
+
 .error {
   font-weight: bolder;
   color: red;
@@ -89,17 +93,15 @@ input {
 
 .flex-parent-element {
   display: flex;
-  width: 50%;
+  width: 49%;
 }
 
 .flex-child-element {
   flex: 1;
-  min-width: 600px;
+  min-width: 480px;
   justify-content: left;
-  margin: 5px;
 }
 
 .flex-child-element:first-child {
-  margin-right: 5px;
   justify-content: right;
 }

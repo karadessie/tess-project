@@ -1,1 +1,1 @@
-001|037|24-Aug-2022|The Old Town Farmers Market '\n'|"The Old Town Farmers Market at Legal Remedy Brewing is OPEN every Saturday, May - September, 8 AM - Noon with Special Market Days October - December. You can find fresh produce, local meats, and so much more. See you at the market!"
+001|037|24-Aug-2022|The Old Town Farmers Market <br>|"The Old Town Farmers Market at Legal Remedy Brewing is OPEN every Saturday, May - September, 8 AM - Noon with Special Market Days October - December. You can find fresh produce, local meats, and so much more. See you at the market!"
