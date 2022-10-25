@@ -205,22 +205,29 @@ def community_detail():
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
         url = f"https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}"
         response = requests.get(url).json()
-        pprint(response) 
+        weather_response = response["weather"]
+        weather_description = weather_response[0]["description"]
+        return(weather_description)
 
-    get_local_weather()
+    weather_description = get_local_weather()
 
-    def get_local_aqi():
+    def get_local_pollution():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
         url = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={LAT}&lon={LON}&appid={API_KEY}"
         response = requests.get(url).json()
-        pprint(response) 
+        pollution_response = response["list"]
+        components = pollution_response[0]["components"]
+        pm2_5 = components["pm2_5"]
+        pprint(pm2_5) 
+        return(pm2_5)
 
-    get_local_aqi()
+    pm2_5 = get_local_pollution()
 
     return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards, community_name=community_name)
+                            user_community_boards=user_community_boards, community_name=community_name, \
+                            weather_description=weather_description, pm2_5=pm2_5)
 
 
 @app.route('/community_board', methods=['GET'])
@@ -264,15 +271,19 @@ def state_region_detail():
     except Exception:
         flash('Error!')
  
-    def get_state_region_aqi():
+    def get_state_region_pollution():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
         url = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={LAT}&lon={LON}&appid={API_KEY}"
         response = requests.get(url).json()
-        pprint(response) 
+        pollution_response = response["list"]
+        components = pollution_response[0]["components"]
+        pm2_5 = components["pm2_5"]
+        pprint(pm2_5) 
+        return(pm2_5)
 
-    get_state_region_aqi()
+    pm2_5 = get_state_region_pollution()
 
     returned_response = {}
     returned_image = {}
@@ -289,7 +300,7 @@ def state_region_detail():
 
     return render_template("state_region.html", user_state_region_resources=user_state_region_resources, \
                             state_region_name=state_region_name, returned_response=returned_response, \
-                            returned_image=returned_image)
+                            returned_image=returned_image, pm2_5=pm2_5)
 
 
 @app.route('/nation', methods=['GET'])
@@ -310,15 +321,20 @@ def nation_detail():
     except Exception:
         flash('Error!')
 
-    def get_national_aqi():
+    
+    def get_national_pollution():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
         url = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={LAT}&lon={LON}&appid={API_KEY}"
         response = requests.get(url).json()
-        pprint(response) 
+        pollution_response = response["list"]
+        components = pollution_response[0]["components"]
+        pm2_5 = components["pm2_5"]
+        pprint(pm2_5) 
+        return(pm2_5)
 
-    get_national_aqi()
+    pm2_5 = get_national_pollution()
 
     returned_response = {}
     returned_image = {}
@@ -334,7 +350,7 @@ def nation_detail():
     get_national_news()
 
     return render_template("nation.html", user_national_resources=user_national_resources, nation_name=nation_name, \
-                            returned_response=returned_response, returned_image=returned_image)
+                            returned_response=returned_response, returned_image=returned_image, pm2_5=pm2_5)
 
 
 @app.route('/global', methods=['GET'])
@@ -350,15 +366,20 @@ def global_detail():
     except Exception:
         flash('Error!')
 
-    def get_global_aqi():
+    
+    def get_global_pollution():
         LAT = 34.924866
         LON = -81.025078
         API_KEY = os.environ.get("OPENWEATHER_API_KEY")
         url = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={LAT}&lon={LON}&appid={API_KEY}"
         response = requests.get(url).json()
-        pprint(response) 
+        pollution_response = response["list"]
+        components = pollution_response[0]["components"]
+        pm2_5 = components["pm2_5"]
+        pprint(pm2_5) 
+        return(pm2_5)
 
-    get_global_aqi()
+    pm2_5 = get_global_pollution()
 
     returned_response = {}
     returned_image = {}
@@ -374,7 +395,7 @@ def global_detail():
     get_global_news()
 
     return render_template("global.html", user_global_resources=user_global_resources, \
-                            returned_response=returned_response, returned_image=returned_image)
+                            returned_response=returned_response, returned_image=returned_image, pm2_5=pm2_5)
 
 
 @app.route('/logout')
