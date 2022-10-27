@@ -1,2 +1,5 @@
-001|037|005|24-Aug-2022|The Country Carrot|"Help us build a better local food system and support other small businesses."
-002|037|006|24-Aug-2022|RESIDENTIAL RECYCLING|"Residential recycling is collected in blue bins at the curb on the same day as residential garbage."
+001|037|Recycling Centers|24-Aug-2022|Residential Recycling|Residential recycling is collected in blue bins at the curb on the same day as residential garbage.
+002|037|CSA Directory|24-Aug-2022|Harrelson Farms|Harrelson Farms is a small urban farm specializing in microgreens located in Rock Hill.
+003|037|Rideshare|24-Aug-2022|Carpool Rock Hill|Rock Hill Harmony Rd & Westbrook Rd to Edgemoor, South Carolina
+004|037|Donations|24-Aug-2022|Restore York County|Your old stuff can be a new start for someone else.
+005|037|Green Businesses|24-Aug-2022|The Country Carrot|Help us build a better local food system and support other small businesses.

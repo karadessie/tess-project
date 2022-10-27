@@ -1,8 +1,0 @@
-001|037|Barter
-002|037|Community Resources
-003|037|CSA Directory
-004|037|Donations
-005|037|Green Businesses
-006|037|Recycling Centers
-007|037|Rideshare
-008|037|Yardsale

@@ -13,9 +13,8 @@ import requests
 from pprint import pprint
 
 from flask import Flask, render_template, request, flash, redirect, session
-from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, Community_Boards, \
+from model import connect_to_db, db, Users, One_Time_Passwords, Home_Resources, Communities, \
      Community_Board_Posts, Community_Events, State_Regions, State_Region_Resources, National_Resources, \
      Nations, Global_Resources
 
@@ -60,12 +59,15 @@ def add_new_user():
     try:
         if request.method == 'POST':
             one_time_password = request.form["one_time_password"]
-            valid_one_time_password = One_Time_Passwords.query.filter_by(one_time_password=one_time_password).first()
-            if one_time_password == valid_one_time_password:
+            one_time_password = One_Time_Passwords.query.filter_by(one_time_password=one_time_password).first()
+            community_id = one_time_password.community_id
+            admin_access_id = one_time_password.admin_access_id
+            if one_time_password:
                 username = request.form["username"]
                 name = request.form["name"]
                 password = request.form["new_password"]      
-                user = Users(username=username, password=password, name=name)
+                user = Users(username=username, password=password, name=name, community_id=community_id, \
+                             admin_access_id=admin_access_id)
                 db.session.add(user)
                 db.session.commit()
                 flash(f"{{ name }} registered!")
@@ -125,7 +127,6 @@ def home_detail():
         for i in Home_Resources.query.filter_by(community_id=session["community_id"]).all():
               home_resource_link = i.home_resource_link
               home_resource_name = i.home_resource_name
-              print(home_resource_link)
               user_home_resources[home_resource_name] = home_resource_link
     except Exception:
         flash('Error!')
@@ -152,8 +153,7 @@ def home_detail():
         response = requests.get(url).json()
         pollution_response = response["list"]
         components = pollution_response[0]["components"]
-        pm2_5 = components["pm2_5"]
-        pprint(pm2_5) 
+        pm2_5 = components["pm2_5"] 
         return(pm2_5)
 
     pm2_5 = get_local_pollution()
@@ -180,22 +180,22 @@ def community_detail():
     """Display community page with community boards, daily CO2 and AIQ stats, news, and events"""
 
     try:
-        user_community_events = {}
+        community_events = {}
         community = Communities.query.filter_by(community_id=session["community_id"]).first()
         community_name = community.community_name
         for i in Community_Events.query.filter_by(community_id=session["community_id"]).all():
               community_event_title = i.community_event_title
               community_event_description = i.community_event_description
-              user_community_events[community_event_title] = community_event_description
-              print(user_community_events)
+              community_events[community_event_title] = community_event_description
     except Exception:
         flash('Error!')
     
     try:
-        user_community_boards = []
-        for i in Community_Boards.query.filter_by(community_id=session["community_id"]).all():
+        community_boards = {}
+        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).all():
                  community_board_title = i.community_board_title
-                 user_community_boards.append(community_board_title)
+                 community_board_link = "/community_board"
+                 community_boards[community_board_title] = community_board_link
     except Exception:
         flash('Error!')
 
@@ -220,13 +220,12 @@ def community_detail():
         pollution_response = response["list"]
         components = pollution_response[0]["components"]
         pm2_5 = components["pm2_5"]
-        pprint(pm2_5) 
         return(pm2_5)
 
     pm2_5 = get_local_pollution()
 
-    return render_template("community.html", user_community_events=user_community_events, \
-                            user_community_boards=user_community_boards, community_name=community_name, \
+    return render_template("community.html", community_events=community_events, \
+                            community_boards=community_boards, community_name=community_name, \
                             weather_description=weather_description, pm2_5=pm2_5)
 
 
@@ -235,22 +234,16 @@ def community_board():
     """Display community board and posts"""
 
     try:
-        user_community_board_posts = {}
-        community_board = Community_Boards.query.filter_by(community_id=session["community_id"]).first()
-        community_board_title = community_board.community_board_title
-        session["community_board_id"] = community_board.community_board_id
-        print(community_board_title)
-        for i in Community_Board_Posts.query.filter_by(community_board_id=session["community_board_id"]).all():
+        community_board_posts = {}
+        for i in Community_Board_Posts.query.filter_by(community_id=session["community_id"]).all():
+              community_board_title = i.community_board_title
               community_board_post_title = i.community_board_post_title
-              community_board_post_description = i.community_board_post_descripttion
-              user_community_board_posts[community_board_post_title] = community_board_post_description
+              community_board_post_description = i.community_board_post_description
+              community_board_posts[community_board_post_title] = community_board_post_description
     except Exception:
         flash('Error!')
-    else:
-        flash('Board is empty!')
-        return redirect('/community') 
 
-    return render_template("community_board.html", user_community_board_posts=user_community_board_posts, \
+    return render_template("community_board.html", community_board_posts=community_board_posts, \
                             community_board_title=community_board_title)
 
 
@@ -280,7 +273,6 @@ def state_region_detail():
         pollution_response = response["list"]
         components = pollution_response[0]["components"]
         pm2_5 = components["pm2_5"]
-        pprint(pm2_5) 
         return(pm2_5)
 
     pm2_5 = get_state_region_pollution()
@@ -331,7 +323,6 @@ def nation_detail():
         pollution_response = response["list"]
         components = pollution_response[0]["components"]
         pm2_5 = components["pm2_5"]
-        pprint(pm2_5) 
         return(pm2_5)
 
     pm2_5 = get_national_pollution()
@@ -376,7 +367,6 @@ def global_detail():
         pollution_response = response["list"]
         components = pollution_response[0]["components"]
         pm2_5 = components["pm2_5"]
-        pprint(pm2_5) 
         return(pm2_5)
 
     pm2_5 = get_global_pollution()
@@ -412,14 +402,8 @@ def logout():
 """MAIN"""
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the point
-    # that we invoke the DebugToolbarExtension. Do not debug for demo
-
-    app.debug = False
 
     connect_to_db(app)
-
-    DebugToolbarExtension(app)
 
     app.run(host="0.0.0.0")
     

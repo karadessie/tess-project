@@ -3,10 +3,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from collections import defaultdict
 
-# This is the connection to the PostgreSQL database; we're getting
-# this through the Flask-SQLAlchemy helper library. On this, we can
-# find the `session` object, where we do most of our interactions
-
 db = SQLAlchemy()
 
 class NewsdataException(Exception):
@@ -134,21 +130,6 @@ class Home_Resources(db.Model):
         return f"<Home Resource name={self.home_resource_name}>"
 
 
-class Community_Boards(db.Model):
-    """Community Board Titles"""
-
-    __tablename__ = "community_boards"
-
-    community_board_id = db.Column(db.Integer,
-                          autoincrement=True,
-                          primary_key=True)
-    community_id = db.Column(db.Integer, nullable=False)
-    community_board_title = db.Column(db.String(64), nullable=False)
-
-    def __repr__(self):
-        return f"<Community Board title={self.community_board_title}>"
-
-
 class Community_Board_Posts(db.Model):
     """Community Board Posts"""
 
@@ -158,10 +139,10 @@ class Community_Board_Posts(db.Model):
                                autoincrement=True,
                                primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.community_id'), nullable=False)
-    community_board_id = db.Column(db.Integer, nullable=False)
+    community_board_title = db.Column(db.String(32), nullable=False)
     community_board_post_datetime = db.Column(db.DateTime, nullable=False)
     community_board_post_title = db.Column(db.String(64), nullable=False)
-    community_board_post_description = db.Column(db.String(255), nullable=False)
+    community_board_post_description = db.Column(db.String(125), nullable=False)
 
     def __repr__(self):
         return f"<Community Board Posts community_board_post_id={self.community_board_post_id} \

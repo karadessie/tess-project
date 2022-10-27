@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <h1 class="header1">{{ community_board_name }}</h1>
+  <h1 class="header1">{{ community_board_title }}</h1>
   
-  <div><br></br>
+  <div class="board"><br></br>
   <form action="/community_board" method="GET">
   <ul>
-    {% for key, value in user_community_board_posts.items() %}
-        <textarea rows="10" cols="55" readonly>{{ key }} {{ value }}</textarea>
+    {% for key, value in community_board_posts.items() %}
+        <textarea[readonly] rows="3" cols="50">{{ key }} {{ value }}</textarea><br></br>
     {% endfor %}
   </ul>
   </form>

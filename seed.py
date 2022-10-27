@@ -2,7 +2,7 @@
 
 from sqlalchemy import func
 
-from model import Home_Resources, National_Resources, State_Region_Resources, State_Regions, Users, Admin_Access, One_Time_Passwords, Community_Boards, \
+from model import Home_Resources, National_Resources, State_Region_Resources, State_Regions, Users, Admin_Access, One_Time_Passwords, \
                   Communities, Community_Events, Community_Board_Posts, State_Regions, State_Region_Resources, \
                   Nations, Global_Resources, connect_to_db, db
 from server import app
@@ -133,23 +133,6 @@ def load_home_resources(home_resource_filename):
     db.session.commit()
 
 
-def load_community_boards(community_board_filename):
-    """Load community boards into database."""
-
-    print("Community_Boards")
-
-    for i, row in enumerate(open(community_board_filename)):
-        row = row.rstrip()
-        community_board_id, community_id, community_board_title = row.split("|")
-
-        community_board = Community_Boards(community_board_id=community_board_id,
-                                           community_id=community_id,
-                                           community_board_title=community_board_title)
-        db.session.add(community_board)
-
-    db.session.commit()
-
-
 def load_community_board_posts(community_board_post_filename):
     """Load community board posts into database."""
 
@@ -157,13 +140,13 @@ def load_community_board_posts(community_board_post_filename):
 
     for i, row in enumerate(open(community_board_post_filename)):
         row = row.rstrip()
-        community_board_post_id, community_id, community_board_id, community_board_post_datetime, \
+        community_board_post_id, community_id, community_board_title, community_board_post_datetime, \
                                                           community_board_post_title, \
                                                           community_board_post_description = row.split("|")
 
         community_board_posts = Community_Board_Posts(community_board_post_id=community_board_post_id,
                                                       community_id=community_id,
-                                                      community_board_id=community_board_id,
+                                                      community_board_title=community_board_title,
                                                       community_board_post_datetime=community_board_post_datetime,
                                                       community_board_post_title=community_board_post_title,
                                                       community_board_post_description=community_board_post_description)
@@ -269,7 +252,6 @@ if __name__ == "__main__":
     admin_access_filename = "seed_data/admin_access.txt"
     one_time_passwords_filename = "seed_data/one_time_password.txt"
     community_filename = "seed_data/community.txt"
-    community_board_filename = "seed_data/community_board.txt"
     community_board_post_filename = "seed_data/community_board_post.txt"
     community_event_filename = "seed_data/community_event.txt"
     home_resource_filename = "seed_data/home_resource.txt"
@@ -285,7 +267,6 @@ if __name__ == "__main__":
     load_one_time_passwords(one_time_passwords_filename)
     load_users(user_filename)
     load_home_resources(home_resource_filename)
-    load_community_boards(community_board_filename)
     load_community_board_posts(community_board_post_filename)
     load_community_events(community_event_filename)
     load_state_region_resources(state_region_resource_filename)

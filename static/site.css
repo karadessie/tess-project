@@ -85,6 +85,11 @@ input {
   font-size: large;
 }
 
+.board {
+  font-size: large;
+  font-weight: bold
+}
+
 .invisible {
   visibility: hidden;
 }

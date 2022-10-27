@@ -10,13 +10,13 @@
  <text style="font-weight: bold">WEATHER: {{ weather_description }}</text><br></br>
  <text style="font-weight: bold">PM2.5 COUNT: {{ pm2_5 }}</text><br></br>
 
- <div class="flex-parent-element"><br></br>
+ <div class="flex-parent-element">
   
  <div class="flex-child-element">
  <form action="/community" method="GET">
   <ul>
-    {% for community_board_title in user_community_boards %}
-        <h3><a href="/community_board" title="Community Board">{{ community_board_title }}</a></h3>
+    {% for key, value in community_boards.items() %}
+        <h3><a href="http://localhost:5000/community_board">{{ key }}</a</h3>
     {% endfor %}
   </ul>
  </form>
@@ -25,7 +25,7 @@
 <div class="flex-child-element:first-child"><br></br>
   <form action="/community" method="GET">
   <ul>
-    {% for key, value in user_community_events.items() %}
+    {% for key, value in community_events.items() %}
         <textarea rows="10" cols="55" readonly>{{ key }} {{ value }}</textarea>
     {% endfor %}
   </ul>
